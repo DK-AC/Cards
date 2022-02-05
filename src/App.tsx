@@ -6,15 +6,15 @@ import {ForgotPass} from "./ui/auth/ForgotPass/ForgotPass";
 import {Routes, Route} from "react-router-dom"
 
 function App() {
-    return (
-        <div className="App">
-            <Routes>
-                <Route path="/" element={<Register/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/fogotpassword" element={<ForgotPass/>}/>
-            </Routes>
-        </div>
-    );
+  return (
+      <div className="App">
+          <Routes>
+              <Route path="/" element={<Register/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/fogotpassword" element={<ForgotPass/>}/>
+          </Routes>
+      </div>
+  );
 }
 
 export default App;
