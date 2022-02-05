@@ -1,12 +1,12 @@
 import {combineReducers, createStore} from "redux";
 import {loginReducer} from "./reducers/loginReducer";
-import {registrReducer} from "./reducers/registReducer";
 import {forgotPassReducer} from "./reducers/forgotPassReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {registerReducer} from "./reducers/registeReducer";
 
 export const rootReducer = combineReducers({
     login: loginReducer,
-    registr: registrReducer,
+    register: registerReducer,
     forgotPass: forgotPassReducer
 })
 
