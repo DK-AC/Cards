@@ -1,33 +1,42 @@
-import { Dispatch } from "redux"
-import { authApi } from "../../dal/authApi"
+import {Dispatch} from "redux"
+import {authApi} from "../../dal/authApi"
 
-type initialStateType = {
-    isEmailThere: boolean
+export type passwordRecoveryInitialStateType = {
+    isEmailSucceded: boolean
+    email: string
+    from: string
+    message: string
 }
 
-const initialState : initialStateType = {
-    isEmailThere: false
+const initialState: passwordRecoveryInitialStateType = {
+    email: '',
+    isEmailSucceded: false,
+    from: "test-front-admin",
+    message: `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='http://localhost:3000/forgotpassword'> link</a></div>`
 }
 
-export const forgotPassReducer = (state = initialState, action: any) => {
+export const forgotPassReducer = (state: passwordRecoveryInitialStateType = initialState, action: ForgotActionType): passwordRecoveryInitialStateType => {
     switch (action) {
         default:
             return state
     }
 }
-export const setCurrentEmailAC = (isTrueEmail: boolean) => {
+export const isPasswordREcoweryAC = (isTrueEmail: boolean) => {
     return {type: 'SET-IS-THERE-EMAIL', isTrueEmail} as const
 }
 
-export const setCurrentTC = (email: string) => {
+export const setEmailForPasswordTC = (email: string) => {
     return (dispatch: Dispatch) => {
-        authApi.emailVerification(email)
-            // .then()
+        authApi.createNewPasswordVerification(email)
+            .then(res => {
+                console.log(res)
+            })
     }
 }
 
 type InitialStateType = typeof initialState
-export type RegisterActionType = ReturnType<typeof setCurrentEmailAC>
+
+export type ForgotActionType = ReturnType<typeof isPasswordREcoweryAC>
 
 
 
