@@ -7,14 +7,28 @@ export const Register = () => {
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-    const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [error, setError] = useState<null | string>(null);
+
+    const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
+        setSubmitted(false);
     }
-    const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
+        setSubmitted(false);
     }
-    const onChangeConfirmPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.currentTarget.value)
+        setSubmitted(false);
+    }
+    const handleSubmit = () => {
+        if (email === '' || password === '' || confirmPassword === '') {
+            setError('Все поля обязательны для заполнения!')
+        } else {
+            setSubmitted(true)
+            setError(null)
+        }
     }
 
 
@@ -26,24 +40,26 @@ export const Register = () => {
                 <input type="text"
                        placeholder={'Email*'}
                        value={email}
-                       onChange={onChangeEmailHandler}
+                       onChange={handleEmail}
                 />
             </div>
             <div className={styles.input}>
                 <input type="password"
                        placeholder={'Password*'}
                        value={password}
-                       onChange={onChangePasswordHandler}
+                       onChange={handlePassword}
                 />
             </div>
             <div className={styles.input}>
                 <input type="password"
                        placeholder={'Confirm password*'}
                        value={confirmPassword}
-                       onChange={onChangeConfirmPasswordHandler}
+                       onChange={handleConfirmPassword}
                 />
             </div>
-            <button>Register</button>
+            <button onClick={handleSubmit}>Register</button>
+            <div className={styles.error}>{error}</div>
+            {submitted && <div className={styles.successful}>Регистрация прошла успешно </div>}
         </div>
     );
 };
