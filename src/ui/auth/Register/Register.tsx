@@ -27,17 +27,16 @@ export const Register = () => {
         setSubmitted(false);
     }
     const handleSubmit = () => {
-        dispatch(registerTC({email, password}))
-        // if (email === '' || password === '' || confirmPassword === '') {
-        //     setError('Все поля обязательны для заполнения!')
-        // } else {
-        //     setSubmitted(true)
-        //     setError(null)
-        // }
+        if (password === confirmPassword) {
+            dispatch(registerTC({email, password}))
+            setSubmitted(true)
+        } else {
+            setError('Пароли не совпадают')
+        }
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Cards</h1>
             <h2>Sign Up</h2>
             <div className={styles.input}>
