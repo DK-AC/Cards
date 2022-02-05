@@ -2,10 +2,15 @@ import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
 import {registerTC} from "../../../bll/reducers/registerReducer";
+import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from "../../../bll/store";
 
 export const Register = () => {
 
     const dispatch = useDispatch()
+    const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -33,6 +38,12 @@ export const Register = () => {
         } else {
             setError('Пароли не совпадают')
         }
+    }
+    console.log(isRegister)
+
+    if (isRegister) {
+        console.log(isRegister)
+        navigate('/login')
     }
 
     return (
