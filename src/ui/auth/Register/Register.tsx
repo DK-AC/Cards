@@ -2,10 +2,15 @@ import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
 import {registerTC} from "../../../bll/reducers/registerReducer";
+import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from "../../../bll/store";
 
 export const Register = () => {
 
     const dispatch = useDispatch()
+    const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -27,17 +32,22 @@ export const Register = () => {
         setSubmitted(false);
     }
     const handleSubmit = () => {
-        dispatch(registerTC({email, password}))
-        // if (email === '' || password === '' || confirmPassword === '') {
-        //     setError('Все поля обязательны для заполнения!')
-        // } else {
-        //     setSubmitted(true)
-        //     setError(null)
-        // }
+        if (password === confirmPassword) {
+            dispatch(registerTC({email, password}))
+            setSubmitted(true)
+        } else {
+            setError('Пароли не совпадают')
+        }
+    }
+    console.log(isRegister)
+
+    if (isRegister) {
+        console.log(isRegister)
+        navigate('/login')
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Cards</h1>
             <h2>Sign Up</h2>
             <div className={styles.input}>
