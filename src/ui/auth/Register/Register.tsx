@@ -31,7 +31,6 @@ export const Register = () => {
         }
     }
 
-
     return (
         <div>
             <h1>Cards</h1>
