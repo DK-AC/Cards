@@ -1,17 +1,16 @@
 import React, { ChangeEvent, useState } from 'react';
+import ReusableInputEmail from '../../ReusableComponents/reusableInputEmail';
 
 
 export const ForgotPass = () => {
 
     const [email, setEmail] = useState('')
 
-
     const emailForgotHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
     }
 
     const sendEmailVerificationHandler = () => {
-
     }
 
     return (
@@ -19,11 +18,9 @@ export const ForgotPass = () => {
         <h3>Forgot password</h3>
             <label>Email</label>
             <div>
-                <input
-                    type="email"
-                    value={email}
+                <ReusableInputEmail
                     placeholder="Enter email"
-                    onChange={emailForgotHandler}
+                    emailForgotHandler={emailForgotHandler}
                 />
             </div>
             <button onClick={sendEmailVerificationHandler}>
