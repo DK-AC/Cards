@@ -1,7 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
+import {useDispatch} from "react-redux";
+import {registerTC} from "../../../bll/reducers/registerReducer";
 
 export const Register = () => {
+
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -23,12 +27,13 @@ export const Register = () => {
         setSubmitted(false);
     }
     const handleSubmit = () => {
-        if (email === '' || password === '' || confirmPassword === '') {
-            setError('Все поля обязательны для заполнения!')
-        } else {
-            setSubmitted(true)
-            setError(null)
-        }
+        dispatch(registerTC({email, password}))
+        // if (email === '' || password === '' || confirmPassword === '') {
+        //     setError('Все поля обязательны для заполнения!')
+        // } else {
+        //     setSubmitted(true)
+        //     setError(null)
+        // }
     }
 
     return (
