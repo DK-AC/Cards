@@ -10,7 +10,12 @@ type ReusableButtonType = {
 export const ReusableButton = ({title, callback}: ReusableButtonType) => {
     return (
         <Stack>
-            <Button style={{marginTop: '10px'}} variant="outlined" onClick={callback}>{title}</Button>
+            <Button variant="contained"
+                    onClick={callback}
+                    style={{marginTop: '90px', backgroundColor: '#21268F'}}
+            >
+                {title}
+            </Button>
         </Stack>
     );
 }

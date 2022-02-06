@@ -1,17 +1,39 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-.input {
-    margin-bottom: 10px
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
+}
+
+.cards {
+    display: flex;
+    width: 413px;
+    height: 600px;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+    color: #2D2E46;
+    font-weight: bold;
+}
+
+.subheader {
+    text-align: center;
+    color: #2D2E46;
 }
 
 .error {
+    tab-size: 20px;
+    margin-top: 10px;
+    text-align: center;
     color: red;
-}
-
-.successful {
-    color: green;
 }

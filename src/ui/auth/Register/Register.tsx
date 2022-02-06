@@ -7,6 +7,10 @@ import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import ReusableInputEmail from "../../ReusableComponents/reusableInputEmail";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from "@mui/material/Typography";
+import CardHeader from '@mui/material/CardHeader';
 
 export const Register = () => {
 
@@ -49,22 +53,32 @@ export const Register = () => {
 
     return (
         <div className={styles.container}>
-            <h1>Cards</h1>
-            <h2>Sign Up</h2>
-            <ReusableInputEmail value={email}
-                                placeholder={'Email*'}
-                                emailForgotHandler={handleEmail}
-            />
-            <ReusableInputEmail value={password}
-                                placeholder={'Password*'}
-                                emailForgotHandler={handlePassword}
-            />
-            <ReusableInputEmail value={confirmPassword}
-                                placeholder={'Confirm password*'}
-                                emailForgotHandler={handleConfirmPassword}
-            />
-            <ReusableButton title={'Register'} callback={handleSubmit}/>
-            {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+            <Card className={styles.cards}>
+                <CardContent>
+                    <CardHeader title={'Cards'} className={styles.header}/>
+                    <CardHeader title={'Sign Up'} className={styles.subheader}/>
+                    <Typography>
+                        <ReusableInputEmail value={email}
+                                            placeholder={'Email*'}
+                                            emailForgotHandler={handleEmail}
+                        />
+                    </Typography>
+                    <Typography>
+                        <ReusableInputEmail value={password}
+                                            placeholder={'Password*'}
+                                            emailForgotHandler={handlePassword}
+                        />
+                    </Typography>
+                    <Typography>
+                        <ReusableInputEmail value={confirmPassword}
+                                            placeholder={'Confirm password*'}
+                                            emailForgotHandler={handleConfirmPassword}
+                        />
+                    </Typography>
+                    <ReusableButton title={'Register'} callback={handleSubmit}/>
+                    {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+                </CardContent>
+            </Card>
         </div>
     );
 };
