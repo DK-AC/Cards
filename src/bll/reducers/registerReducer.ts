@@ -25,6 +25,7 @@ export const setRegisterErrorAC = (error: null | string) => {
     return {type: 'SET-REGISTER-ERROR', error} as const
 }
 
+
 export const registerTC = (data: RegisterType) => (dispatch: Dispatch) => {
     authApi.register(data)
         .then(res => {

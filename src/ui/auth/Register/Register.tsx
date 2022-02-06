@@ -4,7 +4,9 @@ import {useDispatch} from "react-redux";
 import {registerTC} from "../../../bll/reducers/registerReducer";
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
-import {ErrorSnackbar} from "../../components/ErrorSnackbar/ErrorSnackbar";
+import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
+import ReusableInputEmail from "../../ReusableComponents/reusableInputEmail";
+import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 
 export const Register = () => {
 
@@ -49,30 +51,20 @@ export const Register = () => {
         <div className={styles.container}>
             <h1>Cards</h1>
             <h2>Sign Up</h2>
-            <div className={styles.input}>
-                <input type="text"
-                       placeholder={'Email*'}
-                       value={email}
-                       onChange={handleEmail}
-                />
-            </div>
-            <div className={styles.input}>
-                <input type="password"
-                       placeholder={'Password*'}
-                       value={password}
-                       onChange={handlePassword}
-                />
-            </div>
-            <div className={styles.input}>
-                <input type="password"
-                       placeholder={'Confirm password*'}
-                       value={confirmPassword}
-                       onChange={handleConfirmPassword}
-                />
-            </div>
-            <button onClick={handleSubmit}>Register</button>
+            <ReusableInputEmail value={email}
+                                placeholder={'Email*'}
+                                emailForgotHandler={handleEmail}
+            />
+            <ReusableInputEmail value={password}
+                                placeholder={'Password*'}
+                                emailForgotHandler={handlePassword}
+            />
+            <ReusableInputEmail value={confirmPassword}
+                                placeholder={'Confirm password*'}
+                                emailForgotHandler={handleConfirmPassword}
+            />
+            <ReusableButton title={'Register'} callback={handleSubmit}/>
             {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
-
         </div>
     );
 };
