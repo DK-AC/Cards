@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
-import {registerTC} from "../../../bll/reducers/registerReducer";
+import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
@@ -11,11 +11,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from "@mui/material/Typography";
 import CardHeader from '@mui/material/CardHeader';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export const Register = () => {
 
     const dispatch = useDispatch()
     const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
+    const isLoading = useAppSelector<LoadingType>(state => state.register.isLoading)
 
     const navigate = useNavigate()
 
@@ -77,6 +79,7 @@ export const Register = () => {
                     </Typography>
                     <ReusableButton title={'Register'} callback={handleSubmit}/>
                     {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+                    {isLoading === 'loading' && <LinearProgress/>}
                 </CardContent>
             </Card>
         </div>
