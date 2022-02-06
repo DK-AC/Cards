@@ -77,7 +77,10 @@ export const Register = () => {
                                             emailForgotHandler={handleConfirmPassword}
                         />
                     </Typography>
-                    <ReusableButton title={'Register'} callback={handleSubmit}/>
+                    <ReusableButton title={'Register'}
+                                    callback={handleSubmit}
+                                    disabled={isLoading === 'loading'}
+                    />
                     {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
                     {isLoading === 'loading' && <LinearProgress/>}
                 </CardContent>
