@@ -8,12 +8,12 @@ import {Routes, Route} from "react-router-dom"
 function App() {
   return (
       <div className="App">
-          <ForgotPass/>
-          {/*<Routes>*/}
-              {/*<Route path="/" element={<Register/>}/>*/}
-              {/*<Route path="/login" element={<Login/>}/>*/}
-              {/*<Route path="/forgotpassword" element={<ForgotPass/>}/>*/}
-          {/*</Routes>*/}
+          {/*<ForgotPass/>*/}
+          <Routes>
+              <Route path="/" element={<Register/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/forgotpassword" element={<ForgotPass/>}/>
+          </Routes>
       </div>
   );
 }

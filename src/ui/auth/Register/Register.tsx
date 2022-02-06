@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {registerTC} from "../../../bll/reducers/registerReducer";
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
+import {ErrorSnackbar} from "../../components/ErrorSnackbar/ErrorSnackbar";
 
 export const Register = () => {
 
@@ -70,8 +71,8 @@ export const Register = () => {
                 />
             </div>
             <button onClick={handleSubmit}>Register</button>
-            <div className={styles.error}>{error}</div>
-            {submitted && <div className={styles.successful}>Регистрация прошла успешно </div>}
+            {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+
         </div>
     );
 };
