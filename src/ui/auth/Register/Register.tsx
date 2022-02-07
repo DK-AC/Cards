@@ -53,8 +53,8 @@ export const Register = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <Card className={styles.cards}>
+        <div>
+            <Card>
                 <CardContent>
                     <CardHeader title={'Cards'} className={styles.header}/>
                     <CardHeader title={'Sign Up'} className={styles.subheader}/>

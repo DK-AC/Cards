@@ -3,11 +3,11 @@ import './App.css';
 import {Register} from "./ui/auth/Register/Register";
 import {Login} from "./ui/auth/Login/Login";
 import {ForgotPass} from "./ui/auth/ForgotPass/ForgotPass";
-import {Routes, Route} from "react-router-dom"
+import {Route, Routes} from "react-router-dom"
 
 function App() {
   return (
-      <div className="App">
+      <div className={'container'}>
           {/*<ForgotPass/>*/}
           <Routes>
               <Route path="/" element={<Register/>}/>
