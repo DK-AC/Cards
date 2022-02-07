@@ -18,6 +18,7 @@ const ReusableInputEmail = (props: ReusableInputEmailType) => {
                 value={props.value}
                 placeholder={props.placeholder}
                 onChange={props.emailForgotHandler}
+                style={{width:'150%'}}
             />
         </>
     );

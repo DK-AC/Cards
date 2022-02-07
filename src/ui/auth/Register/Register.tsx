@@ -59,24 +59,26 @@ export const Register = () => {
                 <CardContent>
                     <CardHeader title={'Cards'} className={styles.header}/>
                     <CardHeader title={'Sign Up'} className={styles.subheader}/>
-                    <Typography>
+                    <div >
+                    <div>
                         <ReusableInputEmail value={email}
                                             placeholder={'Email*'}
                                             emailForgotHandler={handleEmail}
                         />
-                    </Typography>
-                    <Typography>
+                    </div>
+                    <div>
                         <ReusableInputEmail value={password}
                                             placeholder={'Password*'}
                                             emailForgotHandler={handlePassword}
                         />
-                    </Typography>
-                    <Typography>
+                    </div>
+                    <div>
                         <ReusableInputEmail value={confirmPassword}
                                             placeholder={'Confirm password*'}
                                             emailForgotHandler={handleConfirmPassword}
                         />
-                    </Typography>
+                    </div>
+                    </div>
                     <ReusableButton title={'Register'}
                                     callback={handleSubmit}
                                     disabled={isLoading === 'loading'}
