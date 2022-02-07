@@ -1,5 +1,5 @@
-import { TextField } from '@mui/material';
-import React, { ChangeEvent, useState } from 'react';
+import {TextField} from '@mui/material';
+import React, {ChangeEvent} from 'react';
 
 type ReusableInputEmailType = {
     placeholder: string
@@ -18,7 +18,6 @@ const ReusableInputEmail = (props: ReusableInputEmailType) => {
                 value={props.value}
                 placeholder={props.placeholder}
                 onChange={props.emailForgotHandler}
-                style={{width:'150%'}}
             />
         </>
     );

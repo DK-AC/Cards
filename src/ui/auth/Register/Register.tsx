@@ -9,7 +9,6 @@ import ReusableInputEmail from "../../ReusableComponents/reusableInputEmail";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from "@mui/material/Typography";
 import CardHeader from '@mui/material/CardHeader';
 import LinearProgress from '@mui/material/LinearProgress';
 
@@ -59,25 +58,25 @@ export const Register = () => {
                 <CardContent>
                     <CardHeader title={'Cards'} className={styles.header}/>
                     <CardHeader title={'Sign Up'} className={styles.subheader}/>
-                    <div >
                     <div>
-                        <ReusableInputEmail value={email}
-                                            placeholder={'Email*'}
-                                            emailForgotHandler={handleEmail}
-                        />
-                    </div>
-                    <div>
-                        <ReusableInputEmail value={password}
-                                            placeholder={'Password*'}
-                                            emailForgotHandler={handlePassword}
-                        />
-                    </div>
-                    <div>
-                        <ReusableInputEmail value={confirmPassword}
-                                            placeholder={'Confirm password*'}
-                                            emailForgotHandler={handleConfirmPassword}
-                        />
-                    </div>
+                        <div>
+                            <ReusableInputEmail value={email}
+                                                placeholder={'Email*'}
+                                                emailForgotHandler={handleEmail}
+                            />
+                        </div>
+                        <div>
+                            <ReusableInputEmail value={password}
+                                                placeholder={'Password*'}
+                                                emailForgotHandler={handlePassword}
+                            />
+                        </div>
+                        <div>
+                            <ReusableInputEmail value={confirmPassword}
+                                                placeholder={'Confirm password*'}
+                                                emailForgotHandler={handleConfirmPassword}
+                            />
+                        </div>
                     </div>
                     <ReusableButton title={'Register'}
                                     callback={handleSubmit}
