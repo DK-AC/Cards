@@ -4,6 +4,7 @@ import {Register} from "./ui/auth/Register/Register";
 import {Login} from "./ui/auth/Login/Login";
 import {PasswordRecovery} from "./ui/auth/ForgotPass/passwordRecovery";
 import {Routes, Route} from "react-router-dom"
+import SendConfirmEmail from "./ui/auth/ForgotPass/SendConfirmEmail";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/passwordRecovery" element={<PasswordRecovery/>}/>
+                <Route path="/confirm" element={<SendConfirmEmail/>}/>
             </Routes>
         </div>
     );

@@ -15,3 +15,6 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+// @ts-ignore
+window.store = store
