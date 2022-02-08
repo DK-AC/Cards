@@ -1,26 +1,30 @@
 import React, {ChangeEvent, useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { setEmailForPasswordTC } from '../../../bll/reducers/forgotPassReducer';
+import {
+    passwordRecoveryInitialStateType,
+    setEmailForPasswordTC,
+    setPasswordRecoveryAC
+} from '../../../bll/reducers/passwordRecoveryReducer';
 import { emailValidator } from '../../../utilities/validatorApp';
-import ReusableInputEmail from '../../ReusableComponents/reusableInputEmail';
+import ReusableInput from '../../ReusableComponents/reusableInput';
+import {useAppSelector} from "../../../bll/store";
 
 
-export const ForgotPass = () => {
+export const PasswordRecovery = () => {
 
     const dispatch = useDispatch()
-
-    const [password, setPassword] = useState('');
-
+    const state = useAppSelector<passwordRecoveryInitialStateType>(state => state.passwordRecovery)
+    const email = useAppSelector<string>(state => state.passwordRecovery.email)
 
     const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value)
+        dispatch(setPasswordRecoveryAC(e.currentTarget.value))
     }
 
     const sendEmailVerificationHandler = () => {
-        if (emailValidator(password)) {
+        if (emailValidator(email)) {
             console.log('Wrong login type')
         } else {
-            dispatch(setEmailForPasswordTC(password))
+            dispatch(setEmailForPasswordTC(state))
         }
     }
 
@@ -29,9 +33,10 @@ export const ForgotPass = () => {
             <h1>It-incubator</h1>
             <h3>Forgot your password?</h3>
             <div>
-                <ReusableInputEmail
-                    placeholder="Enter email"
-                    value={password}
+                <ReusableInput
+                    lable={'Email'}
+                    placeholder={"Enter email"}
+                    value={email}
                     emailForgotHandler={handleSubmit}
                 />
             </div>

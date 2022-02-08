@@ -39,10 +39,8 @@ export const Register = () => {
             setError('Пароли не совпадают')
         }
     }
-    console.log(isRegister)
 
     if (isRegister) {
-        console.log(isRegister)
         navigate('/login')
     }
 
