@@ -5,13 +5,9 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-
 export const authApi = {
     register: (data: RegisterType) => {
         return instance.post('auth/register', data)
-    },
-    emailVerification: (email: string) => {
-        // return instance.
     }
 }
 
