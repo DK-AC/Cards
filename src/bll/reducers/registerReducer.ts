@@ -8,7 +8,7 @@ const initialState: InitialStateType = {
 
 }
 
-export const registerReducer = (state: InitialStateType = initialState, action: RegisterActionType) => {
+export const RegisterReducer = (state: InitialStateType = initialState, action: RegisterActionType) => {
     switch (action.type) {
         case 'SET-IS-REGISTER':
             return {...state, isRegister: action.isRegister}

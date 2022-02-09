@@ -1,0 +1,48 @@
+.error{
+    color: red;
+}
+
+.RegisterFormContainer {
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 413px;
+    height: 600px;
+    background-color: #F9F9FE;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+}
+.mainBlock{
+    margin-top: 70px;
+}
+.checkboxBlock{
+    text-align: right;
+    position: relative;
+    right: 30px;
+}
+.forgotPasswordBlock{
+    text-align: right;
+    margin-bottom: 20px;
+    position: relative;
+    right: 30px;
+}
+.singUpBlock{
+    margin-top: 50px;
+}
+.singUp{
+    font-weight: bold;
+}
+.group {
+    position: relative;
+}
+.eye{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 45px;
+    bottom: 35px;
+    cursor: pointer;
+}
+.button{
+    width: 200px;
+}

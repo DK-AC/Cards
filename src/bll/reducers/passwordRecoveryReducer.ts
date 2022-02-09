@@ -19,7 +19,7 @@ const initialState: PasswordRecoveryInitialStateType = {
     message: `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='http://localhost:3000/friday-project#/add-new-password/$token$'> link</a></div>`
 }
 
-export const passwordRecoveryReducer = (state: passwordRecoveryInitialStateType = initialState, action: PasswordReducerActionTypes): passwordRecoveryInitialStateType => {
+export const PasswordRecoveryReducer = (state: passwordRecoveryInitialStateType = initialState, action: PasswordReducerActionTypes): passwordRecoveryInitialStateType => {
     switch (action.type) {
         case "password-recovery/PASSWORD-IS-CHANGED":
             return {...state, email: action.email}
