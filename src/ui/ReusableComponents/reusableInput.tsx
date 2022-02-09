@@ -2,10 +2,10 @@ import {TextField} from '@mui/material';
 import React, {ChangeEvent} from 'react';
 
 type ReusableInputEmailType = {
-    lable: string
-    placeholder: string
-    value: string
-    emailForgotHandler: (value: ChangeEvent<HTMLInputElement>) => void
+    lable?: string
+    placeholder?: string
+    value?: string
+    emailForgotHandler?: (value: ChangeEvent<HTMLInputElement>) => void
 }
 
 const ReusableInput = (props: ReusableInputEmailType) => {

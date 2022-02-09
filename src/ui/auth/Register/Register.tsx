@@ -5,12 +5,12 @@ import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
-import ReusableInputEmail from "../../ReusableComponents/reusableInputEmail";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import LinearProgress from '@mui/material/LinearProgress';
+import ReusableInput from "../../ReusableComponents/reusableInput";
 
 export const Register = () => {
 
@@ -60,21 +60,21 @@ export const Register = () => {
                     <CardHeader title={'Sign Up'} className={styles.subheader}/>
                     <div>
                         <div>
-                            <ReusableInputEmail value={email}
-                                                placeholder={'Email*'}
-                                                emailForgotHandler={handleEmail}
+                            <ReusableInput value={email}
+                                           placeholder={'Email*'}
+                                           emailForgotHandler={handleEmail}
                             />
                         </div>
                         <div>
-                            <ReusableInputEmail value={password}
-                                                placeholder={'Password*'}
-                                                emailForgotHandler={handlePassword}
+                            <ReusableInput value={password}
+                                           placeholder={'Password*'}
+                                           emailForgotHandler={handlePassword}
                             />
                         </div>
                         <div>
-                            <ReusableInputEmail value={confirmPassword}
-                                                placeholder={'Confirm password*'}
-                                                emailForgotHandler={handleConfirmPassword}
+                            <ReusableInput value={confirmPassword}
+                                           placeholder={'Confirm password*'}
+                                           emailForgotHandler={handleConfirmPassword}
                             />
                         </div>
                     </div>
