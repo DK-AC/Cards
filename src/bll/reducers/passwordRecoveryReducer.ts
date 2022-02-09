@@ -25,6 +25,8 @@ export const passwordRecoveryReducer = (state: passwordRecoveryInitialStateType 
             return {...state, email: action.email}
         case "password-recovery/SET-IS-EMAIL-SUCCEEDED":
             return {...state, isRequestSucceeded: action.isRequestSucceeded}
+        case "password-recovery/SET-ERROR-MESSAGE":
+            return {...state, errorMessage: action.errorMessage}
         default:
             return state
     }
@@ -36,6 +38,9 @@ export const isPasswordRecoverySucceededAC = (isRequestSucceeded: boolean) => {
 export const setPasswordRecoveryAC = (email: string) => {
     return {type: "password-recovery/PASSWORD-IS-CHANGED", email} as const
 }
+export const setErrorMessageAC = (errorMessage: string) => {
+    return {type: "password-recovery/SET-ERROR-MESSAGE", errorMessage} as const
+}
 
 export const setEmailForPasswordTC = (data: PasswordRecoveryInitialStateType) => {
     return (dispatch: Dispatch) => {
@@ -43,12 +48,19 @@ export const setEmailForPasswordTC = (data: PasswordRecoveryInitialStateType) =>
             .then(res => {
                 dispatch(isPasswordRecoverySucceededAC(true))
             })
+            .catch(e => {
+                const error = e.response
+                    ? e.response.data.error
+                    : `${e.message} more details in the console`
+                dispatch(setErrorMessageAC(error))
+            })
     }
 }
 
 export type PasswordReducerActionTypes =
     ReturnType<typeof isPasswordRecoverySucceededAC> |
-    ReturnType<typeof setPasswordRecoveryAC>
+    ReturnType<typeof setPasswordRecoveryAC> |
+    ReturnType<typeof setErrorMessageAC>
 
 export type PasswordRecoveryInitialStateType = {
     isLoading: boolean

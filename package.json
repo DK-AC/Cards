@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
+    "@mui/icons-material": "^5.3.0",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.4.0",
     "@testing-library/jest-dom": "^5.14.1",

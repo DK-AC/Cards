@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {
     isPasswordRecoverySucceededAC,
     passwordRecoveryInitialStateType,
-    setEmailForPasswordTC,
+    setEmailForPasswordTC, setErrorMessageAC,
     setPasswordRecoveryAC
 } from '../../../bll/reducers/passwordRecoveryReducer';
 import {emailValidator} from '../../../utilities/validatorApp';
@@ -17,6 +17,7 @@ export const PasswordRecovery = () => {
     const dispatch = useDispatch()
     const state = useAppSelector<passwordRecoveryInitialStateType>(state => state.passwordRecovery)
     const isSucceeded = useAppSelector<boolean>(state => state.passwordRecovery.isRequestSucceeded)
+    const errorMessage = useAppSelector<string>(state => state.passwordRecovery.errorMessage)
     const email = useAppSelector<string>(state => state.passwordRecovery.email)
 
 
@@ -24,6 +25,7 @@ export const PasswordRecovery = () => {
         return () => {
             //dispatch(setPasswordRecoveryAC(''))
             dispatch(isPasswordRecoverySucceededAC(false))
+            dispatch(setErrorMessageAC(""))
         }
     }, [])
 
@@ -38,8 +40,8 @@ export const PasswordRecovery = () => {
     }
 
     const sendEmailVerificationHandler = () => {
-        if (emailValidator(email)) {
-            console.log('Wrong login type')
+        if (emailValidator(email) || email.length === 0) {
+            dispatch(setErrorMessageAC('Email address is not valid'))
         } else {
             dispatch(setEmailForPasswordTC(state))
         }
@@ -50,12 +52,16 @@ export const PasswordRecovery = () => {
             <h1>It-incubator</h1>
             <h3>Forgot your password?</h3>
             <div>
-                <ReusableInput
-                    lable={'Email'}
-                    placeholder={"Enter email"}
-                    value={email}
-                    emailForgotHandler={handleSubmit}
-                />
+                {!isSucceeded && errorMessage}
+                <div>
+                    <ReusableInput
+                        isSucceeded={isSucceeded}
+                        label={'Email'}
+                        placeholder={"Enter email"}
+                        value={email}
+                        onClick={handleSubmit}
+                    />
+                </div>
             </div>
             <div>
                 <p>
