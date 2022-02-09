@@ -1,14 +1,22 @@
 import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
-import {registerTC} from "../../../bll/reducers/registerReducer";
+import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
+import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
+import ReusableInputEmail from "../../ReusableComponents/reusableInputEmail";
+import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export const Register = () => {
 
     const dispatch = useDispatch()
     const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
+    const isLoading = useAppSelector<LoadingType>(state => state.register.isLoading)
 
     const navigate = useNavigate()
 
@@ -45,33 +53,39 @@ export const Register = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <h1>Cards</h1>
-            <h2>Sign Up</h2>
-            <div className={styles.input}>
-                <input type="text"
-                       placeholder={'Email*'}
-                       value={email}
-                       onChange={handleEmail}
-                />
-            </div>
-            <div className={styles.input}>
-                <input type="password"
-                       placeholder={'Password*'}
-                       value={password}
-                       onChange={handlePassword}
-                />
-            </div>
-            <div className={styles.input}>
-                <input type="password"
-                       placeholder={'Confirm password*'}
-                       value={confirmPassword}
-                       onChange={handleConfirmPassword}
-                />
-            </div>
-            <button onClick={handleSubmit}>Register</button>
-            <div className={styles.error}>{error}</div>
-            {submitted && <div className={styles.successful}>Регистрация прошла успешно </div>}
+        <div>
+            <Card>
+                <CardContent>
+                    <CardHeader title={'Cards'} className={styles.header}/>
+                    <CardHeader title={'Sign Up'} className={styles.subheader}/>
+                    <div>
+                        <div>
+                            <ReusableInputEmail value={email}
+                                                placeholder={'Email*'}
+                                                emailForgotHandler={handleEmail}
+                            />
+                        </div>
+                        <div>
+                            <ReusableInputEmail value={password}
+                                                placeholder={'Password*'}
+                                                emailForgotHandler={handlePassword}
+                            />
+                        </div>
+                        <div>
+                            <ReusableInputEmail value={confirmPassword}
+                                                placeholder={'Confirm password*'}
+                                                emailForgotHandler={handleConfirmPassword}
+                            />
+                        </div>
+                    </div>
+                    <ReusableButton title={'Register'}
+                                    callback={handleSubmit}
+                                    disabled={isLoading === 'loading'}
+                    />
+                    {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+                    {isLoading === 'loading' && <LinearProgress/>}
+                </CardContent>
+            </Card>
         </div>
     );
 };
