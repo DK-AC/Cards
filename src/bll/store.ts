@@ -8,11 +8,11 @@ import {AppMainType, AppReducer} from "./reducers/appReducer";
 import {ProfileMainType, ProfileReducer} from "./reducers/profileReducer";
 
 export const rootReducer = combineReducers({
-    App: AppReducer,
-    Login: LoginReducer,
+    app: AppReducer,
+    login: LoginReducer,
     register: RegisterReducer,
     passwordRecovery: PasswordRecoveryReducer,
-    Profile:ProfileReducer
+    profile: ProfileReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

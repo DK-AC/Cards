@@ -16,6 +16,7 @@ import {SuperInputText} from "../../ReusableComponents/SuperInputText";
 export const Register = () => {
 
     const dispatch = useDispatch()
+
     const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
     const isLoading = useAppSelector<LoadingType>(state => state.register.isLoading)
 

@@ -12,8 +12,8 @@ import {isAuth, logoutTC} from "./bll/reducers/loginReducer";
 function App() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-    const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLoggedIn)
+    const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
 
     useEffect(() => {
         dispatch(isAuth())
