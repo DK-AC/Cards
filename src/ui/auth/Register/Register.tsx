@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
-import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
+import { registerTC} from "../../../bll/reducers/registerReducer";
 import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
@@ -12,20 +12,19 @@ import CardHeader from '@mui/material/CardHeader';
 import LinearProgress from '@mui/material/LinearProgress';
 import {typeForInput, TypeForInputType} from "../../../shared";
 import {SuperInputText} from "../../ReusableComponents/SuperInputText";
+import {RequestStatusType} from "../../../bll/reducers/appReducer";
 
 export const Register = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
-    const isLoading = useAppSelector<LoadingType>(state => state.register.isLoading)
-
-    const navigate = useNavigate()
+    const isLoading = useAppSelector<RequestStatusType>(state => state.app.status)
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
-
     const [submitted, setSubmitted] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
     const [inputPasswordType, setInputPasswordType] = useState<TypeForInputType>(typeForInput.Password)
@@ -33,7 +32,6 @@ export const Register = () => {
 
     const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
-        setSubmitted(false);
     }
     const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
