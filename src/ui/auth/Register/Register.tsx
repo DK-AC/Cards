@@ -1,19 +1,17 @@
 import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
-import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
-import {useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import LinearProgress from '@mui/material/LinearProgress';
 import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
 import {PATH} from "../../1-Routes/Routes";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
+import {registerTC} from "../../../bll/reducers/loginReducer";
+import style from "../Login/Login.module.css";
 
 export const Register = () => {
 
@@ -72,6 +70,7 @@ export const Register = () => {
                             onClickHandler={handleSubmit}
                             disabled={isLoading === 'loading'}
             />
+            <NavLink to={PATH.LOGIN_PAGE} className={style.navLinkStyle}>Already registered?</NavLink>
             {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
             {isLoading === 'loading' && <LinearProgress/>}
         </PaperContainer>

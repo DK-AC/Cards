@@ -3,7 +3,7 @@ import style from './Login.module.css'
 import {useDispatch} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../../bll/store";
-import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
 import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import {typeForInput, TypeForInputType} from "../../../shared";
 import {SuperInputText} from "../../ReusableComponents/SuperInputText";
@@ -48,21 +48,22 @@ export const Login = () => {
         )
     }
 
-    useEffect(() => {
+ /* useEffect(() => {
         if (isLoggedIn) {
             navigate('/profile')
+        }
+    }, [isLoggedIn])*/
+
+
+    useEffect(() => {
+     dispatch(setAppErrorAC(null))
+        if (isLoggedIn) {
+            navigate(PATH.PROFILE_PAGE)
+        }else{
+            navigate(PATH.LOGIN_PAGE)
         }
     }, [isLoggedIn])
 
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate('/profile')
-        }
-        if (isInitialized && !isLoggedIn) {
-            navigate('/login')
-        }
-    }, [isInitialized, isLoggedIn])
     return (
         <PaperContainer title={'Sign in'} >
             <ReusableInput value={email}

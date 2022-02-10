@@ -14,7 +14,8 @@ const initialState = {
     isLogged : false,
     isRegister: false,
     email: '',
-    isRequestSucceeded: false
+    isRequestSucceeded: false,
+    passwordСhanged: false
 };
 
 type initialStateType = typeof initialState
@@ -68,12 +69,12 @@ export const logoutTC = () => async (dispatch:Dispatch)=>{
         dispatch(setAppStatusAC('idle'))
     }
 }
-
 export const setEmailForPasswordTC = (email: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
         await authApi.forgotPassword(email)
+        dispatch(isPasswordRecoverySucceededAC(true))
         dispatch(setEmailForPasswordAC(email))
     } catch (error) {
         handlerAppError(error, dispatch);

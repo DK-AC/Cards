@@ -1,13 +1,15 @@
 import axios,{AxiosResponse} from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0',
     //baseURL: 'http://localhost:7542/',
     withCredentials: true,
 })
 
+
+
 const messageForEmail: string = `<div style="background-color: lime; padding: 15px"> password recovery link: 
-                         <a href='http://DK-AC.github.io/cards_project/set-new-password/$token$' /> 
+                         <a href='http://localhost:3000/cards_project/set-new-password/$token$' /> 
                          link</a></div>`
 
 export const authApi = {
@@ -31,7 +33,7 @@ export const authApi = {
             return instance.post<PasswordRecoveryInitialStateType, AxiosResponse<ResponseType<{ info: string }>>>('auth/forgot', dataForSendLink)
         },
     recowerPassword(data:recowerPasswordType) {
-        return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('2.0/auth/set-new-password', data)
+        return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('/auth/set-new-password', data)
     }
 }
 

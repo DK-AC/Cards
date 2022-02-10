@@ -48,7 +48,7 @@ export type RequestResponeType = {
 import axios,{AxiosResponse} from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0',
     //baseURL: 'http://localhost:7542/',
     withCredentials: true,
 })
@@ -60,13 +60,13 @@ const messageForEmail: string = `<div style="background-color: lime; padding: 15
 export const authApi = {
 
     login(data: LoginParamsType) {
-        return instance.post<LoginParamsType, AxiosResponse<ResponseType<UserType>>>('/auth/login', data)
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<UserType>>>('auth/login', data)
     },
     logout(){
-        return instance.delete<ResponseType<{ info: string }>>('/auth/me',{})
+        return instance.delete<ResponseType<{ info: string }>>('auth/me',{})
     },
     me(){
-        return instance.post<ResponseType<UserType>>('/auth/me',{})
+        return instance.post<ResponseType<UserType>>('auth/me',{})
     },
     register: (data: RegisterType) => {
         return instance.post<RegisterType, AxiosResponse<ResponseType<UserType>>>('auth/register', data)
@@ -78,7 +78,7 @@ export const authApi = {
         return instance.post<PasswordRecoveryInitialStateType, AxiosResponse<ResponseType<{ info: string }>>>('auth/forgot', dataForSendLink)
     },
     recowerPassword(data:recowerPasswordType) {
-        return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('2.0/auth/set-new-password', data)
+        return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('auth/set-new-password', data)
     }
 }
 

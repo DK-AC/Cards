@@ -7,6 +7,8 @@ import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContain
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import {setEmailForPasswordTC} from "../../../bll/reducers/loginReducer";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../1-Routes/Routes";
 
 
 export const PasswordRecovery = () => {
@@ -29,6 +31,7 @@ export const PasswordRecovery = () => {
     }*/
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     /*const state = useAppSelector<passwordRecoveryInitialStateType>(state => state.passwordRecovery)*/
     const isRequestSucceeded = useAppSelector<boolean>(store => store.Login.isRequestSucceeded)
     const status = useAppSelector<RequestStatusType>(store=> store.App.status)
@@ -48,6 +51,9 @@ export const PasswordRecovery = () => {
         }
     }
 
+    if(isRequestSucceeded){
+        navigate(PATH.CHECK_EMAIL_PAGE)
+    }
 
     return (
         <PaperContainer title={'Forgot your password?'}>
