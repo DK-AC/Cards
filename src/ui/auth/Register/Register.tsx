@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
-import styles from './Register.module.css'
+import style from './Register.module.css'
 import {useDispatch} from "react-redux";
-import { registerTC} from "../../../bll/reducers/registerReducer";
+import {registerTC} from "../../../bll/reducers/registerReducer";
 import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
@@ -68,8 +68,8 @@ export const Register = () => {
         <div>
             <Card>
                 <CardContent>
-                    <CardHeader title={'Cards'} className={styles.header}/>
-                    <CardHeader title={'Sign Up'} className={styles.subheader}/>
+                    <CardHeader title={'Cards'} className={style.header}/>
+                    <CardHeader title={'Sign Up'} className={style.subheader}/>
                     <div>
                         <div>
                             <SuperInputText value={email}
@@ -77,26 +77,22 @@ export const Register = () => {
                                             onChange={handleEmail}
                             />
                         </div>
-                        <div className={styles.group}>
+                        <div className={style.group}>
                             <SuperInputText value={password}
                                             onChange={handlePassword}
                                             placeholder={typeForInput.Password}
                                             inputType={inputPasswordType}/>
-                            <span
-                                onClick={changeInputPasswordType}
-                                className={styles.eye}
-                            >&#128065;
-                    </span>
+                            <span onClick={changeInputPasswordType} className={style.eye}>
+                                &#128065;
+                            </span>
                         </div>
-                        <div className={styles.group}>
+                        <div className={style.group}>
                             <SuperInputText value={confirmPassword}
                                             onChange={handleConfirmPassword}
                                             placeholder={'confirm password'}
                                             inputType={inputConfirmPasswordType}/>
-                            <span
-                                onClick={changeInputConfirmPasswordType}
-                                className={styles.eye}
-                            >&#128065;
+                            <span onClick={changeInputConfirmPasswordType} className={style.eye}>
+                                &#128065;
                             </span>
                         </div>
                     </div>
@@ -104,9 +100,9 @@ export const Register = () => {
                                     callback={handleSubmit}
                                     disabled={isLoading === 'loading'}
                     />
-                    {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+                    {!submitted ? <div className={style.error}>{error}</div> : <ErrorSnackbar/>}
                     {isLoading === 'loading' && <LinearProgress/>}
-                    <NavLink className={styles.singIn} to={`/login`}>Back to Sing In</NavLink>
+                    <NavLink className={style.singIn} to={`/login`}>Back to Sing In</NavLink>
                 </CardContent>
             </Card>
         </div>
