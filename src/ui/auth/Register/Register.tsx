@@ -10,7 +10,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import LinearProgress from '@mui/material/LinearProgress';
-import ReusableInput from "../../ReusableComponents/reusableInput";
+import {typeForInput, TypeForInputType} from "../../../shared";
+import {SuperInputText} from "../../ReusableComponents/SuperInputText";
 
 export const Register = () => {
 
@@ -26,6 +27,8 @@ export const Register = () => {
 
     const [submitted, setSubmitted] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
+    const [inputPasswordType, setInputPasswordType] = useState<TypeForInputType>(typeForInput.Password)
+    const [inputConfirmPasswordType, setInputConfirmPasswordType] = useState<TypeForInputType>(typeForInput.Password)
 
     const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -47,6 +50,16 @@ export const Register = () => {
             setError('Пароли не совпадают')
         }
     }
+    const changeInputPasswordType = () => {
+        setInputPasswordType(
+            inputPasswordType === typeForInput.Password ? typeForInput.Text : typeForInput.Password
+        )
+    }
+    const changeInputConfirmPasswordType = () => {
+        setInputConfirmPasswordType(
+            inputConfirmPasswordType === typeForInput.Password ? typeForInput.Text : typeForInput.Password
+        )
+    }
 
     if (isRegister) {
         navigate('/login')
@@ -60,22 +73,32 @@ export const Register = () => {
                     <CardHeader title={'Sign Up'} className={styles.subheader}/>
                     <div>
                         <div>
-                            <ReusableInput value={email}
-                                           placeholder={'Email*'}
-                                           emailForgotHandler={handleEmail}
+                            <SuperInputText value={email}
+                                            placeholder={typeForInput.Email}
+                                            onChange={handleEmail}
                             />
                         </div>
-                        <div>
-                            <ReusableInput value={password}
-                                           placeholder={'Password*'}
-                                           emailForgotHandler={handlePassword}
-                            />
+                        <div className={styles.group}>
+                            <SuperInputText value={password}
+                                            onChange={handlePassword}
+                                            placeholder={typeForInput.Password}
+                                            inputType={inputPasswordType}/>
+                            <span
+                                onClick={changeInputPasswordType}
+                                className={styles.eye}
+                            >&#128065;
+                    </span>
                         </div>
-                        <div>
-                            <ReusableInput value={confirmPassword}
-                                           placeholder={'Confirm password*'}
-                                           emailForgotHandler={handleConfirmPassword}
-                            />
+                        <div className={styles.group}>
+                            <SuperInputText value={confirmPassword}
+                                            onChange={handleConfirmPassword}
+                                            placeholder={'confirm password'}
+                                            inputType={inputConfirmPasswordType}/>
+                            <span
+                                onClick={changeInputConfirmPasswordType}
+                                className={styles.eye}
+                            >&#128065;
+                            </span>
                         </div>
                     </div>
                     <ReusableButton title={'Register'}

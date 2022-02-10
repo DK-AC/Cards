@@ -15,3 +15,14 @@
     text-align: center;
     color: red;
 }
+.group {
+    position: relative;
+}
+.eye{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 45px;
+    bottom: 35px;
+    cursor: pointer;
+}
