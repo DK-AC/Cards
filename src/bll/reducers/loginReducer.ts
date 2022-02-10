@@ -6,7 +6,7 @@ import {setProfile} from "./profileReducer";
 import {AppActionsType} from "../store";
 
 const initialState: InitialStateType = {
-    isLoggedIn:false
+    isLoggedIn: false
 }
 
 export const LoginReducer = (state: InitialStateType = initialState, action: LoginMainType): InitialStateType => {
@@ -18,33 +18,33 @@ export const LoginReducer = (state: InitialStateType = initialState, action: Log
     }
 }
 
-export const setIsLoggedIn = (isLogged:boolean) => ({
-    type: 'AUTH/SET_IS_LOGGED_IN',isLogged
+export const setIsLoggedIn = (isLogged: boolean) => ({
+    type: 'AUTH/SET_IS_LOGGED_IN', isLogged
 }) as const
 
 
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => {
-    try{
+    try {
         dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
         const res = await authApi.login(data)
         dispatch(setProfile(res.data))
         dispatch(setIsLoggedIn(true))
         dispatch(setAppStatus('succeeded'))
-    }catch (error){
+    } catch (error) {
         handlerAppError(error, dispatch);
         dispatch(setAppStatus('failed'))
     }
 }
 
-export const logoutTC = () => async (dispatch:Dispatch<AppActionsType>)=>{
-    try{
+export const logoutTC = () => async (dispatch: Dispatch<AppActionsType>) => {
+    try {
         dispatch(setIsLoggedIn(false))
         dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
         await authApi.logout()
         dispatch(setAppStatus('succeeded'))
-    }catch(error){
+    } catch (error) {
         handlerAppError(error, dispatch);
         dispatch(setAppStatus('failed'))
     }
@@ -58,7 +58,7 @@ export const isAuth = () => async (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setProfile(res.data))
         dispatch(setIsLoggedIn(true))
         dispatch(setAppStatus('succeeded'))
-    }catch(error){
+    } catch (error) {
         // handlerAppError(error, dispatch)
         dispatch(setAppStatus('failed'))
     } finally {
@@ -67,7 +67,7 @@ export const isAuth = () => async (dispatch: Dispatch<AppActionsType>) => {
 
 }
 type InitialStateType = {
-    isLoggedIn:boolean
+    isLoggedIn: boolean
 }
 export type LoginMainType = SetIsLoggedInType
 type SetIsLoggedInType = ReturnType<typeof setIsLoggedIn>
