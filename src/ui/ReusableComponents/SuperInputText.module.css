@@ -1,0 +1,19 @@
+.superInput {
+    width: 347px;
+    height: 48px;
+    margin-bottom: 24px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background-color: #F9F9FE;
+    padding: 5px;
+}
+
+.errorInput {
+    border: 1px solid red;
+    background: #ffffff;
+}
+
+.error {
+    color: red;
+}
