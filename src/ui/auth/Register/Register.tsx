@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
 import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
-import {useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
@@ -107,6 +107,7 @@ export const Register = () => {
                     />
                     {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
                     {isLoading === 'loading' && <LinearProgress/>}
+                    <NavLink className={styles.singIn} to={`/login`}>Back to Sing In</NavLink>
                 </CardContent>
             </Card>
         </div>

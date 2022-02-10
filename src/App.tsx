@@ -28,10 +28,10 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className="container">
             {isLoggedIn ? <button onClick={logoutHandler}>logout</button> :''}
             <Routes>
-                <Route path = "/" element={<Profile/>}/>
+                <Route path = "/" element={<Login/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/passwordRecovery" element={<PasswordRecovery/>}/>
