@@ -10,13 +10,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import LinearProgress from '@mui/material/LinearProgress';
-import ReusableInput from "../../ReusableComponents/reusableInput";
+import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
+import {PATH} from "../../1-Routes/Routes";
+import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
 
 export const Register = () => {
 
     const dispatch = useDispatch()
-    const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
-    const isLoading = useAppSelector<LoadingType>(state => state.register.isLoading)
+    const isRegister = useAppSelector<boolean>(state => state.Login.isRegister)
+    const isLoading = useAppSelector<RequestStatusType>(state => state.App.status)
 
     const navigate = useNavigate()
 
@@ -49,44 +52,29 @@ export const Register = () => {
     }
 
     if (isRegister) {
-        navigate('/login')
+        navigate(PATH.LOGIN_PAGE)
     }
 
     return (
-        <div>
-            <Card>
-                <CardContent>
-                    <CardHeader title={'Cards'} className={styles.header}/>
-                    <CardHeader title={'Sign Up'} className={styles.subheader}/>
-                    <div>
-                        <div>
-                            <ReusableInput value={email}
-                                           placeholder={'Email*'}
-                                           emailForgotHandler={handleEmail}
-                            />
-                        </div>
-                        <div>
-                            <ReusableInput value={password}
-                                           placeholder={'Password*'}
-                                           emailForgotHandler={handlePassword}
-                            />
-                        </div>
-                        <div>
-                            <ReusableInput value={confirmPassword}
-                                           placeholder={'Confirm password*'}
-                                           emailForgotHandler={handleConfirmPassword}
-                            />
-                        </div>
-                    </div>
-                    <ReusableButton title={'Register'}
-                                    callback={handleSubmit}
-                                    disabled={isLoading === 'loading'}
-                    />
-                    {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
-                    {isLoading === 'loading' && <LinearProgress/>}
-                </CardContent>
-            </Card>
-        </div>
+        <PaperContainer title={'Registration'} >
+            <ReusableInput value={email}
+                           placeholder={'Email*'}
+                           onChangeHandler={handleEmail}/>
+            <ReusableInput value={password}
+                           placeholder={'Password*'}
+                           onChangeHandler={handlePassword}
+            />
+            <ReusableInput value={confirmPassword}
+                           placeholder={'Confirm password*'}
+                           onChangeHandler={handleConfirmPassword}
+            />
+            <ReusableButton title={'Register'}
+                            onClickHandler={handleSubmit}
+                            disabled={isLoading === 'loading'}
+            />
+            {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+            {isLoading === 'loading' && <LinearProgress/>}
+        </PaperContainer>
     );
 };
 

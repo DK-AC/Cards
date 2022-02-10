@@ -1,50 +1,3 @@
-/*
-import axios,{AxiosResponse} from "axios";
-import {PasswordRecoveryInitialStateType} from "../bll/reducers/passwordRecoveryReducer";
-import {RequestResponseType} from "./passwordApi";
-
-const instance = axios.create({
-    baseURL: "http://localhost:7542/2.0/",
-    withCredentials: true,
-})
-
-export const authApi = {
-    login(data: LoginParamsType) {
-        return instance.post('/auth/login', data)
-    },
-    logout(){
-        return instance.delete('/auth/me',{})
-    },
-    me(){
-        return instance.post('/auth/me',{})
-    },
-    register: (data: RegisterType) => {
-        return instance.post<boolean, AxiosResponse>('auth/register', data)
-    },
-
-    createNewPassword(data: PasswordRecoveryInitialStateType) {
-        return instance.post<RequestResponseType>('auth/forgot', data)
-    }
-
-}
-
-export type RegisterType = {
-    email: string
-    password: string
-}
-
-export type LoginParamsType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
-
-
-export type RequestResponeType = {
-    info: string
-    error: string
-}*/
-
 import axios,{AxiosResponse} from "axios";
 
 const instance = axios.create({
@@ -73,10 +26,10 @@ export const authApi = {
     },
     forgotPassword( email: string ) {
         const dataForSendLink ={email,
-            from: 'email from us',
-            message:messageForEmail}
-        return instance.post<PasswordRecoveryInitialStateType, AxiosResponse<ResponseType<{ info: string }>>>('auth/forgot', dataForSendLink)
-    },
+                     from: 'email from us',
+                     message:messageForEmail}
+            return instance.post<PasswordRecoveryInitialStateType, AxiosResponse<ResponseType<{ info: string }>>>('auth/forgot', dataForSendLink)
+        },
     recowerPassword(data:recowerPasswordType) {
         return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('2.0/auth/set-new-password', data)
     }
@@ -126,4 +79,5 @@ export type UserType = {
     updated: string;
     isAdmin: boolean;
     verified: boolean; // подтвердил ли почту
-    rememberMe: boolean;}
+    rememberMe: boolean;
+}

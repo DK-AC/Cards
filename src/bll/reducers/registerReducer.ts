@@ -5,7 +5,6 @@ const initialState: InitialStateType = {
     isRegister: false,
     error: null,
     isLoading: 'idle'
-
 }
 
 export const RegisterReducer = (state: InitialStateType = initialState, action: RegisterActionType) => {

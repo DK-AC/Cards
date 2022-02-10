@@ -1,27 +1,44 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, useEffect, useState} from 'react';
 import style from './Login.module.css'
 import {useDispatch} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
-import {Button, Checkbox, TextField} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import {typeForInput, TypeForInputType} from "../../../shared";
 import {SuperInputText} from "../../ReusableComponents/SuperInputText";
 import {loginTC} from "../../../bll/reducers/loginReducer";
+import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
+import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
+import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
+import {PATH} from "../../1-Routes/Routes";
+import ReusableCheckbox from "../../ReusableComponents/ReusableCheckBox/ReusableCheckbox";
 
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-    const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLoggedIn)
+    const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
     const error = useAppSelector<string | null>(state => state.App.error)
     const status = useAppSelector<RequestStatusType>(state => state.App.status)
+
     const [email, setEmail] = useState<string>('dyatlovivan92@gmail.com')
     const [password, setPassword] = useState<string>('12345678')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const [inputType, setInputType] = useState<TypeForInputType>(typeForInput.Password)
     const disabled = status === 'loading';
 
+    const handleEmail:ChangeEventHandler<HTMLInputElement>=(e)=>{
+        setEmail(e.currentTarget.value)
+    }
+    const handlePassword:ChangeEventHandler<HTMLInputElement>=(e)=>{
+        setPassword(e.currentTarget.value)
+    }
+    const handleRememberMe:ChangeEventHandler<HTMLInputElement>  =(e)=>{
+        setRememberMe(e.target.checked)
+
+    }
     const singInHandler = () => {
         dispatch(loginTC({email, password, rememberMe}))
     }
@@ -47,7 +64,29 @@ export const Login = () => {
         }
     }, [isInitialized, isLoggedIn])
     return (
-        <div className={style.RegisterFormContainer}>
+        <PaperContainer title={'Sign in'} >
+            <ReusableInput value={email}
+                           placeholder={'Email*'}
+                           onChangeHandler={handleEmail}/>
+            <ReusableInput value={password}
+                           placeholder={'Password*'}
+                           onChangeHandler={handlePassword}
+            />
+                <ReusableCheckbox title={'remember me'} checked={rememberMe}
+                                  onChange={handleRememberMe}/>
+
+                <NavLink className={style.navLinkStyle} to={PATH.FORGOT_PAGE}>
+                    <span>forgot password?</span></NavLink>
+
+            <ReusableButton title={'Login'}
+                            onClickHandler={singInHandler}
+                            disabled={status === 'loading'}
+            />
+             <p>Don't have an account?</p>
+            <NavLink  className={`${style.navLinkStyle} ${style.SignUp}`} to={PATH.REGISTRATION_PAGE}>Sing Up</NavLink>
+            </PaperContainer>)}
+
+{/*     /*  <div className={style.RegisterFormContainer}>
             <h1>Cards</h1>
             <h2>Sign in</h2>
             <div className={style.mainBlock}>
@@ -99,7 +138,6 @@ export const Login = () => {
                     <NavLink style={{textDecoration: "none", color: "#21268F"}} to={`/register`}>Sing Up</NavLink>
                 </div>
             </div>
-        </div>
-    )
-}
+        </div>*/
 
+}
