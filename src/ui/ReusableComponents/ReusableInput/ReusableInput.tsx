@@ -7,9 +7,10 @@ type ReusableInputEmailType = {
     placeholder?: string
     value: string
     onChangeHandler: (value: ChangeEvent<HTMLInputElement>) => void
+    type?:string
 }
 
-const ReusableInput = ({label, placeholder, value, onChangeHandler}: ReusableInputEmailType) => {
+const ReusableInput = ({label, placeholder, value, onChangeHandler, type}: ReusableInputEmailType) => {
 
     return (
         <>
@@ -21,6 +22,7 @@ const ReusableInput = ({label, placeholder, value, onChangeHandler}: ReusableInp
                 placeholder={placeholder}
                 onChange={onChangeHandler}
                 className={style.ReusableInput}
+                type={type}
             />
         </>
     );

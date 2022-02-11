@@ -62,14 +62,16 @@ export const Register = () => {
         <PaperContainer title={'Registration'} >
             <ReusableInput value={email}
                            placeholder={'Email*'}
-                           onChangeHandler={handleEmail}/>
+                           onChangeHandler={handleEmail} type={'email'}/>
             <ReusableInput value={password}
                            placeholder={'Password*'}
                            onChangeHandler={handlePassword}
+                           type={'password'}
             />
             <ReusableInput value={confirmPassword}
                            placeholder={'Confirm password*'}
                            onChangeHandler={handleConfirmPassword}
+                           type={'password'}
             />
             <ReusableButton title={'Register'}
                             onClickHandler={handleSubmit}

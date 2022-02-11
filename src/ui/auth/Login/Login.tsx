@@ -49,11 +49,12 @@ export const Login = () => {
         <PaperContainer title={'Sign in'}>
             <ReusableInput value={email}
                            placeholder={'Email*'}
-                           onChangeHandler={handleEmail}/>
+                           onChangeHandler={handleEmail}
+                           type={'email'}/>
             <ReusableInput value={password}
                            placeholder={'Password*'}
                            onChangeHandler={handlePassword}
-            />
+                           type={'password'}/>
             <ReusableCheckbox title={'remember me'} checked={rememberMe}
                               onChange={handleRememberMe}/>
 

@@ -39,7 +39,8 @@ export const PasswordRecovery = () => {
             <ReusableInput label={'Email'}
                            placeholder={"Enter email"}
                            value={email}
-                           onChangeHandler={handleSubmit}/>
+                           onChangeHandler={handleSubmit}
+                           type={'email'}/>
             <p>Enter your email address and we will send you further instructions </p>
             <ReusableButton title={'Submit'} onClickHandler={sendEmailVerificationHandler}/>
         </PaperContainer>

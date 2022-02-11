@@ -47,10 +47,12 @@ const PasswordEnter = () => {
             <ReusableInput value={password}
                            placeholder={'Password*'}
                            onChangeHandler={handlePassword}
+                           type={'password'}
             />
             <ReusableInput value={password2}
                            placeholder={'Confirm Password*'}
                            onChangeHandler={handlePassword2}
+                           type={'password'}
             />
             <ReusableButton title={'Update Password'}
                             onClickHandler={handleSubmit}
