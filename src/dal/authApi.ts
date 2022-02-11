@@ -54,8 +54,9 @@ const instance = axios.create({
 })
 
 const messageForEmail: string = `<div style="background-color: lime; padding: 15px"> password recovery link:
-                         <a href='http://localhost:3000/set-new-password/$token$'/>
+                         <a href='http://localhost:3000/#/set-new-password/$token$'/>
                          link</a></div>`
+                          // в ссылке внимательно) вместо 'localhost:3000' вставляешь 'твой гит.github.io/cards(название проекта)/'
 
 export const authApi = {
 
