@@ -46,6 +46,7 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
     } finally {
         dispatch(setIsInitializedAC())
         dispatch(setAppStatusAC('idle'))
+
     }
 
 }

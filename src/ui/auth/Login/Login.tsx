@@ -45,6 +45,12 @@ export const Login = () => {
         }
     }, [isLoggedIn])
 
+  if(error==='you are not authorized /ᐠ-ꞈ-ᐟ\\'){
+      dispatch(setAppErrorAC(null))
+  }
+
+
+
     return (
         <PaperContainer title={'Sign in'}>
             <ReusableInput value={email}
@@ -67,7 +73,7 @@ export const Login = () => {
             />
             <p>Don't have an account?</p>
             <NavLink className={`${style.navLinkStyle} ${style.SignUp}`} to={PATH.REGISTRATION_PAGE}>Sing Up</NavLink>
-            {error&&isInitialized && <ErrorSnackbar/>}
+            {error && <ErrorSnackbar/>}
         </PaperContainer>)
 }
 
