@@ -13,10 +13,13 @@ function App() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
-
+    const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
 
     useEffect(() => {
         dispatch(isAuthTC())
+        if(isInitialized && !isLoggedIn){
+            navigate(PATH.LOGIN_PAGE)
+        }
     }, [dispatch])
 
 
@@ -24,6 +27,7 @@ function App() {
         dispatch(logoutTC())
         navigate(PATH.LOGIN_PAGE)
     }
+
 
     return (
         <div className={style.App}>

@@ -2,6 +2,7 @@ import React from 'react';
 import {useAppSelector} from "../../bll/store";
 import {PATH} from "../Routes/Routes";
 import {useNavigate} from "react-router-dom";
+import {ReusableButton} from "../ReusableComponents/ReusableButton/ReusableButton";
 
 export const Profile = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
