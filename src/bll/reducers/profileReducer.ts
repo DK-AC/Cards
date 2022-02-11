@@ -1,4 +1,4 @@
-const initialState:InitialStateType = {
+const initialState: InitialStateType = {
     _id: '',
     email: '',
     name: '',
@@ -11,8 +11,8 @@ const initialState:InitialStateType = {
     rememberMe: false,
     error: ''
 }
-export const ProfileReducer = (state:InitialStateType=initialState,action:ProfileMainType):InitialStateType=>{
-    switch (action.type){
+export const ProfileReducer = (state: InitialStateType = initialState, action: ProfileMainType): InitialStateType => {
+    switch (action.type) {
         case "AUTH/SET_PROFILE": {
             return {...state, ...action.data}
         }

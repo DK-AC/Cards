@@ -1,111 +1,84 @@
-import React, {ChangeEvent, useState} from 'react';
-import style from './Register.module.css'
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
-import {registerTC} from "../../../bll/reducers/registerReducer";
 import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import LinearProgress from '@mui/material/LinearProgress';
-import {typeForInput, TypeForInputType} from "../../../shared";
-import {SuperInputText} from "../../ReusableComponents/SuperInputText";
-import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
+import {PATH} from "../../Routes/Routes";
+import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
+import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
+import {registerTC} from "../../../bll/reducers/loginReducer";
+import style from "../Login/Login.module.css";
 
 export const Register = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const isRegister = useAppSelector<boolean>(state => state.Login.isRegister)
+    const isLoading = useAppSelector<RequestStatusType>(state => state.App.status)
 
-    const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
-    const isLoading = useAppSelector<RequestStatusType>(state => state.app.status)
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [error, setError] = useState<null | string>(null);
-    const [inputPasswordType, setInputPasswordType] = useState<TypeForInputType>(typeForInput.Password)
-    const [inputConfirmPasswordType, setInputConfirmPasswordType] = useState<TypeForInputType>(typeForInput.Password)
 
-    const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    const [submitted, setSubmitted] = useState<boolean>(false)
+    const [error, setError] = useState<null | string>(null)
+
+    const handleEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
-    }
-    const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setSubmitted(false)
+    },[setEmail,setSubmitted])
+    const handlePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handleConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setSubmitted(false)
+    },[setPassword, setSubmitted])
+    const handleConfirmPassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handleSubmit = () => {
+        setSubmitted(false)
+    },[setConfirmPassword,setSubmitted])
+    const handleSubmit = useCallback(() => {
         if (password === confirmPassword) {
             dispatch(registerTC({email, password}))
             setSubmitted(true)
         } else {
             setError('Пароли не совпадают')
         }
-    }
-    const changeInputPasswordType = () => {
-        setInputPasswordType(
-            inputPasswordType === typeForInput.Password ? typeForInput.Text : typeForInput.Password
-        )
-    }
-    const changeInputConfirmPasswordType = () => {
-        setInputConfirmPasswordType(
-            inputConfirmPasswordType === typeForInput.Password ? typeForInput.Text : typeForInput.Password
-        )
-    }
+    },[registerTC,setSubmitted,dispatch])
+    useEffect(()=>{
+        dispatch(setAppErrorAC(null))
+        if(!isRegister){
+            return
+        }
+    },[dispatch,isRegister])
 
     if (isRegister) {
-        navigate('/login')
+        navigate(PATH.LOGIN_PAGE)
     }
 
     return (
-        <div>
-            <Card>
-                <CardContent>
-                    <CardHeader title={'Cards'} className={style.header}/>
-                    <CardHeader title={'Sign Up'} className={style.subheader}/>
-                    <div>
-                        <div>
-                            <SuperInputText value={email}
-                                            placeholder={typeForInput.Email}
-                                            onChange={handleEmail}
-                            />
-                        </div>
-                        <div className={style.group}>
-                            <SuperInputText value={password}
-                                            onChange={handlePassword}
-                                            placeholder={typeForInput.Password}
-                                            inputType={inputPasswordType}/>
-                            <span onClick={changeInputPasswordType} className={style.eye}>
-                                &#128065;
-                            </span>
-                        </div>
-                        <div className={style.group}>
-                            <SuperInputText value={confirmPassword}
-                                            onChange={handleConfirmPassword}
-                                            placeholder={'confirm password'}
-                                            inputType={inputConfirmPasswordType}/>
-                            <span onClick={changeInputConfirmPasswordType} className={style.eye}>
-                                &#128065;
-                            </span>
-                        </div>
-                    </div>
-                    <ReusableButton title={'Register'}
-                                    callback={handleSubmit}
-                                    disabled={isLoading === 'loading'}
-                    />
-                    {!submitted ? <div className={style.error}>{error}</div> : <ErrorSnackbar/>}
-                    {isLoading === 'loading' && <LinearProgress/>}
-                    <NavLink className={style.singIn} to={`/login`}>Back to Sing In</NavLink>
-                </CardContent>
-            </Card>
-        </div>
+        <PaperContainer title={'Registration'} >
+            <ReusableInput value={email}
+                           placeholder={'Email*'}
+                           onChangeHandler={handleEmail} type={'email'}/>
+            <ReusableInput value={password}
+                           placeholder={'Password*'}
+                           onChangeHandler={handlePassword}
+                           type={'password'}
+            />
+            <ReusableInput value={confirmPassword}
+                           placeholder={'Confirm password*'}
+                           onChangeHandler={handleConfirmPassword}
+                           type={'password'}
+            />
+            <ReusableButton title={'Register'}
+                            onClickHandler={handleSubmit}
+                            disabled={isLoading === 'loading'}
+            />
+            <NavLink to={PATH.LOGIN_PAGE} className={style.navLinkStyle}>Already registered?</NavLink>
+            {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+        </PaperContainer>
     );
 };
-

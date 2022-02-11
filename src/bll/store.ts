@@ -1,18 +1,14 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {LoginMainType, LoginReducer} from "./reducers/loginReducer";
-import {PasswordRecoveryReducer} from "./reducers/passwordRecoveryReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {RegisterReducer} from "./reducers/registerReducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {AppMainType, AppReducer} from "./reducers/appReducer";
 import {ProfileMainType, ProfileReducer} from "./reducers/profileReducer";
 
 export const rootReducer = combineReducers({
-    app: AppReducer,
-    login: LoginReducer,
-    register: RegisterReducer,
-    passwordRecovery: PasswordRecoveryReducer,
-    profile: ProfileReducer
+    App: AppReducer,
+    Login: LoginReducer,
+    Profile: ProfileReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

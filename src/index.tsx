@@ -7,9 +7,11 @@ import {Provider} from "react-redux";
 import {store} from "./bll/store";
 import {HashRouter} from "react-router-dom";
 
+//добавить basename={process.env.PUBLIC_URL} к HashRouter если не заработает
+
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter>
+        <HashRouter  >
             <App/>
         </HashRouter>
     </Provider>,
