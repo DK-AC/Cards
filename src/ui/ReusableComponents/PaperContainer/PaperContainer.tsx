@@ -17,7 +17,6 @@ type propsType ={
     return (
         <Paper elevation={3} className={style.paperContainer}>
          <h3 className={style.additionalTitle}>it-incubator</h3>
-                {status === 'loading' && <div>Load</div>}
                 <h2 className={style.mainTitle}> {title} </h2>
                 <div className={style.content}>{children}</div>
             {status=== 'loading' &&  <CircularProgress />}

@@ -36,7 +36,7 @@ const PasswordEnter = () => {
         } else {
             dispatch(setAppErrorAC('Passwords is different'))
         }
-    },[dispatch, setNewPasswordTC])
+    },[dispatch, setNewPasswordTC,password,password2, token])
 
     if (isRequestSucceeded) {
         navigate(PATH.LOGIN_PAGE)

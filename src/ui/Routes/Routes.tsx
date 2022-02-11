@@ -8,7 +8,7 @@ import CheckEmail from "../auth/ForgotPass/ChackEmail";
 import PasswordEnter from "../auth/ForgotPass/PasswordEnter";
 
 export const PATH = {
-    START_PAGE: '/*',
+    START_PAGE: '#/*',
     LOGIN_PAGE: '/login',
     PROFILE_PAGE: '/profile',
     REGISTRATION_PAGE: '/register',

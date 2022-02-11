@@ -21,13 +21,13 @@ function App() {
         if(isInitialized && !isLoggedIn){
             navigate(PATH.LOGIN_PAGE)
         }
-    }, [dispatch])
+    }, [dispatch,navigate,isLoggedIn,isInitialized])
 
 
     const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
         navigate(PATH.LOGIN_PAGE)
-    },[dispatch,logoutTC])
+    },[dispatch,logoutTC,navigate])
 
 
     return (

@@ -19,6 +19,7 @@ export const Login = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
     const error = useAppSelector<string | null>(state => state.App.error)
     const status = useAppSelector<RequestStatusType>(state => state.App.status)
+    const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
 
     const [email, setEmail] = useState<string>('dyatlovivan92@gmail.com')
     const [password, setPassword] = useState<string>('12345678')
@@ -66,7 +67,7 @@ export const Login = () => {
             />
             <p>Don't have an account?</p>
             <NavLink className={`${style.navLinkStyle} ${style.SignUp}`} to={PATH.REGISTRATION_PAGE}>Sing Up</NavLink>
-            {error && <ErrorSnackbar/>}
+            {error&&isInitialized && <ErrorSnackbar/>}
         </PaperContainer>)
 }
 
