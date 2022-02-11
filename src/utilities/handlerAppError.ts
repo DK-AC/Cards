@@ -1,6 +1,5 @@
-import { Dispatch } from "redux";
+import {Dispatch} from "redux";
 import {setAppErrorAC, setAppStatusAC} from "../bll/reducers/appReducer";
-
 
 
 export const handlerAppError = (err: any, dispatch: Dispatch) => {

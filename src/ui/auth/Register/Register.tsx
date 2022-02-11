@@ -1,14 +1,13 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
 import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
-import LinearProgress from '@mui/material/LinearProgress';
 import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
-import {PATH} from "../../1-Routes/Routes";
-import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import {PATH} from "../../Routes/Routes";
+import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
 import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
 import {registerTC} from "../../../bll/reducers/loginReducer";
 import style from "../Login/Login.module.css";
@@ -48,6 +47,12 @@ export const Register = () => {
             setError('Пароли не совпадают')
         }
     }
+    useEffect(()=>{
+        dispatch(setAppErrorAC(null))
+        if(!isRegister){
+            return
+        }
+    },[dispatch,isRegister])
 
     if (isRegister) {
         navigate(PATH.LOGIN_PAGE)
@@ -72,7 +77,6 @@ export const Register = () => {
             />
             <NavLink to={PATH.LOGIN_PAGE} className={style.navLinkStyle}>Already registered?</NavLink>
             {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
-            {isLoading === 'loading' && <LinearProgress/>}
         </PaperContainer>
     );
 };

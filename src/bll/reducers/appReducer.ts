@@ -1,13 +1,13 @@
 import {Dispatch} from "redux";
 import {authApi} from "../../dal/authApi";
-
+import {handlerAppError} from "../../utilities/handlerAppError";
 
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const SET_ERROR = 'appReducer/SET_ERROR'
 const SET_STATUS = 'appReducer/SET_STATUS'
-const SET_IS_INITIALIZED ='appReducer/SET_IS_INITIALIZED'
+const SET_IS_INITIALIZED = 'appReducer/SET_IS_INITIALIZED'
 
 const initialState = {
     error: null as string | null,
@@ -23,7 +23,7 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
         case SET_STATUS:
             return {...state, status: action.status}
         case SET_IS_INITIALIZED:
-            return {...state,isInitialized:true}
+            return {...state, isInitialized: true}
         default:
             return state
     }
@@ -31,18 +31,18 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
 
 export const setAppErrorAC = (error: null | string) => ({type: SET_ERROR, error}) as const
 export const setAppStatusAC = (status: RequestStatusType) => ({type: SET_STATUS, status}) as const
-export const setIsInitializedAC = ()=> ({type :SET_IS_INITIALIZED}) as const
+export const setIsInitializedAC = () => ({type: SET_IS_INITIALIZED}) as const
 
 
 export const isAuthTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
-        const res= await authApi.me()
+        const res = await authApi.me()
         /* dispatch(setProfile(res.data))*/
         /*dispatch(setIsLoggedInAC(true))*/
-    }catch(error){
-        //handlerAppError(error, dispatch)
+    } catch (error) {
+       handlerAppError(error, dispatch)
     } finally {
         dispatch(setIsInitializedAC())
         dispatch(setAppStatusAC('idle'))
@@ -52,8 +52,8 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
 
 
 export type AppMainType = SetAppErrorType
-  | SetAppStatusType
-  | SetIsInitialized
+    | SetAppStatusType
+    | SetIsInitialized
 
 type SetAppErrorType = ReturnType<typeof setAppErrorAC>
 type SetAppStatusType = ReturnType<typeof setAppStatusAC>

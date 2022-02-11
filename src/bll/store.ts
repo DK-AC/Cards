@@ -8,7 +8,7 @@ import {ProfileMainType, ProfileReducer} from "./reducers/profileReducer";
 export const rootReducer = combineReducers({
     App: AppReducer,
     Login: LoginReducer,
-    Profile:ProfileReducer
+    Profile: ProfileReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

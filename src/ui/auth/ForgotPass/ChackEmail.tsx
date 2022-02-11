@@ -9,7 +9,7 @@ const CheckEmail = () => {
     const email = useAppSelector<string>(store => store.Login.email)
     return (
         <PaperContainer title={'Check Email'}>
-            <img src={emailIMG} alt={'Success'} className={style.img} />
+            <img src={emailIMG} alt={'Success'} className={style.img}/>
             <span>We've sent an Email with instructions to {email}</span>
         </PaperContainer>
     );
