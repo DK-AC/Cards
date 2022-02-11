@@ -11,7 +11,7 @@ import {HashRouter} from "react-router-dom";
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter  >
+        <HashRouter >
             <App/>
         </HashRouter>
     </Provider>,

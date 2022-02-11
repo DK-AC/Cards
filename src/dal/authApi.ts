@@ -2,14 +2,13 @@ import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
-    //baseURL: 'http://localhost:7542/',
+    // baseURL: 'http://localhost:7542/2.0',
     withCredentials: true,
 })
 
 const messageForEmail: string = `<div style="background-color: lime; padding: 15px"> password recovery link:
-                         <a href='http://localhost:3000/#/set-new-password/$token$'/>
+                         <a href='https://dk-ac.github.io/Cards/#/set-new-password/$token$'/>
                          link</a></div>`
-// в ссылке внимательно) вместо 'localhost:3000' вставляешь 'твой гит.github.io/cards(название проекта)/'
 
 export const authApi = {
 

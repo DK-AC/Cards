@@ -16,18 +16,19 @@ function App() {
     const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
 
+
     useEffect(() => {
         dispatch(isAuthTC())
-        if(isInitialized && !isLoggedIn){
+        if (isInitialized && !isLoggedIn) {
             navigate(PATH.LOGIN_PAGE)
         }
-    }, [dispatch,navigate,isLoggedIn,isInitialized])
+    }, [])
 
 
     const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
         navigate(PATH.LOGIN_PAGE)
-    },[dispatch,logoutTC,navigate])
+    }, [dispatch, logoutTC, navigate])
 
 
     return (
