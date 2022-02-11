@@ -7,7 +7,7 @@ export type propsType ={
     onChange:(e: ChangeEvent<HTMLInputElement>)=>void
 }
 
-const ReusableCheckbox = ( {title, checked, onChange, ...restProps}: propsType) => {
+const ReusableCheckbox = React.memo(function( {title, checked, onChange, ...restProps}: propsType){
     return (
         <div>
             <label >
@@ -20,6 +20,6 @@ const ReusableCheckbox = ( {title, checked, onChange, ...restProps}: propsType) 
             </label>
         </div>
     );
-};
+});
 
 export default ReusableCheckbox;

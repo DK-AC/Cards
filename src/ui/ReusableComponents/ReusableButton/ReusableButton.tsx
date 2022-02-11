@@ -9,7 +9,7 @@ type ReusableButtonType = {
     disabled?: boolean
 }
 
-export const ReusableButton = ({title, onClickHandler,disabled}: ReusableButtonType) => {
+export const ReusableButton = React.memo(function ({title, onClickHandler,disabled}: ReusableButtonType){
     return (
         <Stack>
             <Button variant="contained"
@@ -19,4 +19,4 @@ export const ReusableButton = ({title, onClickHandler,disabled}: ReusableButtonT
             </Button>
         </Stack>
     );
-}
+})

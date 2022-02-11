@@ -12,7 +12,6 @@ type propsType ={
 }
 
  const PaperContainer = ({children, title} :propsType) => {
-
  const status = useAppSelector<RequestStatusType>(store=> store.App.status)
 
     return (

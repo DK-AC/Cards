@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, useState} from 'react';
+import React, {ChangeEventHandler, useCallback, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../bll/store";
@@ -20,16 +20,15 @@ const PasswordEnter = () => {
 
     const [password, setPassword] = useState<string>('')
     const [password2, setPassword2] = useState<string>('')
-    const handlePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handlePassword: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setPassword(e.currentTarget.value)
         dispatch(setAppErrorAC(null))
-    }
-    const handlePassword2: ChangeEventHandler<HTMLInputElement> = (e) => {
+    },[dispatch,setPassword])
+    const handlePassword2: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setPassword2(e.currentTarget.value)
         dispatch(setAppErrorAC(null))
-    }
-
-    const handleSubmit = () => {
+    },[dispatch, setPassword2])
+    const handleSubmit = useCallback( () => {
         if (password === password2) {
             token ?
                 dispatch(setNewPasswordTC({password, resetPasswordToken: token}))
@@ -37,7 +36,7 @@ const PasswordEnter = () => {
         } else {
             dispatch(setAppErrorAC('Passwords is different'))
         }
-    }
+    },[dispatch, setNewPasswordTC])
 
     if (isRequestSucceeded) {
         navigate(PATH.LOGIN_PAGE)

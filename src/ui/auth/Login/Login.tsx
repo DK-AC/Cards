@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, useEffect, useState} from 'react';
+import React, {ChangeEventHandler, useCallback, useEffect, useState} from 'react';
 import style from './Login.module.css'
 import {useDispatch} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
@@ -24,19 +24,18 @@ export const Login = () => {
     const [password, setPassword] = useState<string>('12345678')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
 
-    const handleEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handleEmail: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setEmail(e.currentTarget.value)
-    }
-    const handlePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+    },[setEmail])
+    const handlePassword: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setPassword(e.currentTarget.value)
-    }
-    const handleRememberMe: ChangeEventHandler<HTMLInputElement> = (e) => {
+    },[setPassword])
+    const handleRememberMe: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setRememberMe(e.target.checked)
-
-    }
-    const singInHandler = () => {
+    },[setRememberMe])
+    const singInHandler = useCallback(() => {
         dispatch(loginTC({email, password, rememberMe}))
-    }
+    },[loginTC,dispatch, email, password, rememberMe])
 
     useEffect(() => {
         dispatch(setAppErrorAC(null))

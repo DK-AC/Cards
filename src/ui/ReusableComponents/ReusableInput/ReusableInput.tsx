@@ -10,8 +10,7 @@ type ReusableInputEmailType = {
     type?:string
 }
 
-const ReusableInput = ({label, placeholder, value, onChangeHandler, type}: ReusableInputEmailType) => {
-
+const ReusableInput = React.memo(function ({label, placeholder, value, onChangeHandler, type}: ReusableInputEmailType){
     return (
         <>
             <TextField
@@ -26,6 +25,6 @@ const ReusableInput = ({label, placeholder, value, onChangeHandler, type}: Reusa
             />
         </>
     );
-};
+});
 
 export default ReusableInput;

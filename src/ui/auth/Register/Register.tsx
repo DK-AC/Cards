@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
 import {NavLink, useNavigate} from 'react-router-dom';
@@ -24,29 +24,29 @@ export const Register = () => {
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [error, setError] = useState<null | string>(null);
+    const [submitted, setSubmitted] = useState<boolean>(false)
+    const [error, setError] = useState<null | string>(null)
 
-    const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setSubmitted(false)
+    },[setEmail,setSubmitted])
+    const handlePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handleConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setSubmitted(false)
+    },[setPassword, setSubmitted])
+    const handleConfirmPassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handleSubmit = () => {
+        setSubmitted(false)
+    },[setConfirmPassword,setSubmitted])
+    const handleSubmit = useCallback(() => {
         if (password === confirmPassword) {
             dispatch(registerTC({email, password}))
             setSubmitted(true)
         } else {
             setError('Пароли не совпадают')
         }
-    }
+    },[registerTC,setSubmitted,dispatch])
     useEffect(()=>{
         dispatch(setAppErrorAC(null))
         if(!isRegister){

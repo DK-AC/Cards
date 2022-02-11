@@ -14,7 +14,7 @@ const initialState = {
     isRegister: false,
     email: '',
     isRequestSucceeded: false,
-    passwordСhanged: false
+    passwordChanged: false
 };
 
 type initialStateType = typeof initialState
@@ -48,7 +48,7 @@ export const setIsRegisterAC = (isRegister: boolean) => ({type: SET_IS_REGISTRAT
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
-        dispatch(setAppStatusAC('loading'));
+        dispatch(setAppStatusAC('loading'))
         await authApi.login(data)
         dispatch(setIsLoggedInAC(true))
     } catch (error) {
@@ -60,7 +60,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
 export const logoutTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
-        dispatch(setAppStatusAC('loading'));
+        dispatch(setAppStatusAC('loading'))
         await authApi.logout()
         dispatch(setIsLoggedInAC(false))
     } catch (error) {
@@ -72,12 +72,12 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
 export const setEmailForPasswordTC = (email: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
-        dispatch(setAppStatusAC('loading'));
+        dispatch(setAppStatusAC('loading'))
         await authApi.forgotPassword(email)
         dispatch(isPasswordRecoverySucceededAC(true))
         dispatch(setEmailForPasswordAC(email))
     } catch (error) {
-        handlerAppError(error, dispatch);
+        handlerAppError(error, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
@@ -85,11 +85,11 @@ export const setEmailForPasswordTC = (email: string) => async (dispatch: Dispatc
 export const setNewPasswordTC = (data: recowerPasswordType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
-        dispatch(setAppStatusAC('loading'));
+        dispatch(setAppStatusAC('loading'))
         await authApi.recowerPassword(data)
         dispatch(isPasswordRecoverySucceededAC(true))
     } catch (error) {
-        handlerAppError(error, dispatch);
+        handlerAppError(error, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
@@ -101,7 +101,7 @@ export const registerTC = (data: RegisterType) => async (dispatch: Dispatch) => 
         await authApi.register(data)
         dispatch(setIsRegisterAC(true))
     } catch (error) {
-        handlerAppError(error, dispatch);
+        handlerAppError(error, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }

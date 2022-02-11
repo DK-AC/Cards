@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {emailValidator} from '../../../utilities/validatorApp';
 import ReusableInput from '../../ReusableComponents/ReusableInput/ReusableInput';
@@ -18,17 +18,15 @@ export const PasswordRecovery = () => {
 
     const [email, setEmail] = useState<string>('')
 
-    const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
-    }
-
-    const sendEmailVerificationHandler = () => {
+    },[setEmail])
+    const sendEmailVerificationHandler = useCallback(() => {
         if (emailValidator(email)) {
             dispatch(setAppErrorAC('Wrong login type'))
         } else {
-            dispatch(setEmailForPasswordTC(email))
-        }
-    }
+            dispatch(setEmailForPasswordTC(email))}
+    },[emailValidator, email, dispatch,setEmailForPasswordTC])
 
     if (isRequestSucceeded) {
         navigate(PATH.CHECK_EMAIL_PAGE)

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux";
@@ -7,8 +7,8 @@ import {logoutTC} from "./bll/reducers/loginReducer";
 import Routing, {PATH} from "./ui/Routes/Routes";
 import style from './App.module.css'
 import {ReusableButton} from "./ui/ReusableComponents/ReusableButton/ReusableButton";
-import {isAuthTC, RequestStatusType} from "./bll/reducers/appReducer";
-import {CircularProgress} from "@mui/material";
+import {isAuthTC} from "./bll/reducers/appReducer";
+
 
 function App() {
     const navigate = useNavigate()
@@ -24,10 +24,10 @@ function App() {
     }, [dispatch])
 
 
-    const logoutHandler = () => {
+    const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
         navigate(PATH.LOGIN_PAGE)
-    }
+    },[dispatch,logoutTC])
 
 
     return (
