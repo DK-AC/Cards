@@ -1,11 +1,11 @@
 import {Route, Routes} from "react-router-dom";
-import {Profile} from "../Profile/Profile";
 import {Login} from "../auth/Login/Login";
 import {Register} from "../auth/Register/Register";
 import {PasswordRecovery} from "../auth/ForgotPass/passwordRecovery";
 import React from "react";
 import CheckEmail from "../auth/ForgotPass/ChackEmail";
 import PasswordEnter from "../auth/ForgotPass/PasswordEnter";
+import Profile from "../Profile/Profile";
 
 export const PATH = {
     START_PAGE: '/',

@@ -1,7 +1,7 @@
 import React, {ChangeEventHandler, useCallback, useEffect, useState} from 'react';
 import style from './Login.module.css'
 import {useDispatch} from "react-redux";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
 import {loginTC} from "../../../bll/reducers/loginReducer";
@@ -15,6 +15,12 @@ import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackba
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+        // возможно получится, чтоб после логинизации юзер возвращался на ту страницу,
+        // с которой его редиректнуло на логин, но это не точно
+    const location= useLocation()
+    // @ts-ignore
+    const fromPage = location.state?.from?.pathname
 
     const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
     const error = useAppSelector<string | null>(state => state.App.error)
@@ -37,10 +43,12 @@ export const Login = () => {
         dispatch(loginTC({email, password, rememberMe}))
     }, [loginTC, dispatch, email, password, rememberMe])
 
+
+
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         if (isLoggedIn) {
-            navigate(PATH.PROFILE_PAGE)
+            fromPage? navigate(fromPage) : navigate(PATH.PROFILE_PAGE)  //ломается? вместо тернарника возвращаем {navigate(PATH.PROFILE_PAGE)}
         }
     }, [isLoggedIn])
 
