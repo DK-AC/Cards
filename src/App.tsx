@@ -46,7 +46,7 @@ const logoutHandler = useCallback(() => {
     return (
         <div className={style.App}>
             <div className={style.container}>
-                {isLoggedIn && <ReusableButton title={'logout'} onClickHandler={logoutHandler}/>}
+                {isLoggedIn && <div className={style.position}><ReusableButton title={'logout'} onClickHandler={logoutHandler}/></div>}
                 <Routing/>
             </div>
         </div>
