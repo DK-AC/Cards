@@ -11,7 +11,7 @@ import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput"
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 
 const PasswordEnter = () => {
-    const {token} = useParams<string>()
+    const {token} = useParams<'token'>()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isRequestSucceeded = useAppSelector<boolean>(state => state.Login.isRequestSucceeded)
