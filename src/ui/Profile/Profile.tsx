@@ -1,12 +1,12 @@
 import React from 'react';
 import {useAppSelector} from "../../bll/store";
 import {PATH} from "../Routes/Routes";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {withAuthRedirect} from "../../bll/HOK/withAuthRedirect";
 import {compose} from "redux";
 
  const Profile = () => {
-   /* const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
+  /* const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
     const navigate = useNavigate()
 
 
@@ -14,8 +14,10 @@ import {compose} from "redux";
 
     return (<div>
             Profile
+            <NavLink to={PATH.PACKS_TABLE_PAGE}> PAKC's </NavLink>
         </div>
     );
 };
 
 export default compose(withAuthRedirect)(Profile);
+/*export default Profile;*/

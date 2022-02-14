@@ -2,6 +2,7 @@ import {authApi, LoginParamsType, recowerPasswordType, RegisterType} from "../..
 import {Dispatch} from "redux";
 import {handlerAppError} from "../../utilities/handlerAppError";
 import {AppMainType, setAppErrorAC, setAppStatusAC} from "./appReducer";
+import {saveState} from "../../dal/localStorage/localStorage";
 
 const SET_IS_LOGGED = 'loginReducer/SET_IS_LOGGED_IN'
 const SET_EMAIL_FOR_PASSWORD_RECOVERY = 'loginReducer/PASSWORD-IS-CHANGED'
@@ -51,6 +52,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
         dispatch(setAppStatusAC('loading'))
         await authApi.login(data)
         dispatch(setIsLoggedInAC(true))
+        saveState('isLogged', true)
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
@@ -63,6 +65,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         dispatch(setAppStatusAC('loading'))
         await authApi.logout()
         dispatch(setIsLoggedInAC(false))
+        /*saveState('isLogged', false)*/
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {

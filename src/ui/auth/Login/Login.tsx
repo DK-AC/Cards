@@ -11,6 +11,8 @@ import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableBu
 import {PATH} from "../../Routes/Routes";
 import ReusableCheckbox from "../../ReusableComponents/ReusableCheckBox/ReusableCheckbox";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
+import {restoreState} from "../../../dal/localStorage/localStorage";
+
 
 export const Login = () => {
     const dispatch = useDispatch()
@@ -22,9 +24,11 @@ export const Login = () => {
     // @ts-ignore
     const fromPage = location.state?.from?.pathname
 
-    const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
+    const isLoggedIn = restoreState('isLogged', false)
+    /*const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)*/
     const error = useAppSelector<string | null>(state => state.App.error)
     const status = useAppSelector<RequestStatusType>(state => state.App.status)
+
 
     const [email, setEmail] = useState<string>('dyatlovivan92@gmail.com')
     const [password, setPassword] = useState<string>('12345678')
@@ -44,11 +48,12 @@ export const Login = () => {
     }, [loginTC, dispatch, email, password, rememberMe])
 
 
-
+    console.log(fromPage)
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         if (isLoggedIn) {
-            fromPage? navigate(fromPage) : navigate(PATH.PROFILE_PAGE)  //ломается? вместо тернарника возвращаем {navigate(PATH.PROFILE_PAGE)}
+         fromPage && fromPage!==PATH.LOGIN_PAGE ? navigate(fromPage) :
+            navigate(PATH.PROFILE_PAGE)  //ломается? вместо тернарника возвращаем {navigate(PATH.PROFILE_PAGE)}
         }
     }, [isLoggedIn])
 

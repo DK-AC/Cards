@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authApi} from "../../dal/authApi";
 import {handlerAppError} from "../../utilities/handlerAppError";
+import {setIsLoggedInAC} from "./loginReducer";
 
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

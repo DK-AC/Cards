@@ -6,6 +6,7 @@ import React from "react";
 import CheckEmail from "../auth/ForgotPass/ChackEmail";
 import PasswordEnter from "../auth/ForgotPass/PasswordEnter";
 import Profile from "../Profile/Profile";
+import PacksTable from "../Cards/Pack/PacksTable";
 
 export const PATH = {
     START_PAGE: '/',
@@ -14,7 +15,8 @@ export const PATH = {
     REGISTRATION_PAGE: '/register',
     FORGOT_PAGE: '/passwordRecovery',
     CHECK_EMAIL_PAGE: '/check_email',
-    CREATE_NEW_PASSWORD_PAGE: '/set-new-password/:token'
+    CREATE_NEW_PASSWORD_PAGE: '/set-new-password/:token',
+    PACKS_TABLE_PAGE: '/packs'
 }
 
 
@@ -29,6 +31,7 @@ function Routing() {
                 <Route path={PATH.CHECK_EMAIL_PAGE} element={<CheckEmail/>}/>
                 <Route path={PATH.PROFILE_PAGE} element={<Profile/>}/>
                 <Route path={PATH.CREATE_NEW_PASSWORD_PAGE} element={<PasswordEnter/>}/>
+                <Route path={PATH.PACKS_TABLE_PAGE} element={<PacksTable/>}/>
             </Routes>
         </div>
     )
