@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {LoginParamsType, ResponseType, UserType} from "./mainAPI";
+import {PackType} from "../bll/reducers/packReducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -7,13 +7,37 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-export const cardsApi ={
-    getPacks() {
-        return instance.get<AxiosResponse<cardPacksType>>('/cards/pack')
+export const cardsApi = {
+    getPacks(min?:number , max?:number, page?:number, pageCount?:number) {
+      const   paramsData ={
+            min: min,
+            max: max,
+            page: page,
+            pageCount: pageCount}
+        return instance.get<cardPacksType>('/cards/pack', {params: paramsData })
     },
+    createNewPack(name:string= 'test') {
+        let cardsPack:newPackType = {
+            name: name,
+            path: "/def",
+            grade: 0,
+            shots: 0 ,
+            rating: 0 ,
+            deckCover: "url or base64",
+            private: false,
+            type: "pack"
+        }
+        return instance.post<newPackType, AxiosResponse<PackFromServerType>>('/cards/pack', {cardsPack})
+    },
+    deletePack(packID: string){
+        return instance.delete(`/cards/pack?id=${packID}`)
+    },
+    changePack(cardsPack:PackType ){
+        return instance.put<PackType, AxiosResponse<PackFromServerType>>('/cards/pack', {cardsPack})
+    }
 }
 
-export type PackFromServerType={
+export type PackFromServerType = {
     _id: string
     user_id: string
     name: string
@@ -22,17 +46,27 @@ export type PackFromServerType={
     grade: number // средняя оценка карточек
     shots: number // количество попыток
     rating: number // лайки
-    type: "pack" |"folder"  // ещё будет "folder" (папка)
+    type: "pack" | "folder"  // ещё будет "folder" (папка)
     created: string
     updated: string
     __v: number
 }
-
-export type cardPacksType ={
+export type cardPacksType = {
     cardPacks: Array<PackFromServerType>
-    cardPacksTotalCount: number// количество колод
+    cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
-    page: number // выбранная страница
-    pageCount: number // количество элементов на странице
+    page: number
+    pageCount: number
+}
+
+export type newPackType = {
+    name?: string
+    path?: string
+    grade?: number
+    shots?: number
+    rating?: number
+    deckCover?: string
+    private?: boolean
+    type?: "pack" | "folder"
 }

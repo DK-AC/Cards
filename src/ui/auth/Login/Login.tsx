@@ -18,12 +18,6 @@ export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-        // возможно получится, чтоб после логинизации юзер возвращался на ту страницу,
-        // с которой его редиректнуло на логин, но это не точно
-    const location= useLocation()
-    // @ts-ignore
-    const fromPage = location.state?.from?.pathname
-
     const isLoggedIn = restoreState('isLogged', false)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     /*const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)*/
@@ -51,12 +45,14 @@ export const Login = () => {
 
 
     useEffect(() => {
+
         dispatch(setAppErrorAC(null))
-        if (isInitialized && isLoggedIn) {
-         fromPage && fromPage!==PATH.LOGIN_PAGE ? navigate(fromPage) :
-            navigate(PATH.PROFILE_PAGE)  //ломается? вместо тернарника возвращаем {navigate(PATH.PROFILE_PAGE)}
-        }
-    }, [isLoggedIn,isInitialized])
+       if (isLoggedIn) {
+           navigate(PATH.PROFILE_PAGE)
+       } else {
+           return
+       }
+    }, [isLoggedIn])
 
     if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\') {
         dispatch(setAppErrorAC(null))

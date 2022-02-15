@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {useNavigate} from "react-router-dom"
+import {useLocation, useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "./bll/store";
 import {logoutTC, setIsLoggedInAC} from "./bll/reducers/loginReducer";
@@ -23,7 +23,7 @@ function App() {
     useEffect(() => {
         dispatch(isAuthTC())
         if (isInitialized && isLoggedIn) {
-                navigate(PATH.PROFILE_PAGE)} else{
+                return} else{
             navigate(PATH.LOGIN_PAGE)
         }
         /*if (isInitialized && !isLoggedIn) {

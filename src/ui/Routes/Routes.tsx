@@ -7,6 +7,7 @@ import CheckEmail from "../auth/ForgotPass/ChackEmail";
 import PasswordEnter from "../auth/ForgotPass/PasswordEnter";
 import Profile from "../Profile/Profile";
 import PacksTable from "../Cards/Pack/PacksTable";
+import {AuthProvider} from "../../bll/HOK/AuthProvider";
 
 export const PATH = {
     START_PAGE: '/',
@@ -22,7 +23,7 @@ export const PATH = {
 
 function Routing() {
     return (
-        <div>
+        <AuthProvider>
             <Routes>
                 <Route path={PATH.START_PAGE} element={<Profile/>}/>
                 <Route path={PATH.LOGIN_PAGE} element={<Login/>}/>
@@ -33,7 +34,7 @@ function Routing() {
                 <Route path={PATH.CREATE_NEW_PASSWORD_PAGE} element={<PasswordEnter/>}/>
                 <Route path={PATH.PACKS_TABLE_PAGE} element={<PacksTable/>}/>
             </Routes>
-        </div>
+        </AuthProvider>
     )
 }
 

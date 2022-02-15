@@ -1,32 +1,43 @@
 import React from 'react';
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
+import {PackType} from "../../../bll/reducers/packReducer";
 
 
-export type packType ={
-    name: string,
-    user: string
-    cardsCount: number,
-    date: string,
-    delete?: boolean,
-    edit?: boolean
-    learn?: boolean,
+export type propsType = {
+    pack: PackType
+    delete: (id: string) => void,
+    edit: (id: string, model: PackType) => void
     open: boolean
 }
 
-const Pack = (props: packType) => {
+const Pack = ({pack, ...props}: propsType) => {
 
-    const date = new Date(props.date).toLocaleDateString();
+    const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
+    const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
+
+    const handleDelete = () => {
+        pack._id && props.delete(pack._id)
+    }
+    const handleEdit = () => {
+        pack._id && props.edit(pack._id, {name: 'changed name'})
+    }
 
     return (
         <TableRow>
-            <TableCell>{props.name}</TableCell>
-            <TableCell>{props.cardsCount}</TableCell>
-            <TableCell>{date}</TableCell>
-            <TableCell >{props.user}</TableCell>
-            <TableCell>{props.open? 'open': ''}</TableCell>
+            <TableCell>{pack.name}</TableCell>
+            <TableCell>{pack.cardsCount}</TableCell>
+            <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
+            <TableCell>some User</TableCell>
+            <TableCell>
+                {props.open ? 'open' : ''}
+                <button onClick={handleDelete}>delete</button>
+                <button onClick={handleEdit}>edit</button>
+            </TableCell>
         </TableRow>
     );
 };
 
-export default Pack;
+export default compose(withAuthRedirect)(Pack);
