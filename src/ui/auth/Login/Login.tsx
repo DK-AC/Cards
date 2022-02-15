@@ -25,6 +25,7 @@ export const Login = () => {
     const fromPage = location.state?.from?.pathname
 
     const isLoggedIn = restoreState('isLogged', false)
+    const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     /*const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)*/
     const error = useAppSelector<string | null>(state => state.App.error)
     const status = useAppSelector<RequestStatusType>(state => state.App.status)
@@ -48,14 +49,13 @@ export const Login = () => {
     }, [loginTC, dispatch, email, password, rememberMe])
 
 
-    console.log(fromPage)
     useEffect(() => {
         dispatch(setAppErrorAC(null))
-        if (isLoggedIn) {
+        if (isInitialized && isLoggedIn) {
          fromPage && fromPage!==PATH.LOGIN_PAGE ? navigate(fromPage) :
             navigate(PATH.PROFILE_PAGE)  //ломается? вместо тернарника возвращаем {navigate(PATH.PROFILE_PAGE)}
         }
-    }, [isLoggedIn])
+    }, [isLoggedIn,isInitialized])
 
     if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\') {
         dispatch(setAppErrorAC(null))

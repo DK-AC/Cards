@@ -22,11 +22,17 @@ function App() {
 
     useEffect(() => {
         dispatch(isAuthTC())
-        //dispatch(setIsLoggedInAC(isLoggedIn))
-        /*isLoggedIn = !!localStorage.getItem('isLogged')*/
-        if (isInitialized && !isLoggedIn) {
+        debugger
+        if (isInitialized && isLoggedIn) {
+                navigate(PATH.PROFILE_PAGE)} else{
             navigate(PATH.LOGIN_PAGE)
         }
+        /*if (isInitialized && !isLoggedIn) {
+            navigate(PATH.LOGIN_PAGE)
+        } else if(!isInitialized && isLoggedIn){
+            navigate(PATH.LOGIN_PAGE)
+        }*/
+
     }, [])
 
 
