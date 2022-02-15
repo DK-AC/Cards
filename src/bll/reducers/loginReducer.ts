@@ -52,7 +52,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
         dispatch(setAppStatusAC('loading'))
         await authApi.login(data)
         dispatch(setIsLoggedInAC(true))
-        saveState('isLogged', true)
+        /*saveState('isLogged', true)*/
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {

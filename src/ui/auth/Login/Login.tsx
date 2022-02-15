@@ -11,7 +11,7 @@ import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableBu
 import {PATH} from "../../Routes/Routes";
 import ReusableCheckbox from "../../ReusableComponents/ReusableCheckBox/ReusableCheckbox";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
-import {restoreState} from "../../../dal/localStorage/localStorage";
+import {restoreState, saveState} from "../../../dal/localStorage/localStorage";
 
 
 export const Login = () => {
@@ -46,6 +46,7 @@ export const Login = () => {
     }, [setRememberMe])
     const singInHandler = useCallback(() => {
         dispatch(loginTC({email, password, rememberMe}))
+        saveState('isLogged', true)
     }, [loginTC, dispatch, email, password, rememberMe])
 
 

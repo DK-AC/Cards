@@ -22,7 +22,6 @@ function App() {
 
     useEffect(() => {
         dispatch(isAuthTC())
-        debugger
         if (isInitialized && isLoggedIn) {
                 navigate(PATH.PROFILE_PAGE)} else{
             navigate(PATH.LOGIN_PAGE)
