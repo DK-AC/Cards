@@ -8,8 +8,8 @@ import Pack  from "./Pack";
 import { TableBody, TableHead} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {
-    addPackAT,
-    changePackTC,
+    addPackAT, changeItemsOnPageAC,
+    changePackTC, changePageAC,
     deletePackAT,
     PackType,
     setPacksAT
@@ -17,54 +17,73 @@ import {
 import {useAppSelector} from "../../../bll/store";
 import {setAppErrorAC} from "../../../bll/reducers/appReducer";
 import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
+import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
+import style from './PacksTable.module.css'
+import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 
 
 
 const PacksTable = () => {
     const dispatch = useDispatch()
 
-    const packs = useAppSelector<Array<PackType>>(state => state.Packs)
+    const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
+    const cardPacksTotalCount= useAppSelector<number>(state=> state.Packs.cardPacksTotalCount)
+    const page = useAppSelector<number>(state=>state.Packs.page)
+    const pageCount = useAppSelector<number>(state=>state.Packs.pageCount)
+    //const loginedUserID = useAppSelector<string>(state=>state.Login.idUser)
+
 
     useEffect(()=>{
         dispatch(setAppErrorAC(null))
         isInitialized && dispatch(setPacksAT())
-    }, [dispatch])
+    }, [dispatch,changePageAC,page,pageCount])
 
+        //обработчики колод (добавление, удаление, изменение)
     const handleClickAddPack=()=>{
-        dispatch(addPackAT('testing name for test because test'))
-    }
+        dispatch(addPackAT('testing name for test because test'))}
     const handleClickDeletePack =(packID: string)=>{
-        dispatch(deletePackAT(packID))
-    }
+        dispatch(deletePackAT(packID))}
     const handleClickEditPack =(packID: string,model: PackType)=>{
-        dispatch(changePackTC(packID, model))
-    }
+        dispatch(changePackTC(packID, model))}
+
+    //обработчики для пагинации
+    const onPageChanged =(page:number)=> dispatch(changePageAC(page))
+    const countItemsChanged =(pageCount:number)=> dispatch(changeItemsOnPageAC(pageCount))
+
 
     return (
-        <div>
-            <button  onClick={handleClickAddPack}>Add Pack</button>
-            <Table>
+        <PaperContainer title={`My Pack's list`} tableStyle={true}>
+            <div className={style.callSettingsMenu}>
+                <ReusableButton title={'Add Pack'} onClickHandler={handleClickAddPack} size={'small'}
+                                color={'secondary'}/>
+            </div>
+            <div className={style.Table}>
+                <Table>
                 <TableHead>
                     <TableRow>
-                    <TableCell>Pack Name</TableCell>
-                    <TableCell variant="head">Cards</TableCell>
-                    <TableCell variant="head">Last Updated</TableCell>
-                    <TableCell variant="head">Created By</TableCell>
-                    <TableCell variant="head">Actions</TableCell>
-                </TableRow>
+                        <TableCell>Pack Name</TableCell>
+                        <TableCell variant="head">Cards</TableCell>
+                        <TableCell variant="head">Last Updated</TableCell>
+                        <TableCell variant="head">Created By</TableCell>
+                        <TableCell variant="head">Actions</TableCell>
+                    </TableRow>
                 </TableHead>
                 <TableBody>
                     {packs.map((pack: PackType) => {
                         return <Pack key={`${pack.user_id}+${pack.created}+${pack.name}`}
+                            //loginedUserID = {loginedUserID}
                                      pack={pack}
                                      open={true}
                                      delete={handleClickDeletePack}
-                        edit={handleClickEditPack}/>
+                                     edit={handleClickEditPack}/>
                     })}</TableBody>
             </Table>
-           <Pagenator currentPage={7} countItemsOnPage={5} totalItems = {10}/>
-        </div>
+            </div>
+                <Pagenator currentPage={page} countItemsOnPage={pageCount} totalItems={cardPacksTotalCount}
+                           onPageChanged={onPageChanged}
+                           countItemsOnPageChanged={countItemsChanged}/>
+        </PaperContainer>
     );
 };
 

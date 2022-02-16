@@ -1,7 +1,6 @@
 .paperContainer{
-    width: 390px;
+    min-width: 390px;
     min-height: 468px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,6 +8,13 @@
     align-content: center;
 
     position: relative;
+}
+.table{
+    margin-top: 30px;
+    height: 600px;
+    width: 70%;
+    overflow: visible;
+    flex-wrap: wrap;
 }
 
 .additionalTitle{
@@ -30,13 +36,23 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    min-width: 350px;
+    width: 90%;
+   /* background-color: red;*/
+    /*min-width: 350px;*/
     padding: 0 50px;
     position: absolute;
     top: 130px;
     bottom:50px;
     justify-content: space-around;
+
 }
+.tableContent{
+    padding: 0;
+    bottom: 20px;
+    top: 130px;
+    justify-content: space-between;
+}
+
 
 .content p,
 .content span,
