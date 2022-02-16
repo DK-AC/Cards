@@ -1,5 +1,5 @@
 import {AppMainType, isAuthTC, setAppErrorAC, setAppStatusAC, setIsInitializedAC} from "./appReducer";
-import {cardsApi, newPackType, PackFromServerType} from "../../dal/cardsApi";
+import {cardsApi, newPackType, PackFromServerType, ParamsPackType} from "../../dal/cardsApi";
 import {authApi} from "../../dal/authApi";
 import {handlerAppError} from "../../utilities/handlerAppError";
 import {Dispatch} from "redux";
@@ -46,12 +46,12 @@ export type PackMainType = AppMainType | ReturnType<typeof setPacksAC>
 
 
 
-export const setPacksAT =() => async (dispatch:Dispatch, getState: () => AppRootStateType) =>{
+export const setPacksAT =(params:ParamsPackType) => async (dispatch:Dispatch, getState: () => AppRootStateType) =>{
     const packs = getState().Packs
     try {
         dispatch(setAppStatusAC('loading'))
         dispatch(setAppErrorAC(null))
-        const res = await cardsApi.getPacks()
+        const res = await cardsApi.getPacks(params)
         dispatch(setPacksAC(res.data.cardPacks))
     } catch (error) {
         handlerAppError(error, dispatch)
@@ -61,33 +61,33 @@ export const setPacksAT =() => async (dispatch:Dispatch, getState: () => AppRoot
     }
 }
 
-export const addPackAT =(name?:string):AppThunkType => async (dispatch)=>{
+export const addPackAT =(params:ParamsPackType, name?:string):AppThunkType => async (dispatch)=>{
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         const res= await cardsApi.createNewPack(name)
         //dispatch(addPackAC(res.data))
-        dispatch(setPacksAT())
+        dispatch(setPacksAT(params))
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
 }
-export const deletePackAT=(packID: string):AppThunkType => async (dispatch)=>{
+export const deletePackAT=(packID: string,params:ParamsPackType):AppThunkType => async (dispatch)=>{
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         await cardsApi.deletePack(packID)
         dispatch(deletePackAC(packID))
-        dispatch(setPacksAT())
+        dispatch(setPacksAT(params))
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
 }
-export const changePackTC =(packID: string, modelPack:PackType):AppThunkType=>async (dispatch,getState: () => AppRootStateType )=>{
+export const changePackTC =(packID: string, modelPack:PackType,params:ParamsPackType):AppThunkType=>async (dispatch,getState: () => AppRootStateType )=>{
 
     const pack = getState().Packs.find(p=> packID===p._id)
     const apiModel ={...pack,...modelPack}
@@ -97,7 +97,7 @@ export const changePackTC =(packID: string, modelPack:PackType):AppThunkType=>as
         dispatch(setAppStatusAC('loading'))
         const res= await cardsApi.changePack(apiModel)
         dispatch(changePackAC(res.data))
-        dispatch(setPacksAT())
+        dispatch(setPacksAT(params))
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {

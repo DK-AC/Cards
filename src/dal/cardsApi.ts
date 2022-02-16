@@ -8,13 +8,8 @@ const instance = axios.create({
 })
 
 export const cardsApi = {
-    getPacks(min?:number , max?:number, page?:number, pageCount?:number) {
-      const   paramsData ={
-            min: min,
-            max: max,
-            page: page,
-            pageCount: pageCount}
-        return instance.get<cardPacksType>('/cards/pack', {params: paramsData })
+    getPacks(params:ParamsPackType) {
+        return instance.get<cardPacksType>('/cards/pack', {params: params })
     },
     createNewPack(name:string= 'test') {
         let cardsPack:newPackType = {
@@ -69,4 +64,14 @@ export type newPackType = {
     deckCover?: string
     private?: boolean
     type?: "pack" | "folder"
+}
+
+export type ParamsPackType = {
+    packName?:string
+    min?:number
+    max?:number
+    sortPacks?:number
+    page?:number
+    pageCount?:number
+    user_id?:string
 }

@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {authApi} from "../../dal/authApi";
 import {handlerAppError} from "../../utilities/handlerAppError";
 import {setIsLoggedInAC} from "./loginReducer";
+import {setProfile} from "./profileReducer";
 
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -39,8 +40,10 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
-        await authApi.me()
-        /* dispatch(setProfile(res.data))*/
+        debugger
+        const res = await authApi.me()
+
+        dispatch(setProfile(res.data))
         /*dispatch(setIsLoggedInAC(true))*/
     } catch (error) {
        handlerAppError(error, dispatch)
