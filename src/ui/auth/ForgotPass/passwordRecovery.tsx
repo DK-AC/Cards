@@ -1,54 +1,47 @@
-import React, {ChangeEvent, useState} from 'react';
-import { useDispatch } from 'react-redux';
-import {
-    passwordRecoveryInitialStateType,
-    setEmailForPasswordTC,
-    setPasswordRecoveryAC
-} from '../../../bll/reducers/passwordRecoveryReducer';
-import { emailValidator } from '../../../utilities/validatorApp';
-import ReusableInput from '../../ReusableComponents/reusableInput';
+import React, {ChangeEvent, useCallback, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {emailValidator} from '../../../utilities/validatorApp';
+import ReusableInput from '../../ReusableComponents/ReusableInput/ReusableInput';
 import {useAppSelector} from "../../../bll/store";
+import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
+import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
+import {setAppErrorAC} from "../../../bll/reducers/appReducer";
+import {setEmailForPasswordTC} from "../../../bll/reducers/loginReducer";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../Routes/Routes";
 
 
 export const PasswordRecovery = () => {
-
     const dispatch = useDispatch()
-    const state = useAppSelector<passwordRecoveryInitialStateType>(state => state.passwordRecovery)
-    const email = useAppSelector<string>(state => state.passwordRecovery.email)
+    const navigate = useNavigate()
+    const isRequestSucceeded = useAppSelector<boolean>(store => store.Login.isRequestSucceeded)
 
-    const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPasswordRecoveryAC(e.currentTarget.value))
-    }
+    const [email, setEmail] = useState<string>('')
 
-    const sendEmailVerificationHandler = () => {
+    const handleSubmit = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.currentTarget.value)
+    },[setEmail])
+    const sendEmailVerificationHandler = useCallback(() => {
         if (emailValidator(email)) {
-            console.log('Wrong login type')
+            dispatch(setAppErrorAC('Wrong login type'))
         } else {
-            dispatch(setEmailForPasswordTC(state))
-        }
+            dispatch(setEmailForPasswordTC(email))}
+    },[emailValidator, email, dispatch,setEmailForPasswordTC])
+
+    if (isRequestSucceeded) {
+        navigate(PATH.CHECK_EMAIL_PAGE)
     }
 
     return (
-        <div>
-            <h1>It-incubator</h1>
-            <h3>Forgot your password?</h3>
-            <div>
-                <ReusableInput
-                    lable={'Email'}
-                    placeholder={"Enter email"}
-                    value={email}
-                    emailForgotHandler={handleSubmit}
-                />
-            </div>
-            <div>
-                <p>
-                    Enter your email address and we will send you further instructions
-                </p>
-            </div>
-            <button onClick={sendEmailVerificationHandler}>
-                Submit
-            </button>
-        </div>
+        <PaperContainer title={'Forgot your password?'}>
+            <ReusableInput label={'Email'}
+                           placeholder={"Enter email"}
+                           value={email}
+                           onChangeHandler={handleSubmit}
+                           type={'email'}/>
+            <p>Enter your email address and we will send you further instructions </p>
+            <ReusableButton title={'Submit'} onClickHandler={sendEmailVerificationHandler}/>
+        </PaperContainer>
     );
 };
 

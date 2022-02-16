@@ -1,42 +1,65 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {Register} from "./ui/auth/Register/Register";
-import {Login} from "./ui/auth/Login/Login";
-import {PasswordRecovery} from "./ui/auth/ForgotPass/passwordRecovery";
-import {Routes, Route, useNavigate} from "react-router-dom"
-import {Profile} from "./ui/Profile/Profile";
+import {useLocation, useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "./bll/store";
-import {isAuth, logoutTC} from "./bll/reducers/loginReducer";
+import {logoutTC, setIsLoggedInAC} from "./bll/reducers/loginReducer";
+import Routing, {PATH} from "./ui/Routes/Routes";
+import style from './App.module.css'
+import {ReusableButton} from "./ui/ReusableComponents/ReusableButton/ReusableButton";
+import {isAuthTC} from "./bll/reducers/appReducer";
+import {Login} from "./ui/auth/Login/Login";
+import {restoreState, saveState} from "./dal/localStorage/localStorage";
+
 
 function App() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const isLoggedfromState= useAppSelector<boolean>(state => state.Login.isLogged)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-    const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLoggedIn)
+   let isLoggedIn = restoreState('isLogged', false)
+
 
     useEffect(() => {
-        dispatch(isAuth())
+        dispatch(isAuthTC())
+        if (!isInitialized || !isLoggedfromState || !isLoggedIn) {
+            navigate(PATH.LOGIN_PAGE)} else{
+           return
+        }
+      /* if (isInitialized && isLoggedfromState && isLoggedIn) {
+                return} else{
+            navigate(PATH.LOGIN_PAGE)
+        }*/
+       /* if (isInitialized && !isLoggedIn) {
+            navigate(PATH.LOGIN_PAGE)
+        } else if(!isInitialized && isLoggedIn){
+            navigate(PATH.LOGIN_PAGE)
+        } else if (!isInitialized && !isLoggedIn){
+            navigate(PATH.LOGIN_PAGE)
+        }else {return;}*/
+
     }, [])
-    if (!isInitialized){
-        return <div>loading</div>
-    }
 
-    const logoutHandler = () =>{
+
+const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
-        navigate('/login')
-    }
+    navigate(PATH.LOGIN_PAGE)
+    saveState('isLogged', false)
+    }, [isLoggedIn])
 
+
+   /*const logoutHandler =()=> {
+        navigate(PATH.LOGIN_PAGE)
+        dispatch(logoutTC())
+       saveState('isLogged', false)
+        console.log(isLoggedIn)
+    }*/
     return (
-        <div className="container">
-            {isLoggedIn ? <button onClick={logoutHandler}>logout</button> :''}
-            <Routes>
-                <Route path="/login" element={<Login/>}/>
-                <Route path = "/" element={<Profile/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/passwordRecovery" element={<PasswordRecovery/>}/>
-                <Route path="/profile" element={<Profile/>}/>
-            </Routes>
+        <div className={style.App}>
+            <div className={style.container}>
+                {isLoggedIn && <div className={style.position}><ReusableButton title={'logout'} onClickHandler={logoutHandler}/></div>}
+                <Routing/>
+            </div>
         </div>
     );
 }

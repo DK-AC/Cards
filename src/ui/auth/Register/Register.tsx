@@ -1,22 +1,22 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import styles from './Register.module.css'
 import {useDispatch} from "react-redux";
-import {LoadingType, registerTC} from "../../../bll/reducers/registerReducer";
-import {useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector} from "../../../bll/store";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import LinearProgress from '@mui/material/LinearProgress';
-import ReusableInput from "../../ReusableComponents/reusableInput";
+import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
+import {PATH} from "../../Routes/Routes";
+import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
+import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
+import {registerTC} from "../../../bll/reducers/loginReducer";
+import style from "../Login/Login.module.css";
 
 export const Register = () => {
 
     const dispatch = useDispatch()
-    const isRegister = useAppSelector<boolean>(state => state.register.isRegister)
-    const isLoading = useAppSelector<LoadingType>(state => state.register.isLoading)
+    const isRegister = useAppSelector<boolean>(state => state.Login.isRegister)
+    const isLoading = useAppSelector<RequestStatusType>(state => state.App.status)
 
     const navigate = useNavigate()
 
@@ -24,69 +24,61 @@ export const Register = () => {
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [error, setError] = useState<null | string>(null);
+    const [submitted, setSubmitted] = useState<boolean>(false)
+    const [error, setError] = useState<null | string>(null)
 
-    const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setSubmitted(false)
+    },[setEmail,setSubmitted])
+    const handlePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handleConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setSubmitted(false)
+    },[setPassword, setSubmitted])
+    const handleConfirmPassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.currentTarget.value)
-        setSubmitted(false);
-    }
-    const handleSubmit = () => {
+        setSubmitted(false)
+    },[setConfirmPassword,setSubmitted])
+    const handleSubmit = useCallback(() => {
         if (password === confirmPassword) {
             dispatch(registerTC({email, password}))
             setSubmitted(true)
         } else {
             setError('Пароли не совпадают')
         }
-    }
+    },[registerTC,setSubmitted,dispatch])
+    useEffect(()=>{
+        dispatch(setAppErrorAC(null))
+        if(!isRegister){
+            return
+        }
+    },[dispatch,isRegister])
 
     if (isRegister) {
-        navigate('/login')
+        navigate(PATH.LOGIN_PAGE)
     }
 
     return (
-        <div>
-            <Card>
-                <CardContent>
-                    <CardHeader title={'Cards'} className={styles.header}/>
-                    <CardHeader title={'Sign Up'} className={styles.subheader}/>
-                    <div>
-                        <div>
-                            <ReusableInput value={email}
-                                           placeholder={'Email*'}
-                                           emailForgotHandler={handleEmail}
-                            />
-                        </div>
-                        <div>
-                            <ReusableInput value={password}
-                                           placeholder={'Password*'}
-                                           emailForgotHandler={handlePassword}
-                            />
-                        </div>
-                        <div>
-                            <ReusableInput value={confirmPassword}
-                                           placeholder={'Confirm password*'}
-                                           emailForgotHandler={handleConfirmPassword}
-                            />
-                        </div>
-                    </div>
-                    <ReusableButton title={'Register'}
-                                    callback={handleSubmit}
-                                    disabled={isLoading === 'loading'}
-                    />
-                    {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
-                    {isLoading === 'loading' && <LinearProgress/>}
-                </CardContent>
-            </Card>
-        </div>
+        <PaperContainer title={'Registration'} >
+            <ReusableInput value={email}
+                           placeholder={'Email*'}
+                           onChangeHandler={handleEmail} type={'email'}/>
+            <ReusableInput value={password}
+                           placeholder={'Password*'}
+                           onChangeHandler={handlePassword}
+                           type={'password'}
+            />
+            <ReusableInput value={confirmPassword}
+                           placeholder={'Confirm password*'}
+                           onChangeHandler={handleConfirmPassword}
+                           type={'password'}
+            />
+            <ReusableButton title={'Register'}
+                            onClickHandler={handleSubmit}
+                            disabled={isLoading === 'loading'}
+            />
+            <NavLink to={PATH.LOGIN_PAGE} className={style.navLinkStyle}>Already registered?</NavLink>
+            {!submitted ? <div className={styles.error}>{error}</div> : <ErrorSnackbar/>}
+        </PaperContainer>
     );
 };
-

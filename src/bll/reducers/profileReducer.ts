@@ -1,18 +1,20 @@
-const initialState:InitialStateType = {
+const initialState: InitialStateType = {
     _id: '',
     email: '',
     name: '',
-    avatar: '',
     publicCardPacksCount: 0,
     created: new Date(),
     updated: new Date(),
     isAdmin: false,
     verified: false,
     rememberMe: false,
-    error: ''
+    token:'',
+    tokenDeathTime: new Date(),
+    _v:''
+
 }
-export const ProfileReducer = (state:InitialStateType=initialState,action:ProfileMainType):InitialStateType=>{
-    switch (action.type){
+export const ProfileReducer = (state: InitialStateType = initialState, action: ProfileMainType): InitialStateType => {
+    switch (action.type) {
         case "AUTH/SET_PROFILE": {
             return {...state, ...action.data}
         }
@@ -21,7 +23,7 @@ export const ProfileReducer = (state:InitialStateType=initialState,action:Profil
     }
 }
 
-export const setProfile = (data: InitialStateType) => ({
+export const setProfile = (data:any) => ({
     type: 'AUTH/SET_PROFILE', data
 }) as const
 
@@ -29,14 +31,15 @@ export type InitialStateType = {
     _id: string
     email: string
     name: string
-    avatar?: string
     publicCardPacksCount: number
     created: Date
     updated: Date
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
-    error?: string
+    token: string
+    tokenDeathTime: Date
+    _v:string
 }
 
 export type ProfileMainType = SetProfileType

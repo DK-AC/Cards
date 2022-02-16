@@ -5,13 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./bll/store";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
+
+//добавить basename={process.env.PUBLIC_URL} к HashRouter если не заработает
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter >
             <App/>
-        </BrowserRouter>
+        </HashRouter>
     </Provider>,
     document.getElementById('root')
 );

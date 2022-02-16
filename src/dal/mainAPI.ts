@@ -2,38 +2,39 @@ import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
-    // baseURL: 'http://localhost:7542/2.0',
+    //baseURL: 'http://localhost:7542/',
     withCredentials: true,
 })
 
-const messageForEmail: string = `<div style="background-color: lime; padding: 15px"> password recovery link:
-                         <a href='https://dk-ac.github.io/Cards/#/set-new-password/$token$'/>
+
+const messageForEmail: string = `<div style="background-color: lime; padding: 15px"> password recovery link: 
+                         <a href='http://localhost:3000/cards_project/set-new-password/$token$' /> 
                          link</a></div>`
 
 export const authApi = {
 
     login(data: LoginParamsType) {
-        return instance.post<LoginParamsType, AxiosResponse<ResponseType<UserType>>>('auth/login', data)
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<UserType>>>('/auth/login', data)
     },
     logout() {
-        return instance.delete<ResponseType<{ info: string }>>('auth/me', {})
+        return instance.delete<ResponseType<{ info: string }>>('/auth/me', {})
     },
     me() {
-        return instance.post<ResponseType<UserType>>('auth/me', {})
+        return instance.post<ResponseType<UserType>>('/auth/me', {})
     },
     register: (data: RegisterType) => {
         return instance.post<RegisterType, AxiosResponse<ResponseType<UserType>>>('auth/register', data)
     },
-    forgotPassword(email: string, from?: string) {
+    forgotPassword(email: string) {
         const dataForSendLink = {
             email,
-            from: from,
+            from: 'email from us',
             message: messageForEmail
         }
         return instance.post<PasswordRecoveryInitialStateType, AxiosResponse<ResponseType<{ info: string }>>>('auth/forgot', dataForSendLink)
     },
     recowerPassword(data: recowerPasswordType) {
-        return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('auth/set-new-password', data)
+        return instance.post<recowerPasswordType, AxiosResponse<ResponseType<{ info: string }>>>('/auth/set-new-password', data)
     }
 }
 
@@ -60,11 +61,6 @@ export type LoginParamsType = {
     rememberMe: boolean
 }
 
-
-export type RequestResponeType = {
-    info: string
-    error: string
-}
 export type ResponseType<T = {}> = {
     data: T
     error?: string

@@ -1,47 +1,65 @@
+import {Dispatch} from "redux";
+import {authApi} from "../../dal/authApi";
+import {handlerAppError} from "../../utilities/handlerAppError";
+import {setIsLoggedInAC} from "./loginReducer";
+import {setProfile} from "./profileReducer";
+
+
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-const initialState: InitialStateType = {
-    error: null,
-    status: "failed",
+const SET_ERROR = 'appReducer/SET_ERROR'
+const SET_STATUS = 'appReducer/SET_STATUS'
+const SET_IS_INITIALIZED = 'appReducer/SET_IS_INITIALIZED'
+
+const initialState = {
+    error: null as string | null,
+    status: "failed" as RequestStatusType,
     isInitialized: false
 }
+type initialStateType = typeof initialState
 
-export const AppReducer = (state: InitialStateType = initialState, action: AppMainType): InitialStateType => {
+export const AppReducer = (state = initialState, action: AppMainType): initialStateType => {
     switch (action.type) {
-        case "APP/SET_ERROR":
+        case SET_ERROR:
             return {...state, error: action.error}
-        case "APP/SET_STATUS":
+        case SET_STATUS:
             return {...state, status: action.status}
-        case "APP/SET_IS_INITIALIZED":
-            return {...state,isInitialized:true}
+        case SET_IS_INITIALIZED:
+            return {...state, isInitialized: true}
         default:
             return state
     }
 }
 
-export const setAppError = (error: null | string) => ({
-    type: "APP/SET_ERROR", error
-}) as const
+export const setAppErrorAC = (error: null | string) => ({type: SET_ERROR, error}) as const
+export const setAppStatusAC = (status: RequestStatusType) => ({type: SET_STATUS, status}) as const
+export const setIsInitializedAC = () => ({type: SET_IS_INITIALIZED}) as const
 
-export const setAppStatus = (status: RequestStatusType) => ({
-    type: "APP/SET_STATUS", status
-}) as const
 
-export const setIsInitialized = ()=> ({
-    type :"APP/SET_IS_INITIALIZED"
-}) as const
+export const isAuthTC = () => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setAppErrorAC(null))
+        dispatch(setAppStatusAC('loading'));
+        debugger
+        const res = await authApi.me()
 
-type InitialStateType = {
-    error: string | null
-    status: RequestStatusType
-    isInitialized: boolean
+        dispatch(setProfile(res.data))
+        /*dispatch(setIsLoggedInAC(true))*/
+    } catch (error) {
+       handlerAppError(error, dispatch)
+    } finally {
+        dispatch(setIsInitializedAC())
+        dispatch(setAppStatusAC('idle'))
+
+    }
+
 }
 
-export type AppMainType =
-    | SetAppErrorType
+
+export type AppMainType = SetAppErrorType
     | SetAppStatusType
     | SetIsInitialized
 
-type SetAppErrorType = ReturnType<typeof setAppError>
-type SetAppStatusType = ReturnType<typeof setAppStatus>
-type SetIsInitialized = ReturnType<typeof setIsInitialized>
+type SetAppErrorType = ReturnType<typeof setAppErrorAC>
+type SetAppStatusType = ReturnType<typeof setAppStatusAC>
+type SetIsInitialized = ReturnType<typeof setIsInitializedAC>
