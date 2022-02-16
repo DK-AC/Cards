@@ -42,6 +42,7 @@ export const Login = () => {
         if (isLoggedIn) {
             navigate('/profile')
         }
+        debugger
         if (isInitialized && !isLoggedIn) {
             navigate('/login')
         }
