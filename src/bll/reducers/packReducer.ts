@@ -34,7 +34,7 @@ export const PackReducer = (state = initialState, action: PackMainType): initial
             return {...state, ...action.packsINF, cardPacks: action.packsINF.cardPacks}
         }
         case ADD_PACK: {
-            return {...state,cardPacks: [action.newPack, ...state.cardPacks]}
+            return {...state, cardPacks: [action.newPack,  ...state.cardPacks]}
         }
         case DELETE_PACK: {
             return  {...state,
@@ -92,7 +92,7 @@ export const addPackAT = (name?: string): AppThunkType => async (dispatch) => {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         const res = await cardsApi.createNewPack(name)
-        //dispatch(addPackAC(res.data))
+        dispatch(addPackAC(res.data))
         dispatch(setPacksAT())
     } catch (error) {
         handlerAppError(error, dispatch);

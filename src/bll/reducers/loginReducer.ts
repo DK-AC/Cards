@@ -17,7 +17,7 @@ const initialState = {
     email: '',
     isRequestSucceeded: false,
     passwordChanged: false,
-    //idUser:''
+    idUser:''
 };
 
 type initialStateType = typeof initialState
@@ -32,8 +32,8 @@ export const LoginReducer = (state = initialState, action: LoginMainType): initi
             return {...state, isRequestSucceeded: action.isRequestSucceeded}
         case SET_IS_REGISTRATED:
             return {...state, isRegister: action.isRegister}
-        /*case TAKE_ID_USER:
-            return {...state, idUser: action.userID}*/
+        case TAKE_ID_USER:
+            return {...state, idUser: action.userID}
         default:
             return state
     }
@@ -57,7 +57,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
         dispatch(setAppStatusAC('loading'))
         const res= await authApi.login(data)
         dispatch(setIsLoggedInAC(true))
-        //dispatch(takeIDAC(res.data.data._id))
+        dispatch(takeIDAC(res.data._id))
         /*saveState('isLogged', true)*/
     } catch (error) {
         handlerAppError(error, dispatch);

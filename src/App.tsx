@@ -17,7 +17,8 @@ function App() {
     const dispatch = useDispatch()
     const isLoggedfromState= useAppSelector<boolean>(state => state.Login.isLogged)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-   let isLoggedIn = restoreState('isLogged', false)
+     let isLoggedIn = restoreState('isLogged', false)
+
 
 
     useEffect(() => {

@@ -31,7 +31,7 @@ const PacksTable = () => {
     const cardPacksTotalCount= useAppSelector<number>(state=> state.Packs.cardPacksTotalCount)
     const page = useAppSelector<number>(state=>state.Packs.page)
     const pageCount = useAppSelector<number>(state=>state.Packs.pageCount)
-    //const loginedUserID = useAppSelector<string>(state=>state.Login.idUser)
+    const loginedUserID = useAppSelector<string>(state=>state.Login.idUser)
 
 
     useEffect(()=>{
@@ -41,7 +41,9 @@ const PacksTable = () => {
 
         //обработчики колод (добавление, удаление, изменение)
     const handleClickAddPack=()=>{
-        dispatch(addPackAT('testing name for test because test'))}
+        dispatch(addPackAT('testing name for test because test'))
+        dispatch(setPacksAT())
+    }
     const handleClickDeletePack =(packID: string)=>{
         dispatch(deletePackAT(packID))}
     const handleClickEditPack =(packID: string,model: PackType)=>{
@@ -72,7 +74,7 @@ const PacksTable = () => {
                 <TableBody>
                     {packs.map((pack: PackType) => {
                         return <Pack key={`${pack.user_id}+${pack.created}+${pack.name}`}
-                            //loginedUserID = {loginedUserID}
+                                     loginedUserID = {loginedUserID}
                                      pack={pack}
                                      open={true}
                                      delete={handleClickDeletePack}

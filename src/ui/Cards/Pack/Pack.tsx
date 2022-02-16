@@ -4,7 +4,6 @@ import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PackType} from "../../../bll/reducers/packReducer";
-import {useAppSelector} from "../../../bll/store";
 
 
 export type propsType = {
@@ -12,10 +11,10 @@ export type propsType = {
     delete: (id: string) => void,
     edit: (id: string, model: PackType) => void
     open: boolean
-    //loginedUserID: string
+    loginedUserID: string
 }
 
-const Pack = ({pack, ...props}: propsType) => {
+const Pack = ({pack,loginedUserID, ...props}: propsType) => {
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
     const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
@@ -37,7 +36,7 @@ const Pack = ({pack, ...props}: propsType) => {
             <TableCell>some User</TableCell>
             <TableCell>
                 {props.open ? 'open' : ''}
-                 <button onClick={handleDelete}>delete</button>
+                {loginedUserID === pack.user_id && <button onClick={handleDelete}>delete</button>}
                 <button onClick={handleEdit}>edit</button>
             </TableCell>
         </TableRow>

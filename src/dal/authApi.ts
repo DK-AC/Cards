@@ -13,7 +13,7 @@ const messageForEmail: string = `<div style="background-color: lime; padding: 15
 export const authApi = {
 
     login(data: LoginParamsType) {
-        return instance.post<LoginParamsType, AxiosResponse<ResponseType<UserType>>>('auth/login', data)
+        return instance.post<LoginParamsType, AxiosResponse<UserType>>('auth/login', data)
     },
     logout() {
         return instance.delete<ResponseType<{ info: string }>>('auth/me', {})
