@@ -19,6 +19,7 @@ import {setAppErrorAC} from "../../../bll/reducers/appReducer";
 import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
 
 
+
 const PacksTable = () => {
     const dispatch = useDispatch()
 
@@ -62,7 +63,7 @@ const PacksTable = () => {
                         edit={handleClickEditPack}/>
                     })}</TableBody>
             </Table>
-            <Pagenator />
+           <Pagenator currentPage={7} countItemsOnPage={5} totalItems = {10}/>
         </div>
     );
 };
