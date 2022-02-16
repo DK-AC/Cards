@@ -8,6 +8,7 @@ const SET_IS_LOGGED = 'loginReducer/SET_IS_LOGGED_IN'
 const SET_EMAIL_FOR_PASSWORD_RECOVERY = 'loginReducer/PASSWORD-IS-CHANGED'
 const SET_NEW_PASSWORD = 'loginReducer/SET-IS-EMAIL-SUCCEEDED'
 const SET_IS_REGISTRATED = 'loginReducer/SET_IS_REGISTRATED'
+const TAKE_ID_USER = 'loginReducer/TAKE_LOGIN_ID_USER'
 
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     isRegister: false,
     email: '',
     isRequestSucceeded: false,
-    passwordChanged: false
+    passwordChanged: false,
+    idUser:''
 };
 
 type initialStateType = typeof initialState
@@ -30,6 +32,8 @@ export const LoginReducer = (state = initialState, action: LoginMainType): initi
             return {...state, isRequestSucceeded: action.isRequestSucceeded}
         case SET_IS_REGISTRATED:
             return {...state, isRegister: action.isRegister}
+        case TAKE_ID_USER:
+            return {...state, idUser: action.userID}
         default:
             return state
     }
@@ -43,6 +47,7 @@ export const isPasswordRecoverySucceededAC = (isRequestSucceeded: boolean) => ({
     isRequestSucceeded
 }) as const
 export const setIsRegisterAC = (isRegister: boolean) => ({type: SET_IS_REGISTRATED, isRegister}) as const
+export const takeIDAC = (userID: string) => ({type: TAKE_ID_USER, userID}) as const
 
 
 //thunks
@@ -50,8 +55,9 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        await authApi.login(data)
+        const res= await authApi.login(data)
         dispatch(setIsLoggedInAC(true))
+        dispatch(takeIDAC(res.data._id))
         /*saveState('isLogged', true)*/
     } catch (error) {
         handlerAppError(error, dispatch);
@@ -65,6 +71,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         dispatch(setAppStatusAC('loading'))
         await authApi.logout()
         dispatch(setIsLoggedInAC(false))
+        //dispatch(takeIDAC(''))
         /*saveState('isLogged', false)*/
     } catch (error) {
         handlerAppError(error, dispatch);
@@ -110,9 +117,10 @@ export const registerTC = (data: RegisterType) => async (dispatch: Dispatch) => 
     }
 }
 
+export type takeIDAT = ReturnType<typeof takeIDAC>
 
 export type LoginMainType = ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setEmailForPasswordAC>
     | ReturnType<typeof isPasswordRecoverySucceededAC>
-    | ReturnType<typeof setIsRegisterAC> | AppMainType
+    | ReturnType<typeof setIsRegisterAC> | AppMainType |takeIDAT
 
