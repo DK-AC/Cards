@@ -15,22 +15,28 @@ import {restoreState, saveState} from "./dal/localStorage/localStorage";
 function App() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    //const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
+    const isLoggedfromState= useAppSelector<boolean>(state => state.Login.isLogged)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-    let isLoggedIn = restoreState('isLogged', false)
+   let isLoggedIn = restoreState('isLogged', false)
 
 
     useEffect(() => {
         dispatch(isAuthTC())
-        if (isInitialized && isLoggedIn) {
+        if (!isInitialized || !isLoggedfromState || !isLoggedIn) {
+            navigate(PATH.LOGIN_PAGE)} else{
+           return
+        }
+      /* if (isInitialized && isLoggedfromState && isLoggedIn) {
                 return} else{
             navigate(PATH.LOGIN_PAGE)
-        }
-        /*if (isInitialized && !isLoggedIn) {
+        }*/
+       /* if (isInitialized && !isLoggedIn) {
             navigate(PATH.LOGIN_PAGE)
         } else if(!isInitialized && isLoggedIn){
             navigate(PATH.LOGIN_PAGE)
-        }*/
+        } else if (!isInitialized && !isLoggedIn){
+            navigate(PATH.LOGIN_PAGE)
+        }else {return;}*/
 
     }, [])
 

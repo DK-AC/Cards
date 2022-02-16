@@ -5,7 +5,7 @@ import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Pack  from "./Pack";
-import {TableBody, TableHead} from "@mui/material";
+import { TableBody, TableHead} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {
     addPackAT,
@@ -16,6 +16,7 @@ import {
 } from "../../../bll/reducers/packReducer";
 import {useAppSelector} from "../../../bll/store";
 import {setAppErrorAC} from "../../../bll/reducers/appReducer";
+import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
 
 
 const PacksTable = () => {
@@ -41,9 +42,9 @@ const PacksTable = () => {
 
     return (
         <div>
+            <button  onClick={handleClickAddPack}>Add Pack</button>
             <Table>
                 <TableHead>
-                    <button  onClick={handleClickAddPack}>Add Pack</button>
                     <TableRow>
                     <TableCell>Pack Name</TableCell>
                     <TableCell variant="head">Cards</TableCell>
@@ -61,6 +62,7 @@ const PacksTable = () => {
                         edit={handleClickEditPack}/>
                     })}</TableBody>
             </Table>
+            <Pagenator />
         </div>
     );
 };
