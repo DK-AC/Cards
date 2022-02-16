@@ -40,7 +40,6 @@ const PasswordUpdate = () => {
     };
 
 
-
     return (
         <div>
             <FormControl sx={{m: 1, width: '25ch'}} variant="standard">
