@@ -48,7 +48,7 @@ export type PackMainType = AppMainType | ReturnType<typeof setPacksAC>
     | ReturnType<typeof addPackAC> | ReturnType<typeof deletePackAC> | ReturnType<typeof changePackAC>
 
 
-export const setPacksAT = (params: ParamsPackType) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const setPacksAT = (params: ParamsPackType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
         dispatch(setAppErrorAC(null))
@@ -68,7 +68,7 @@ export const addPackAT = (params: ParamsPackType, name?: string): AppThunkType =
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        const res = await cardsApi.createNewPack(name)
+        await cardsApi.createNewPack(name)
         //dispatch(addPackAC(res.data))
         dispatch(setPacksAT(params))
 

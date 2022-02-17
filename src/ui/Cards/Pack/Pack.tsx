@@ -5,7 +5,6 @@ import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PackType} from "../../../bll/reducers/packReducer";
 import {IconButton} from "@mui/material";
-import {red} from "@mui/material/colors";
 import EditIcon from '@mui/icons-material/Edit';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
