@@ -40,7 +40,6 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
-        debugger
         const res = await authApi.me()
 
         dispatch(setProfile(res.data))

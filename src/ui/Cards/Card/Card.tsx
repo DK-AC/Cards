@@ -1,36 +1,45 @@
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 import React from 'react';
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
+import { CardType } from '../../../bll/reducers/cardReducer';
 
-const Card = ({}) => {
+type CardPropsType = {
+    card: CardType
+    delete: () => void
+    edit: () => void
+    open: boolean
+    loginedUserID: string
+}
 
-    // const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
-    // const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
-    //
-    //
-    //
-    // const handleDelete = () => {
-    //     pack._id && props.delete(pack._id)
-    // }
-    // const handleEdit = () => {
-    //     pack._id && props.edit(pack._id, {name: 'changed name'})
-    // }
+const Card = ({card, loginedUserID, ...props}: CardPropsType) => {
+
+    const dateUpdate = card.updated && new Date(card.updated).toLocaleDateString();
+    const dateCreated = card.created && new Date(card.created).toLocaleDateString();
+
+    const handleDelete = () => {
+        card._id && props.delete()
+        // card._id && props.delete(card._id)
+    }
+    const handleEdit = () => {
+        card._id && props.edit()
+        // card._id && props.edit(card._id, {name: 'changed name'})
+    }
 
     return (
-        <div>123</div>
-    //     <TableRow>
-    //         <TableCell>{pack.name}</TableCell>
-    //         <TableCell>{pack.cardsCount}</TableCell>
-    //         <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
-    //         <TableCell>some User</TableCell>
-    //         <TableCell>
-    //             {props.open ? 'open' : ''}
-    //             {loginedUserID === pack.user_id && <button onClick={handleDelete}>delete</button>}
-    //             <button onClick={handleEdit}>edit</button>
-    //         </TableCell>
-    //     </TableRow>
+        <TableRow>
+            <TableCell>{card.question}</TableCell>
+            <TableCell>{card.answer}</TableCell>
+            <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
+            <TableCell>Grade</TableCell>
+            <TableCell>
+                {props.open ? 'open' : ''}
+                {loginedUserID === card.user_id && <button onClick={handleDelete}>delete</button>}
+                <button onClick={handleEdit}>edit</button>
+                <button onClick={handleEdit}>delete</button>
+            </TableCell>
+        </TableRow>
     );
 };
 

@@ -5,12 +5,14 @@ import thunk, {ThunkAction} from "redux-thunk";
 import {AppMainType, AppReducer} from "./reducers/appReducer";
 import {ProfileMainType, ProfileReducer} from "./reducers/profileReducer";
 import {PackMainType, PackReducer} from "./reducers/packReducer";
+import {CardMainType, CardReducer} from "./reducers/cardReducer";
 
 export const rootReducer = combineReducers({
     App: AppReducer,
     Login: LoginReducer,
     Profile: ProfileReducer,
-    Packs:PackReducer
+    Packs: PackReducer,
+    Cards: CardReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
@@ -22,6 +24,7 @@ export type AppActionsType =
     | AppMainType
     | ProfileMainType
     | LoginMainType
-    |PackMainType
+    | PackMainType
+    | CardMainType
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>

@@ -8,27 +8,30 @@ const instance = axios.create({
 })
 
 export const cardsApi = {
-    getPacks(params:ParamsPackType) {
-        return instance.get<cardPacksType>('/cards/pack', {params: params })
+    getPacks(params: ParamsPackType) {
+        return instance.get<cardPacksType>('/cards/pack', {params: params})
     },
-    createNewPack(name:string= 'test') {
-        let cardsPack:newPackType = {
+    createNewPack(name: string = 'test') {
+        let cardsPack: newPackType = {
             name: name,
             path: "/def",
             grade: 0,
-            shots: 0 ,
-            rating: 0 ,
+            shots: 0,
+            rating: 0,
             deckCover: "url or base64",
             private: false,
             type: "pack"
         }
         return instance.post<newPackType, AxiosResponse<PackFromServerType>>('/cards/pack', {cardsPack})
     },
-    deletePack(packID: string){
+    deletePack(packID: string) {
         return instance.delete(`/cards/pack?id=${packID}`)
     },
-    changePack(cardsPack:PackType ){
+    changePack(cardsPack: PackType) {
         return instance.put<PackType, AxiosResponse<PackFromServerType>>('/cards/pack', {cardsPack})
+    },
+    getCards(params: ParamsCardType) {
+        return instance.get<CardsType>('/cards/card', {params: params})
     }
 }
 
@@ -67,11 +70,48 @@ export type newPackType = {
 }
 
 export type ParamsPackType = {
-    packName?:string
-    min?:number
-    max?:number
-    sortPacks?:number
-    page?:number
-    pageCount?:number
-    user_id?:string
+    packName?: string
+    min?: number
+    max?: number
+    sortPacks?: number
+    page?: number
+    pageCount?: number
+    user_id?: string
 }
+
+export type ParamsCardType = {
+    cardAnswer?: string
+    cardQuestion?: string
+    cardsPack_id?: string
+    min?: number
+    max?: number
+    sortCards?: number
+    page?: number
+    pageCount?: number
+}
+
+export type CardFromServerType = {
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    rating: number
+    shots: number
+    type: string
+    user_id: string
+    created: string
+    updated: string
+    __v: number
+    _id: string
+}
+
+export type CardsType = {
+    cards: Array<CardFromServerType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId:string
+    page: number
+    pageCount: number
+}
+
