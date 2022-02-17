@@ -4,7 +4,6 @@ import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PackType} from "../../../bll/reducers/packReducer";
-import {useNavigate} from "react-router-dom";
 
 
 export type propsType = {
@@ -13,12 +12,10 @@ export type propsType = {
     edit: (id: string, model: PackType) => void
     open: boolean
     loginedUserID: string
-    goToCard: (id: string|undefined) => void
+    goToCard: (id: string | undefined) => void
 }
 
 const Pack = ({pack, loginedUserID, ...props}: propsType) => {
-
-    const navigate = useNavigate()
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
     const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();

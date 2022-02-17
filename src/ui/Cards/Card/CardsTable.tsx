@@ -8,7 +8,7 @@ import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
 import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
 import {useDispatch} from "react-redux";
 import {setAppErrorAC} from "../../../bll/reducers/appReducer";
-import {CardType, setCardsTC} from "../../../bll/reducers/cardReducer";
+import {addCardTC, CardType, setCardsTC} from "../../../bll/reducers/cardReducer";
 import {useAppSelector} from "../../../bll/store";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import Card from "./Card";
@@ -42,7 +42,7 @@ const CardsTable = () => {
     }, [dispatch, debouncedQuestion, debouncedAnswer, debouncedMin, debouncedMax])
 
     const handleClickAddCard = () => {
-
+        dispatch(addCardTC(params, {cardsPack_id: id, question, answer}))
     }
     const sliderHandler = (event: Event, newValue: number | number[]) => {
         setSliderValue(newValue as number[]);
@@ -71,7 +71,7 @@ const CardsTable = () => {
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}/>
                 <Switch checked={myCards} onChange={showOnlyMyCards}/>
-                <button onClick={handleClickAddCard}>Add Pack</button>
+                <button onClick={handleClickAddCard}>Add Card</button>
             </div>
             <div className={style.Table}>
                 <Table>

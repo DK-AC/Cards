@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {newPackType, PackFromServerType} from "./packsApi";
 
 const instance = axios.create({
     // baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -9,6 +10,9 @@ const instance = axios.create({
 export const cardsApi = {
     getCards(params: ParamsCardType) {
         return instance.get<CardsType>('/cards/card', {params: params})
+    },
+    createNewCard(card:CardFromServerType) {
+        return instance.post<newPackType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     }
 }
 
@@ -24,20 +28,20 @@ export type ParamsCardType = {
 }
 
 export type CardFromServerType = {
-    _id: string
-    cardsPack_id: string
-    user_id: string
-    answer: string
-    question: string
-    grade: number
-    shots: number
-    comments: string
-    type: string
-    rating: number
-    more_id: string
-    created: string
-    updated: string
-    __v: number
+    _id?: string | undefined
+    cardsPack_id: string | undefined
+    user_id?: string
+    answer: "no question" | string
+    question: "no answer" | string
+    grade?: number
+    shots?: number
+    comments?: string
+    type?: "card" | string
+    rating?: number
+    more_id?: string
+    created?: string
+    updated?: string
+    __v?: number
 }
 
 export type CardsType = {
@@ -49,3 +53,4 @@ export type CardsType = {
     minGrade: number
     maxGrade: number
 }
+
