@@ -63,15 +63,15 @@ export const setPacksAT = (params: ParamsPackType) => async (dispatch: Dispatch,
 }
 
 export const addPackAT = (params: ParamsPackType, name?: string): AppThunkType => async (dispatch) => {
-    const newParams = {...params, packName: name}
+    //const newParams = {...params, packName: name}
 
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         const res = await cardsApi.createNewPack(name)
-        dispatch(addPackAC(res.data))
-        dispatch(setPacksAT(newParams))
-        debugger
+        //dispatch(addPackAC(res.data))
+        dispatch(setPacksAT(params))
+
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {

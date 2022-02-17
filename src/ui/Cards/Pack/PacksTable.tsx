@@ -59,7 +59,7 @@ const PacksTable = () => {
         page: currentPage,
         pageCount
     }
-  debugger
+
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         isInitialized && dispatch(setPacksAT(params))
@@ -96,7 +96,7 @@ const PacksTable = () => {
             <div className={style.settingsMenu}>
                 <div className={style.column}>
                     <div>All<Switch checked={myPacks} onChange={showOnlyMyPacks}/> My</div>
-                    <Button variant="outlined" color={'secondary'}
+                    <Button variant="outlined" color={'secondary'} disabled={status==='loading'}
                             startIcon={<ControlPointIcon/>}
                             onClick={handleClickAddPack}>
                         Add Pack

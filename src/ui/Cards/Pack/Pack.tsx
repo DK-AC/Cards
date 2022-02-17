@@ -9,6 +9,8 @@ import {red} from "@mui/material/colors";
 import EditIcon from '@mui/icons-material/Edit';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import {useAppSelector} from "../../../bll/store";
+import {RequestStatusType} from "../../../bll/reducers/appReducer";
 
 
 export type propsType = {
@@ -19,6 +21,8 @@ export type propsType = {
 }
 
 const Pack = ({pack, loginedUserID, ...props}: propsType) => {
+
+    const status = useAppSelector<RequestStatusType>(store => store.App.status)
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
     const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
@@ -44,17 +48,17 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>some User</TableCell>
             <TableCell>
-                <IconButton aria-label="open" onClick={handleOpen}>
-                    <ExitToAppIcon color="secondary"/>
+                <IconButton aria-label="open" onClick={handleOpen} disabled={status==='loading'}>
+                    <ExitToAppIcon color = {status==='loading'? "disabled": "secondary"} />
                 </IconButton>
                 {loginedUserID === pack.user_id &&
-                <IconButton aria-label="edit" onClick={handleEdit}>
-                    <EditIcon color="action"/>
+                <IconButton aria-label="edit" onClick={handleEdit} disabled={status==='loading'}>
+                    <EditIcon color={status==='loading'? "disabled":"action"}/>
                 </IconButton>
                 }
                 {loginedUserID === pack.user_id &&
-                <IconButton aria-label="delete" onClick={handleDelete}>
-                    <HighlightOffIcon sx={{color: red[900]}}/>
+                <IconButton aria-label="delete" onClick={handleDelete} disabled={status==='loading'}>
+                    <HighlightOffIcon  color={status==='loading'? "disabled":"error"}/>
                 </IconButton>
                 }
             </TableCell>
