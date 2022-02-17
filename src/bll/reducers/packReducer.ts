@@ -70,7 +70,7 @@ export const addPackAT = (params: ParamsPackType, name?: string): AppThunkType =
         dispatch(setAppStatusAC('loading'))
         await cardsApi.createNewPack(name)
         //dispatch(addPackAC(res.data))
-        dispatch(setPacksAT(params))
+        await dispatch(setPacksAT(params))
 
     } catch (error) {
         handlerAppError(error, dispatch);
@@ -84,7 +84,7 @@ export const deletePackAT = (packID: string, params: ParamsPackType): AppThunkTy
         dispatch(setAppStatusAC('loading'))
         await cardsApi.deletePack(packID)
         dispatch(deletePackAC(packID))
-        dispatch(setPacksAT(params))
+        await dispatch(setPacksAT(params))
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
@@ -101,7 +101,7 @@ export const changePackTC = (packID: string, modelPack: PackType, params: Params
         dispatch(setAppStatusAC('loading'))
         const res = await cardsApi.changePack(apiModel)
         dispatch(changePackAC(res.data))
-        dispatch(setPacksAT(params))
+        await dispatch(setPacksAT(params))
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
