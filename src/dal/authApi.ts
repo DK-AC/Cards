@@ -1,9 +1,11 @@
 import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    // baseURL: 'http://localhost:7542/2.0',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0',
+    baseURL: 'http://localhost:7542/2.0',
     withCredentials: true,
+    // переменное окружение
+    // baseURL: process.env.REACT_APP_BASE_URL||'http://localhost:7542/2.0',
 })
 
 const messageForEmail: string = `<div style="background-color: lime; padding: 15px"> password recovery link:
