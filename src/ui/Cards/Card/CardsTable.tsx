@@ -19,6 +19,7 @@ import {useAppSelector} from "../../../bll/store";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import Card from "./Card";
 import {useParams} from "react-router-dom";
+import { ReusableButton } from '../../ReusableComponents/ReusableButton/ReusableButton';
 
 const CardsTable = () => {
     const dispatch = useDispatch()
@@ -71,8 +72,8 @@ const CardsTable = () => {
     return (
         <PaperContainer title={`My Card's list`} tableStyle={true}>
             <div className={style.callSettingsMenu}>
-                {/*<ReusableButton title={'Add Pack'} onClickHandler={() => {}} size={'small'}*/}
-                {/*                color={'secondary'}/>*/}
+                <ReusableButton title={'Add Card'} onClickHandler={handleClickAddCard} size={'small'}
+                                color={'secondary'}/>
                 {/*<Search searchValue={question} onChangeSearch={onChangeSearchQuestion}/>*/}
                 {/*<Search searchValue={answer} onChangeSearch={onChangeSearchAnswer}/>*/}
 
@@ -96,7 +97,7 @@ const CardsTable = () => {
                     </TableHead>
                     <TableBody>
                         {cards.map((card: CardType) => {
-                            return <Card key={card._id}
+                            return <Card key={`${card.user_id}+${card.created}+${card.updated}`}
                                          question={card.question}
                                          grade={card.grade}
                                          answer={card.answer}

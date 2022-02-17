@@ -9,7 +9,6 @@ type CardPropsType = {
     answer: string
     updated: string
     grade: string
-
 }
 
 const Card = ({grade, question, answer, updated}: CardPropsType) => {
@@ -22,10 +21,10 @@ const Card = ({grade, question, answer, updated}: CardPropsType) => {
             <TableCell>{answer}</TableCell>
             <TableCell>{dateUpdate}</TableCell>
             <TableCell>{grade}</TableCell>
-            <TableCell>
-                {/*<button onClick={()=>{}}>delete</button>*/}
-                {/*<button onClick={()=>{}}>edit</button>*/}
-            </TableCell>
+            {/*<TableCell>*/}
+            {/*    <button onClick={()=>{}}>delete</button>*/}
+            {/*    <button onClick={()=>{}}>edit</button>*/}
+            {/*</TableCell>*/}
         </TableRow>
     );
 };

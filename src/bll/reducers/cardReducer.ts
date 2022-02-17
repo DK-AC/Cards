@@ -12,7 +12,7 @@ const CHANGE_CARD_COUNT_ITEMS = 'cardReducer/CHANGE_CARD_COUNT_ITEMS'
 const initialState = {
     cards: [] as Array<CardType>,
     page: 1,
-    pageCount: 1000,
+    pageCount: 5,
     cardsTotalCount: 0,
     maxGrade: 0,
     minGrade: 0,
