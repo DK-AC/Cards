@@ -1,7 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from "../Card/CardsTable.module.css";
-import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
-import {Search} from "../../ReusableComponents/Search/Search";
 import {Slider, Switch, TableBody, TableHead} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
@@ -14,9 +12,12 @@ import {CardType, setCardsTC} from "../../../bll/reducers/cardReducer";
 import {useAppSelector} from "../../../bll/store";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import Card from "./Card";
+import {useParams} from "react-router-dom";
 
 const CardsTable = () => {
     const dispatch = useDispatch()
+    const {id} = useParams<{ id: string }>();
+
     const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     const userId = useAppSelector<string>(state => state.Profile._id)
@@ -28,15 +29,11 @@ const CardsTable = () => {
     const debouncedAnswer = useDebounce(answer, 500)
     const debouncedMin = useDebounce(sliderValue[0], 500)
     const debouncedMax = useDebounce(sliderValue[1], 500)
-    const user_id = myCards ? userId : ''
-    const loginedUserID = useAppSelector<string>(state=>state.Login.idUser)
+    const loginedUserID = useAppSelector<string>(state => state.Login.idUser)
+
 
     const params = {
-        question,
-        answer,
-        min: sliderValue[0],
-        max: sliderValue[1],
-        user_id
+        cardsPack_id: id,
     }
 
     useEffect(() => {
@@ -63,11 +60,10 @@ const CardsTable = () => {
     return (
         <PaperContainer title={`My Card's list`} tableStyle={true}>
             <div className={style.callSettingsMenu}>
-                <ReusableButton title={'Add Pack'} onClickHandler={() => {
-                }} size={'small'}
-                                color={'secondary'}/>
-                <Search searchValue={question} onChangeSearch={onChangeSearchQuestion}/>
-                <Search searchValue={answer} onChangeSearch={onChangeSearchAnswer}/>
+                {/*<ReusableButton title={'Add Pack'} onClickHandler={() => {}} size={'small'}*/}
+                {/*                color={'secondary'}/>*/}
+                {/*<Search searchValue={question} onChangeSearch={onChangeSearchQuestion}/>*/}
+                {/*<Search searchValue={answer} onChangeSearch={onChangeSearchAnswer}/>*/}
 
                 <Slider value={sliderValue}
                         onChange={sliderHandler}
@@ -89,12 +85,13 @@ const CardsTable = () => {
                     </TableHead>
                     <TableBody>
                         {cards.map((card: CardType) => {
-                            return <Card key={`${card.user_id}+${card.created}+${card.question}`}
-                                         loginedUserID={loginedUserID}
-                                         card={card}
-                                         open={true}
-                                         delete={()=>{}}
-                                         edit={()=>{}}/>
+                            console.log(card)
+                            return <Card key={card._id}
+                                         question={card.question}
+                                         grade={card.grade}
+                                         answer={card.answer}
+                                         updated={card.updated}
+                            />
                         })}
                     </TableBody>
                 </Table>

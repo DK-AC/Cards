@@ -22,10 +22,12 @@ import style from './PacksTable.module.css'
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
 import {Search} from "../../ReusableComponents/Search/Search";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
+import {useNavigate} from "react-router-dom";
 
 
 const PacksTable = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     const userId = useAppSelector<string>(state=>state.Profile._id)
@@ -77,6 +79,9 @@ const PacksTable = () => {
     const showOnlyMyPacks = () => {
         setMyPacks(!myPacks)
     }
+    const goToCard = (id:string) => {
+        navigate(`/cards/${id}`)
+    }
 
     return (
         <PaperContainer title={`My Pack's list`} tableStyle={true}>
@@ -111,6 +116,7 @@ const PacksTable = () => {
                                      pack={pack}
                                      open={true}
                                      delete={handleClickDeletePack}
+                                     goToCard={goToCard}
                         edit={handleClickEditPack}/>
                     })}</TableBody>
             </Table>

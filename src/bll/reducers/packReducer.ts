@@ -1,5 +1,5 @@
 import {AppMainType, isAuthTC, setAppErrorAC, setAppStatusAC, setIsInitializedAC} from "./appReducer";
-import {cardPacksType,cardsApi, newPackType, PackFromServerType,ParamsPackType} from "../../dal/cardsApi";
+import {cardPacksType,packsApi, newPackType, PackFromServerType,ParamsPackType} from "../../dal/packsApi";
 import {authApi} from "../../dal/authApi";
 import {handlerAppError} from "../../utilities/handlerAppError";
 import {Dispatch} from "redux";
@@ -78,7 +78,7 @@ export const setPacksAT = (params:ParamsPackType) => async (dispatch: Dispatch, 
         dispatch(setAppStatusAC('loading'))
         dispatch(setAppErrorAC(null))
         //Page pageCount
-        const res = await cardsApi.getPacks(params)
+        const res = await packsApi.getPacks(params)
         dispatch(setPacksAC(res.data))
     } catch (error) {
         handlerAppError(error, dispatch)
@@ -92,7 +92,7 @@ export const addPackAT =(params:ParamsPackType, name?:string):AppThunkType => as
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        const res= await cardsApi.createNewPack(name)
+        const res= await packsApi.createNewPack(name)
         dispatch(addPackAC(res.data))
         dispatch(setPacksAT(params))
     } catch (error) {
@@ -105,7 +105,7 @@ export const deletePackAT=(packID: string,params:ParamsPackType):AppThunkType =>
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        await cardsApi.deletePack(packID)
+        await packsApi.deletePack(packID)
         dispatch(deletePackAC(packID))
         dispatch(setPacksAT(params))
     } catch (error) {
@@ -122,7 +122,7 @@ export const changePackTC =(packID: string, modelPack:PackType,params:ParamsPack
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        const res = await cardsApi.changePack(apiModel)
+        const res = await packsApi.changePack(apiModel)
         dispatch(changePackAC(res.data))
         dispatch(setPacksAT(params))
     } catch (error) {

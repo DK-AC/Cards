@@ -1,8 +1,8 @@
-import {cardsApi, CardsType, ParamsCardType} from "../../dal/cardsApi";
 import {AppMainType, setAppErrorAC, setAppStatusAC, setIsInitializedAC} from "./appReducer";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
 import {handlerAppError} from "../../utilities/handlerAppError";
+import {cardsApi, CardsType, ParamsCardType} from "../../dal/cardsApi";
 
 const SET_CARDS = 'cardReducer/SET_CARDS'
 
@@ -26,7 +26,6 @@ type initialStateType = typeof initialState
 export const CardReducer = (state = initialState, action: CardMainType): initialStateType => {
     switch (action.type) {
         case SET_CARDS: {
-            debugger
             return {...state, ...action.cards}
         }
         default:
@@ -35,7 +34,6 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
     }
 }
 
-
 //actions
 export const setCardsAC = (cards: CardsType) => ({type: SET_CARDS, cards} as const)
 
@@ -43,19 +41,10 @@ export const setCardsAC = (cards: CardsType) => ({type: SET_CARDS, cards} as con
 export const setCardsTC = (params: ParamsCardType) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const cards = getState().Cards
     try {
-        const response = await cardsApi.getCards({
-            cardsPack_id: cards.currentCardsPackID || params?.cardsPack_id,
-            page: cards.page,
-            pageCount: params?.pageCount || cards.pageCount,
-            min: cards.currentGrade[0],
-            max: cards.currentGrade[1],
-            cardQuestion: params?.cardQuestion || undefined,
-            cardAnswer: params?.cardAnswer || undefined,
-            sortCards: cards.sortCardsMethod
-        })
+        const res = await cardsApi.getCards(params)
         dispatch(setAppStatusAC('loading'))
         dispatch(setAppErrorAC(null))
-        dispatch(setCardsAC(response.data))
+        dispatch(setCardsAC(res.data))
     } catch (error) {
         handlerAppError(error, dispatch)
     } finally {

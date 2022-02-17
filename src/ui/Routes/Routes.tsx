@@ -19,7 +19,7 @@ export const PATH = {
     CHECK_EMAIL_PAGE: '/check_email',
     CREATE_NEW_PASSWORD_PAGE: '/set-new-password/:token',
     PACKS_TABLE_PAGE: '/packs',
-    CARDS_TABLE_PAGE:'/cards'
+    CARDS_TABLE_PAGE:'/cards/:id'
 }
 
 

@@ -4,8 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PackType} from "../../../bll/reducers/packReducer";
-import {NavLink, useNavigate} from "react-router-dom";
-import {PATH} from "../../Routes/Routes";
+import {useNavigate} from "react-router-dom";
 
 
 export type propsType = {
@@ -14,15 +13,15 @@ export type propsType = {
     edit: (id: string, model: PackType) => void
     open: boolean
     loginedUserID: string
+    goToCard: (id: string|undefined) => void
 }
 
-const Pack = ({pack,loginedUserID, ...props}: propsType) => {
+const Pack = ({pack, loginedUserID, ...props}: propsType) => {
 
     const navigate = useNavigate()
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
     const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
-
 
 
     const handleDelete = () => {
@@ -31,8 +30,9 @@ const Pack = ({pack,loginedUserID, ...props}: propsType) => {
     const handleEdit = () => {
         pack._id && props.edit(pack._id, {name: 'changed name'})
     }
-    const goToCard = () => {
-        navigate(PATH.CARDS_TABLE_PAGE)
+    const goToCardHandle = () => {
+        props.goToCard(pack._id)
+
     }
 
 
@@ -46,7 +46,7 @@ const Pack = ({pack,loginedUserID, ...props}: propsType) => {
                 {props.open ? 'open' : ''}
                 {loginedUserID === pack.user_id && <button onClick={handleDelete}>delete</button>}
                 <button onClick={handleEdit}>edit</button>
-                <button onClick={goToCard}>card</button>
+                <button onClick={goToCardHandle}>card</button>
             </TableCell>
         </TableRow>
     );

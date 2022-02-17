@@ -3,42 +3,26 @@ import TableRow from '@mui/material/TableRow';
 import React from 'react';
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
-import { CardType } from '../../../bll/reducers/cardReducer';
 
 type CardPropsType = {
-    card: CardType
-    delete: () => void
-    edit: () => void
-    open: boolean
-    loginedUserID: string
+    question: string
+    answer: string
+    updated: string
+    grade: string
+
 }
 
-const Card = ({card, loginedUserID, ...props}: CardPropsType) => {
+const Card = ({grade, question, answer, updated}: CardPropsType) => {
 
-    const dateUpdate = card.updated && new Date(card.updated).toLocaleDateString();
-    const dateCreated = card.created && new Date(card.created).toLocaleDateString();
-
-    const handleDelete = () => {
-        card._id && props.delete()
-        // card._id && props.delete(card._id)
-    }
-    const handleEdit = () => {
-        card._id && props.edit()
-        // card._id && props.edit(card._id, {name: 'changed name'})
-    }
+    // const dateUpdate = card.updated && new Date(card.updated).toLocaleDateString();
+    // const dateCreated = card.created && new Date(card.created).toLocaleDateString();
 
     return (
         <TableRow>
-            <TableCell>{card.question}</TableCell>
-            <TableCell>{card.answer}</TableCell>
-            <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
-            <TableCell>Grade</TableCell>
-            <TableCell>
-                {props.open ? 'open' : ''}
-                {loginedUserID === card.user_id && <button onClick={handleDelete}>delete</button>}
-                <button onClick={handleEdit}>edit</button>
-                <button onClick={handleEdit}>delete</button>
-            </TableCell>
+            <TableCell>{question}</TableCell>
+            <TableCell>{answer}</TableCell>
+            <TableCell>{updated}</TableCell>
+            <TableCell>{grade}</TableCell>
         </TableRow>
     );
 };
