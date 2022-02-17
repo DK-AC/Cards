@@ -5,6 +5,7 @@ import {setIsLoggedInAC} from "./loginReducer";
 import {setProfile} from "./profileReducer";
 
 
+
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const SET_ERROR = 'appReducer/SET_ERROR'
@@ -40,19 +41,15 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
-        debugger
-        const res = await authApi.me()
-
+        const res= await authApi.me()
+        dispatch(setIsLoggedInAC(true))
         dispatch(setProfile(res.data))
-        /*dispatch(setIsLoggedInAC(true))*/
     } catch (error) {
-       handlerAppError(error, dispatch)
+        handlerAppError(error, dispatch)
     } finally {
         dispatch(setIsInitializedAC())
         dispatch(setAppStatusAC('idle'))
-
     }
-
 }
 
 

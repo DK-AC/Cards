@@ -4,23 +4,32 @@ import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PackType} from "../../../bll/reducers/packReducer";
+import {IconButton} from "@mui/material";
+import {red} from "@mui/material/colors";
+import EditIcon from '@mui/icons-material/Edit';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
 export type propsType = {
     pack: PackType
     delete: (id: string) => void,
     edit: (id: string, model: PackType) => void
-    open: boolean
     loginedUserID: string
 }
 
-const Pack = ({pack,loginedUserID, ...props}: propsType) => {
+const Pack = ({pack, loginedUserID, ...props}: propsType) => {
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
     const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
 
-
-
+//cb чтобы открыть карточку
+    const handleOpen = () => {
+        //open()
+        // useNavigate? or <Navlink>
+        //нужно ли передать ф-ю cb через пропсы?
+        console.log('loginedUserID:', loginedUserID, 'pack.user_id: ', pack.user_id)
+    }
     const handleDelete = () => {
         pack._id && props.delete(pack._id)
     }
@@ -35,9 +44,19 @@ const Pack = ({pack,loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>some User</TableCell>
             <TableCell>
-                {props.open ? 'open' : ''}
-                {loginedUserID === pack.user_id && <button onClick={handleDelete}>delete</button>}
-                <button onClick={handleEdit}>edit</button>
+                <IconButton aria-label="open" onClick={handleOpen}>
+                    <ExitToAppIcon color="secondary"/>
+                </IconButton>
+                {loginedUserID === pack.user_id &&
+                <IconButton aria-label="edit" onClick={handleEdit}>
+                    <EditIcon color="action"/>
+                </IconButton>
+                }
+                {loginedUserID === pack.user_id &&
+                <IconButton aria-label="delete" onClick={handleDelete}>
+                    <HighlightOffIcon sx={{color: red[900]}}/>
+                </IconButton>
+                }
             </TableCell>
         </TableRow>
     );

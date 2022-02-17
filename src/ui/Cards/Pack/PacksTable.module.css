@@ -1,12 +1,35 @@
-.Table{
+.Table {
     overflow: auto;
-    width: 100%;
+    max-width: 900px;
     height: 100%;
-    border: 2px solid rgba(60, 45, 61, 0.3);
+    border: 2px solid rgba(224, 224, 224, 1);
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
     border-radius: 5px;
-    margin: 10px 0;
 }
-.callSettingsMenu{
-    display: inline-block;
 
+
+.settingsMenu {
+    position: absolute;
+    top: 64px;
+    display: flex;
+    min-width: 500px;
+    height: 80px;
+    justify-content: space-around;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    margin-top: 180px;
+    min-height: 80px;
+}
+
+.loadind {
+    position: absolute;
+    z-index: 1;
+    top: 200px;
+    left: 480px;
 }
