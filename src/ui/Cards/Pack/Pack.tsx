@@ -29,7 +29,6 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
     }
     const goToCardHandle = () => {
         props.goToCard(pack._id)
-
     }
 
 

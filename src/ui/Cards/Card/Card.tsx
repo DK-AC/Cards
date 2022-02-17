@@ -14,15 +14,18 @@ type CardPropsType = {
 
 const Card = ({grade, question, answer, updated}: CardPropsType) => {
 
-    // const dateUpdate = card.updated && new Date(card.updated).toLocaleDateString();
-    // const dateCreated = card.created && new Date(card.created).toLocaleDateString();
+    const dateUpdate = updated && new Date(updated).toLocaleDateString();
 
     return (
         <TableRow>
             <TableCell>{question}</TableCell>
             <TableCell>{answer}</TableCell>
-            <TableCell>{updated}</TableCell>
+            <TableCell>{dateUpdate}</TableCell>
             <TableCell>{grade}</TableCell>
+            <TableCell>
+                {/*<button onClick={()=>{}}>delete</button>*/}
+                {/*<button onClick={()=>{}}>edit</button>*/}
+            </TableCell>
         </TableRow>
     );
 };
