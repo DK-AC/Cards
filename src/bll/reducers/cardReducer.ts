@@ -19,6 +19,7 @@ type initialStateType = typeof initialState
 export const CardReducer = (state = initialState, action: CardMainType): initialStateType => {
     switch (action.type) {
         case SET_CARDS: {
+            console.log(action.cards.cardsTotalCount)
             return {...state, cards: action.cards.cards, cardsTotalCount: action.cards.cardsTotalCount}
         }
         case ADD_CARD: {
@@ -67,8 +68,8 @@ export const addCardTC = (params: ParamsCardType, card: CardFromServerType): App
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         await cardsApi.createNewCard(card)
-        dispatch(addCardAC(card))
-        await dispatch(setCardsTC({cardsPack_id: params.cardsPack_id}))
+        // dispatch(addCardAC(card))
+        await dispatch(setCardsTC(params))
     } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
@@ -80,7 +81,7 @@ export const deleteCardTC = (cardId: string | undefined, params: CardType): AppT
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         await cardsApi.deleteCard(cardId)
-        dispatch(deleteCardAC(cardId))
+        // dispatch(deleteCardAC(cardId))
         await dispatch(setCardsTC(params))
     } catch (error) {
         handlerAppError(error, dispatch);
@@ -97,7 +98,7 @@ export const changeCardTC = (cardID: string, modelPack: CardFromServerType, para
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         const res = await cardsApi.changeCard(apiModel)
-        dispatch(changeCardAC(res.data))
+        // dispatch(changeCardAC(res.data))
         await dispatch(setCardsTC(params))
     } catch (error) {
         handlerAppError(error, dispatch);

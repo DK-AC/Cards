@@ -42,7 +42,7 @@ const CardsTable = () => {
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         isInitialized && dispatch(setCardsTC(params))
-    }, [dispatch])
+    }, [dispatch, cardsTotalCount, pageCount, currentPage])
 
     const handleClickAddCard = () => {
         dispatch(addCardTC(params, {cardsPack_id: id}))
