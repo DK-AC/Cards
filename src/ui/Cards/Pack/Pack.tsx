@@ -10,6 +10,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import {useNavigate} from "react-router-dom";
 
 
 export type propsType = {
@@ -21,6 +22,8 @@ export type propsType = {
 
 const Pack = ({pack, loginedUserID, ...props}: propsType) => {
 
+    const navigate = useNavigate()
+
     const status = useAppSelector<RequestStatusType>(store => store.App.status)
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
@@ -28,6 +31,7 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
 
 //cb чтобы открыть карточку
     const handleOpen = () => {
+        navigate(`/cards/${pack._id}`)
         //open()
         // useNavigate? or <Navlink>
         //нужно ли передать ф-ю cb через пропсы?
@@ -47,18 +51,18 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>some User</TableCell>
             <TableCell>
-                <IconButton aria-label="open" onClick={handleOpen} disabled={status==='loading'}>
-                    <ExitToAppIcon color = {status==='loading'? "disabled": "secondary"} />
+                <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
+                    <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
                 </IconButton>
                 {loginedUserID === pack.user_id &&
-                <IconButton aria-label="edit" onClick={handleEdit} disabled={status==='loading'}>
-                    <EditIcon color={status==='loading'? "disabled":"action"}/>
-                </IconButton>
+                    <IconButton aria-label="edit" onClick={handleEdit} disabled={status === 'loading'}>
+                        <EditIcon color={status === 'loading' ? "disabled" : "action"}/>
+                    </IconButton>
                 }
                 {loginedUserID === pack.user_id &&
-                <IconButton aria-label="delete" onClick={handleDelete} disabled={status==='loading'}>
-                    <HighlightOffIcon  color={status==='loading'? "disabled":"error"}/>
-                </IconButton>
+                    <IconButton aria-label="delete" onClick={handleDelete} disabled={status === 'loading'}>
+                        <HighlightOffIcon color={status === 'loading' ? "disabled" : "error"}/>
+                    </IconButton>
                 }
             </TableCell>
         </TableRow>
