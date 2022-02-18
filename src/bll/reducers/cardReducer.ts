@@ -6,6 +6,7 @@ import {CardFromServerType, cardsApi, CardsType, ParamsCardType} from "../../dal
 
 const SET_CARDS = 'cardReducer/SET_CARDS'
 const ADD_CARD = 'cardReducer/ADD_NEW_CARD'
+const DELETE_CARD = 'cardReducer/DELETE_CARD'
 const CHANGE_CARD_PAGE = 'cardReducer/CHANGE_CARD_PAGE'
 const CHANGE_CARD_COUNT_ITEMS = 'cardReducer/CHANGE_CARD_COUNT_ITEMS'
 
@@ -29,6 +30,12 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
         case ADD_CARD: {
             return {...state, cards: [action.newCard, ...state.cards]}
         }
+        case DELETE_CARD: {
+            return {
+                ...state,
+                cards: state.cards.filter(card => card._id !== action.cardId)
+            }
+        }
         case CHANGE_CARD_PAGE: {
             return {...state, page: action.page}
         }
@@ -43,6 +50,9 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
 //actions
 export const setCardsAC = (cards: CardsType) => ({type: SET_CARDS, cards} as const)
 export const addCardAC = (newCard: CardFromServerType) => ({type: ADD_CARD, newCard} as const)
+export const deleteCardAC = (cardId: string | undefined) => ({type: DELETE_CARD, cardId} as const)
+
+
 export const changeCardPageAC = (page: number) => ({type: CHANGE_CARD_PAGE, page} as const)
 export const changeItemsOnCardPageAC = (pageCount: number) => ({type: CHANGE_CARD_COUNT_ITEMS, pageCount} as const)
 
@@ -74,6 +84,20 @@ export const addCardTC = (params: ParamsCardType, card: CardFromServerType): App
         dispatch(setAppStatusAC('idle'))
     }
 }
+export const deleteCardTC = (cardId: string | undefined, params: CardType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppErrorAC(null))
+        dispatch(setAppStatusAC('loading'))
+        await cardsApi.deleteCard(cardId)
+        dispatch(deleteCardAC(cardId))
+        dispatch(setCardsTC(params))
+    } catch (error) {
+        handlerAppError(error, dispatch);
+    } finally {
+        dispatch(setAppStatusAC('idle'))
+    }
+}
+
 
 //types
 export type CardMainType =
@@ -82,6 +106,7 @@ export type CardMainType =
     | ReturnType<typeof addCardAC>
     | ReturnType<typeof changeCardPageAC>
     | ReturnType<typeof changeItemsOnCardPageAC>
+    | ReturnType<typeof deleteCardAC>
 
 
 export type CardType = {

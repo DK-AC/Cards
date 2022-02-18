@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {newPackType, PackFromServerType} from "./packsApi";
+import {newPackType} from "./packsApi";
 
 const instance = axios.create({
     // baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -11,8 +11,11 @@ export const cardsApi = {
     getCards(params: ParamsCardType) {
         return instance.get<CardsType>('/cards/card', {params: params})
     },
-    createNewCard(card:CardFromServerType) {
+    createNewCard(card: CardFromServerType) {
         return instance.post<newPackType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
+    },
+    deleteCard(cardId: string | undefined) {
+        return instance.delete<CardFromServerType>(`/cards/card?id=${cardId}`)
     }
 }
 

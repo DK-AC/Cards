@@ -13,17 +13,18 @@ import {
     CardType,
     changeCardPageAC,
     changeItemsOnCardPageAC,
+    deleteCardTC,
     setCardsTC
 } from "../../../bll/reducers/cardReducer";
 import {useAppSelector} from "../../../bll/store";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import Card from "./Card";
 import {useParams} from "react-router-dom";
-import { ReusableButton } from '../../ReusableComponents/ReusableButton/ReusableButton';
+import {ReusableButton} from '../../ReusableComponents/ReusableButton/ReusableButton';
 
 const CardsTable = () => {
     const dispatch = useDispatch()
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string | undefined }>();
 
     const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
@@ -47,11 +48,15 @@ const CardsTable = () => {
 
     useEffect(() => {
         dispatch(setAppErrorAC(null))
-        isInitialized && dispatch(setCardsTC(params))
+        dispatch(setCardsTC(params))
     }, [dispatch, debouncedQuestion, debouncedAnswer, debouncedMin, debouncedMax])
 
     const handleClickAddCard = () => {
         dispatch(addCardTC(params, {cardsPack_id: id, question, answer}))
+        dispatch(setCardsTC(params))
+    }
+    const handleClickDeleteCard = (cardId: string) => {
+        dispatch(deleteCardTC(cardId, params))
         dispatch(setCardsTC(params))
     }
     const sliderHandler = (event: Event, newValue: number | number[]) => {
@@ -98,10 +103,8 @@ const CardsTable = () => {
                     <TableBody>
                         {cards.map((card: CardType) => {
                             return <Card key={`${card.user_id}+${card.created}+${card.updated}`}
-                                         question={card.question}
-                                         grade={card.grade}
-                                         answer={card.answer}
-                                         updated={card.updated}
+                                         card={card}
+                                         delete={handleClickDeleteCard}
                             />
                         })}
                     </TableBody>
