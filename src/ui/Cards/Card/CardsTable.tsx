@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from "../Card/CardsTable.module.css";
 import {Slider, Switch, TableBody, TableHead} from "@mui/material";
 import Table from "@mui/material/Table";
@@ -23,6 +23,7 @@ import Card from "./Card";
 import {useParams} from "react-router-dom";
 import {ReusableButton} from '../../ReusableComponents/ReusableButton/ReusableButton';
 import {CardFromServerType} from "../../../dal/cardsApi";
+import {Search} from '../../ReusableComponents/Search/Search';
 
 const CardsTable = () => {
     const dispatch = useDispatch()
@@ -48,12 +49,18 @@ const CardsTable = () => {
         cardsPack_id: id,
         minGrade: sliderValue[1],
         maxGrade: sliderValue[4],
+        // page:2,
+        // pageCount:7
     }
 
     useEffect(() => {
         dispatch(setAppErrorAC(null))
-        dispatch(setCardsTC(params))
+        // isInitialized && dispatch(setCardsTC(params))
     }, [dispatch, debouncedQuestion, debouncedAnswer, debouncedMin, debouncedMax])
+
+    useEffect(() => {
+        dispatch(setCardsTC(params))
+    }, [])
 
     const handleClickAddCard = () => {
         dispatch(addCardTC(params, {cardsPack_id: id, question, answer}))
@@ -74,26 +81,27 @@ const CardsTable = () => {
     }
     const onPageChanged = (page: number) => dispatch(changeCardPageAC(page))
     const countItemsChanged = (pageCount: number) => dispatch(changeItemsOnCardPageAC(pageCount))
-    // const onChangeSearchQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setQuestion(e.target.value)
-    // }
-    // const onChangeSearchAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setAnswer(e.target.value)
-    // }
+    const onChangeSearchQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+        setQuestion(e.target.value)
+    }
+    const onChangeSearchAnswer = (e: ChangeEvent<HTMLInputElement>) => {
+        setAnswer(e.target.value)
+    }
 
     return (
         <PaperContainer title={`My Card's list`} tableStyle={true}>
             <div className={style.callSettingsMenu}>
                 <ReusableButton title={'Add Card'} onClickHandler={handleClickAddCard} size={'small'}
                                 color={'secondary'}/>
-                {/*<Search searchValue={question} onChangeSearch={onChangeSearchQuestion}/>*/}
-                {/*<Search searchValue={answer} onChangeSearch={onChangeSearchAnswer}/>*/}
+                <Search searchValue={question} onChangeSearch={onChangeSearchQuestion}/>
+                <Search searchValue={answer} onChangeSearch={onChangeSearchAnswer}/>
 
                 <Slider value={sliderValue}
                         onChange={sliderHandler}
                         getAriaLabel={() => 'Temperature range'}
                         valueLabelDisplay="auto"
-                        getAriaValueText={valuetext}/>
+                        getAriaValueText={valuetext}
+                />
                 <Switch checked={myCards} onChange={showOnlyMyCards}/>
                 <button onClick={handleClickAddCard}>Add Card</button>
             </div>
