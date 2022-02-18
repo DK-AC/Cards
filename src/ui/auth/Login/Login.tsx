@@ -17,6 +17,11 @@ import {restoreState, saveState} from "../../../dal/localStorage/localStorage";
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location= useLocation()
+
+    // @ts-ignore
+    const fromPage = location.state?.from?.pathname || PATH.PROFILE_PAGE
+    console.log(location.state)
 
     const isLoggedIn = restoreState('isLogged', false)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
@@ -45,10 +50,12 @@ export const Login = () => {
 
 
     useEffect(() => {
-
         dispatch(setAppErrorAC(null))
        if (isLoggedIn) {
-           navigate(PATH.PROFILE_PAGE)
+           //fromPage? navigate(-1): navigate(PATH.PROFILE_PAGE)
+           fromPage===null||'/' ? navigate(PATH.PROFILE_PAGE): navigate(-1)
+           //navigate(PATH.PROFILE_PAGE)
+           //fromPage  && navigate(fromPage)
        } else {
            return
        }
