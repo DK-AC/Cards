@@ -14,9 +14,9 @@ import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
 import style from './PacksTable.module.css'
 import {Search} from "../../ReusableComponents/Search/Search";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
-import {ParamsPackType} from "../../../dal/cardsApi";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from "@mui/material/Button";
+import { ParamsPackType } from '../../../dal/packsApi';
 
 
 const PacksTable = () => {

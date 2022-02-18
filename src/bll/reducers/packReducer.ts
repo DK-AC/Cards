@@ -1,8 +1,8 @@
 import {AppMainType, setAppErrorAC, setAppStatusAC, setIsInitializedAC} from "./appReducer";
-import {cardsApi, newPackType, PackFromServerType, ParamsPackType} from "../../dal/cardsApi";
 import {handlerAppError} from "../../utilities/handlerAppError";
 import {Dispatch} from "redux";
 import {AppRootStateType, AppThunkType} from "../store";
+import {newPackType, PackFromServerType, packsApi, ParamsPackType} from "../../dal/packsApi";
 
 const SET_PACKS = 'loginReducer/SET_PACKS'
 const ADD_PACK = 'loginReducer/ADD_NEW_PACK'
@@ -52,7 +52,7 @@ export const setPacksAT = (params: ParamsPackType) => async (dispatch: Dispatch)
     try {
         dispatch(setAppStatusAC('loading'))
         dispatch(setAppErrorAC(null))
-        const res = await cardsApi.getPacks(params)
+        const res = await packsApi.getPacks(params)
         dispatch(setPacksAC(res.data))
     } catch (error) {
         handlerAppError(error, dispatch)
@@ -68,7 +68,7 @@ export const addPackAT = (params: ParamsPackType, name?: string): AppThunkType =
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        await cardsApi.createNewPack(name)
+        await packsApi.createNewPack(name)
         //dispatch(addPackAC(res.data))
         await dispatch(setPacksAT(params))
 
@@ -82,7 +82,7 @@ export const deletePackAT = (packID: string, params: ParamsPackType): AppThunkTy
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        await cardsApi.deletePack(packID)
+        await packsApi.deletePack(packID)
         dispatch(deletePackAC(packID))
         await dispatch(setPacksAT(params))
     } catch (error) {
@@ -99,7 +99,7 @@ export const changePackTC = (packID: string, modelPack: PackType, params: Params
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
-        const res = await cardsApi.changePack(apiModel)
+        const res = await packsApi.changePack(apiModel)
         dispatch(changePackAC(res.data))
         await dispatch(setPacksAT(params))
     } catch (error) {
