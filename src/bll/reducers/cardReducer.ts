@@ -7,6 +7,7 @@ import {CardFromServerType, cardsApi, CardsType, ParamsCardType} from "../../dal
 const SET_CARDS = 'cardReducer/SET_CARDS'
 const ADD_CARD = 'cardReducer/ADD_NEW_CARD'
 const DELETE_CARD = 'cardReducer/DELETE_CARD'
+const CHANGE_CARD = 'cardReducer/CHANGE_CARD'
 const CHANGE_CARD_PAGE = 'cardReducer/CHANGE_CARD_PAGE'
 const CHANGE_CARD_COUNT_ITEMS = 'cardReducer/CHANGE_CARD_COUNT_ITEMS'
 
@@ -36,6 +37,14 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
                 cards: state.cards.filter(card => card._id !== action.cardId)
             }
         }
+        case CHANGE_CARD: {
+            return {
+                ...state,
+                cards: state.cards.map(card => card._id === action.Card._id
+                    ? {...card, ...action.Card}
+                    : card)
+            }
+        }
         case CHANGE_CARD_PAGE: {
             return {...state, page: action.page}
         }
@@ -51,7 +60,7 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
 export const setCardsAC = (cards: CardsType) => ({type: SET_CARDS, cards} as const)
 export const addCardAC = (newCard: CardFromServerType) => ({type: ADD_CARD, newCard} as const)
 export const deleteCardAC = (cardId: string | undefined) => ({type: DELETE_CARD, cardId} as const)
-
+export const changeCardAC = (Card: CardFromServerType) => ({type: CHANGE_CARD, Card} as const)
 
 export const changeCardPageAC = (page: number) => ({type: CHANGE_CARD_PAGE, page} as const)
 export const changeItemsOnCardPageAC = (pageCount: number) => ({type: CHANGE_CARD_COUNT_ITEMS, pageCount} as const)
@@ -97,6 +106,23 @@ export const deleteCardTC = (cardId: string | undefined, params: CardType): AppT
         dispatch(setAppStatusAC('idle'))
     }
 }
+export const changeCardTC = (cardID: string, modelPack: CardFromServerType, params: ParamsCardType): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+
+    const card = getState().Cards.cards.find(p => cardID === p._id)
+    const apiModel = {...card, ...modelPack}
+
+    try {
+        dispatch(setAppErrorAC(null))
+        dispatch(setAppStatusAC('loading'))
+        const res = await cardsApi.changeCard(apiModel)
+        dispatch(changeCardAC(res.data))
+        dispatch(setCardsTC(params))
+    } catch (error) {
+        handlerAppError(error, dispatch);
+    } finally {
+        dispatch(setAppStatusAC('idle'))
+    }
+}
 
 
 //types
@@ -107,6 +133,7 @@ export type CardMainType =
     | ReturnType<typeof changeCardPageAC>
     | ReturnType<typeof changeItemsOnCardPageAC>
     | ReturnType<typeof deleteCardAC>
+    | ReturnType<typeof changeCardAC>
 
 
 export type CardType = {

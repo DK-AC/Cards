@@ -4,10 +4,12 @@ import React from 'react';
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {CardType} from "../../../bll/reducers/cardReducer";
+import {CardFromServerType} from "../../../dal/cardsApi";
 
 type CardPropsType = {
     card: CardType
     delete: (id: string | undefined) => void
+    edit: (id: string, model: CardFromServerType) => void
 }
 
 const Card = ({card, ...props}: CardPropsType) => {
@@ -16,6 +18,9 @@ const Card = ({card, ...props}: CardPropsType) => {
 
     const handleDelete = () => {
         card._id && props.delete(card._id)
+    }
+    const handleEdit = () => {
+        card._id && props.edit(card._id, {question: 'changed question', answer: 'changed answer'})
     }
 
     return (
@@ -26,7 +31,7 @@ const Card = ({card, ...props}: CardPropsType) => {
             <TableCell>{card.grade}</TableCell>
             <TableCell>
                 <button onClick={handleDelete}>delete</button>
-                {/*<button onClick={()=>{}}>edit</button>*/}
+                <button onClick={handleEdit}>edit</button>
             </TableCell>
         </TableRow>
     );

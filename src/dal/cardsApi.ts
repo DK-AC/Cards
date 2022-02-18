@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {newPackType} from "./packsApi";
+import {CardType} from "../bll/reducers/cardReducer";
 
 const instance = axios.create({
     // baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -16,7 +17,10 @@ export const cardsApi = {
     },
     deleteCard(cardId: string | undefined) {
         return instance.delete<CardFromServerType>(`/cards/card?id=${cardId}`)
-    }
+    },
+    changeCard(card: CardFromServerType) {
+        return instance.put<CardType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
+    },
 }
 
 export type ParamsCardType = {
@@ -32,10 +36,10 @@ export type ParamsCardType = {
 
 export type CardFromServerType = {
     _id?: string | undefined
-    cardsPack_id: string | undefined
+    cardsPack_id?: string | undefined
     user_id?: string
-    answer: "no question" | string
-    question: "no answer" | string
+    answer?: "no question" | string
+    question?: "no answer" | string
     grade?: number
     shots?: number
     comments?: string

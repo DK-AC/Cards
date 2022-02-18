@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "../Card/CardsTable.module.css";
 import {Slider, Switch, TableBody, TableHead} from "@mui/material";
 import Table from "@mui/material/Table";
@@ -12,6 +12,7 @@ import {
     addCardTC,
     CardType,
     changeCardPageAC,
+    changeCardTC,
     changeItemsOnCardPageAC,
     deleteCardTC,
     setCardsTC
@@ -21,10 +22,11 @@ import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import Card from "./Card";
 import {useParams} from "react-router-dom";
 import {ReusableButton} from '../../ReusableComponents/ReusableButton/ReusableButton';
+import {CardFromServerType} from "../../../dal/cardsApi";
 
 const CardsTable = () => {
     const dispatch = useDispatch()
-    const {id} = useParams<{ id: string | undefined }>();
+    const {id} = useParams<{ id: string }>();
 
     const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
@@ -41,6 +43,8 @@ const CardsTable = () => {
 
 
     const params = {
+        question,
+        answer,
         cardsPack_id: id,
         minGrade: sliderValue[1],
         maxGrade: sliderValue[4],
@@ -59,6 +63,9 @@ const CardsTable = () => {
         dispatch(deleteCardTC(cardId, params))
         dispatch(setCardsTC(params))
     }
+    const handleClickEditCard = (cardId: string, model: CardFromServerType) => {
+        dispatch(changeCardTC(cardId, model, params))
+    }
     const sliderHandler = (event: Event, newValue: number | number[]) => {
         setSliderValue(newValue as number[]);
     };
@@ -67,12 +74,12 @@ const CardsTable = () => {
     }
     const onPageChanged = (page: number) => dispatch(changeCardPageAC(page))
     const countItemsChanged = (pageCount: number) => dispatch(changeItemsOnCardPageAC(pageCount))
-    const onChangeSearchQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuestion(e.target.value)
-    }
-    const onChangeSearchAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-        setAnswer(e.target.value)
-    }
+    // const onChangeSearchQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setQuestion(e.target.value)
+    // }
+    // const onChangeSearchAnswer = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setAnswer(e.target.value)
+    // }
 
     return (
         <PaperContainer title={`My Card's list`} tableStyle={true}>
@@ -105,6 +112,7 @@ const CardsTable = () => {
                             return <Card key={`${card.user_id}+${card.created}+${card.updated}`}
                                          card={card}
                                          delete={handleClickDeleteCard}
+                                         edit={handleClickEditCard}
                             />
                         })}
                     </TableBody>
