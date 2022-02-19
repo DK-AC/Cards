@@ -44,7 +44,7 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
 //actions
 export const setCardsAC = (cards: CardsType) => ({type: SET_CARDS, cards} as const)
 export const addCardAC = (newCard: CardFromServerType) => ({type: ADD_CARD, newCard} as const)
-export const deleteCardAC = (cardId: string | undefined) => ({type: DELETE_CARD, cardId} as const)
+export const deleteCardAC = (cardId: string) => ({type: DELETE_CARD, cardId} as const)
 export const changeCardAC = (Card: CardFromServerType) => ({type: CHANGE_CARD, Card} as const)
 
 
@@ -75,7 +75,7 @@ export const addCardTC = (params: ParamsCardType, card: CardFromServerType): App
         dispatch(setAppStatusAC('idle'))
     }
 }
-export const deleteCardTC = (cardId: string | undefined, params: CardType): AppThunkType => async (dispatch) => {
+export const deleteCardTC = (cardId: string, params: CardType): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
