@@ -19,7 +19,6 @@ type initialStateType = typeof initialState
 export const CardReducer = (state = initialState, action: CardMainType): initialStateType => {
     switch (action.type) {
         case SET_CARDS: {
-            console.log(action.cards.cardsTotalCount)
             return {...state, cards: action.cards.cards, cardsTotalCount: action.cards.cardsTotalCount}
         }
         case ADD_CARD: {
