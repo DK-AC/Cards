@@ -55,7 +55,7 @@ const PacksTable = () => {
 
         //обработчики колод (добавление, удаление, изменение)
     const handleClickAddPack=()=>{
-        dispatch(addPackAT('testing name for test because test'))
+        dispatch(addPackAT(params,'testing name for test because test'))
         dispatch(setPacksAT(params))
     }
     const handleClickDeletePack =(packID: string)=>{
