@@ -14,7 +14,6 @@ const ReusableInput = React.memo(function ({label, placeholder, value, onChangeH
     return (
         <>
             <TextField
-                id="standard-basic"
                 label={label}
                 variant="standard"
                 value={value}
