@@ -1,77 +1,63 @@
 import axios, {AxiosResponse} from "axios";
-import {PackType} from "../bll/reducers/packReducer";
+import {newPackType} from "./packsApi";
+import {CardType} from "../bll/reducers/cardReducer";
 
 const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    // baseURL: 'http://localhost:7542/2.0',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0',
+    baseURL: 'http://localhost:7542/2.0',
     withCredentials: true,
 })
 
 export const cardsApi = {
-    getPacks(params:ParamsPackType) {
-        return instance.get<cardPacksType>('/cards/pack', {params: params })
+    getCards(params: ParamsCardType) {
+        return instance.get<CardsType>('/cards/card', {params: params})
     },
-    createNewPack(name:string= 'test') {
-        let cardsPack:newPackType = {
-            name: name,
-            path: "/def",
-            grade: 0,
-            shots: 0 ,
-            rating: 0 ,
-            deckCover: "url or base64",
-            private: false,
-            type: "pack"
-        }
-        return instance.post<newPackType, AxiosResponse<PackFromServerType>>('/cards/pack', {cardsPack})
+    createNewCard(card: CardFromServerType) {
+        return instance.post<newPackType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     },
-    deletePack(packID: string){
-        return instance.delete(`/cards/pack?id=${packID}`)
+    deleteCard(cardId: string | undefined) {
+        return instance.delete<CardFromServerType>(`/cards/card?id=${cardId}`)
     },
-    changePack(cardsPack:PackType ){
-        return instance.put<PackType, AxiosResponse<PackFromServerType>>('/cards/pack', {cardsPack})
-    }
+    changeCard(card: CardFromServerType) {
+        return instance.put<CardType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
+    },
 }
 
-export type PackFromServerType = {
-    _id: string
-    user_id: string
-    name: string
-    path?: string // папка
-    cardsCount: number
-    grade: number // средняя оценка карточек
-    shots: number // количество попыток
-    rating: number // лайки
-    type: "pack" | "folder"  // ещё будет "folder" (папка)
-    created: string
-    updated: string
-    __v: number
-}
-export type cardPacksType = {
-    cardPacks: Array<PackFromServerType>
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
+export type ParamsCardType = {
+    cardAnswer?: string
+    cardQuestion?: string
+    cardsPack_id?: string
+    min?: number
+    max?: number
+    sortCards?: number
+    page?: number
+    pageCount?: number
 }
 
-export type newPackType = {
-    name?: string
-    path?: string
+export type CardFromServerType = {
+    _id?: string | undefined
+    cardsPack_id?: string | undefined
+    user_id?: string
+    answer?: "no question" | string
+    question?: "no answer" | string
     grade?: number
     shots?: number
+    comments?: string
+    type?: "card" | string
     rating?: number
-    deckCover?: string
-    private?: boolean
-    type?: "pack" | "folder"
+    more_id?: string
+    created?: string
+    updated?: string
+    __v?: number
 }
 
-export type ParamsPackType = {
-    packName?:string
-    min?:number
-    max?:number
-    sortPacks?:number
-    page?:number
-    pageCount?:number
-    user_id?:string
+export type CardsType = {
+    cards: Array<CardFromServerType>
+    packUserId: string
+    page: number
+    pageCount: number
+    cardsTotalCount: number
+    minGrade: number
+    maxGrade: number
 }
+

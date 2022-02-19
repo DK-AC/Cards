@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {InputLabel, NativeSelect, Pagination} from "@mui/material";
-import {useDispatch} from "react-redux";
+import style from './Pagenator.module.css'
 
-
+//чтобы поставить пагинатор , создайте в своей компоненте локал стейты для пагинатора
+//НПР: const [currentPage, setCurrentPage] = useState<number>(1)  //какая страница выбрана
+//НПР: const [pageCount, setPageCount] = useState<number>(4)  // сколько колод на старице
 
 export type pagenatorPropsType ={
     currentPage: number //текущая страница
@@ -13,17 +15,15 @@ export type pagenatorPropsType ={
 }
 
 const Pagenator = ({currentPage, countItemsOnPage,totalItems,...props}:pagenatorPropsType ) => {
-    const dispatch = useDispatch()
 
    //количество отображаемых страниц
    const PageCount =  Math.ceil(totalItems/ countItemsOnPage)
 
     const [page, setPage] = useState(currentPage)
-
     // сохраняем выделенную страницу для визуального отображения
     // + передаем выбранную страницу к родителю для запросов на сервер
     const handleChangePage =(e: React.ChangeEvent<unknown>, page: number)=>{
-       setPage(page)
+        setPage(page)
         props.onPageChanged(page)
     }
     // выбираем в селекторе размер страницы и шлем его родителю
@@ -32,7 +32,7 @@ const Pagenator = ({currentPage, countItemsOnPage,totalItems,...props}:pagenator
     }
 
     return (
-        <div>
+        <div className={style.container}>
             <Pagination count={PageCount} page={page} onChange={handleChangePage}
                         variant="outlined" shape="rounded"  color="secondary"  />
             <InputLabel variant="standard" htmlFor="uncontrolled-native">
