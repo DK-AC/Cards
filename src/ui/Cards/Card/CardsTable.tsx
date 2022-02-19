@@ -5,32 +5,34 @@ import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
-import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
 import {useDispatch} from "react-redux";
-import {setAppErrorAC} from "../../../bll/reducers/appReducer";
+import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
 import {addCardTC, CardType, changeCardTC, deleteCardTC, setCardsTC} from "../../../bll/reducers/cardReducer";
 import {useAppSelector} from "../../../bll/store";
 import Card from "./Card";
 import {useNavigate, useParams} from "react-router-dom";
-import {ReusableButton} from '../../ReusableComponents/ReusableButton/ReusableButton';
 import {CardFromServerType, ParamsCardType} from "../../../dal/cardsApi";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PATH} from "../../Routes/Routes";
 import {Search} from "../../ReusableComponents/Search/Search";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import Button from "@mui/material/Button";
+import {ArrowBack} from "@mui/icons-material";
 
 const CardsTable = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    //получаю id из url
     const {id} = useParams<{ id: string }>();
 
+    const status = useAppSelector<RequestStatusType>(store => store.App.status)
     const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     const cardsTotalCount = useAppSelector<number>(state => state.Cards.cardsTotalCount)
-
 
     //локальные стейты
     //для инпута (чтоб найти вопросы и ответы)
@@ -61,11 +63,9 @@ const CardsTable = () => {
     //обработчики колод (добавление, удаление, изменение)
     const handleClickAddCard = () => {
         dispatch(addCardTC(params, {cardsPack_id: id}))
-        dispatch(setCardsTC(params))
     }
     const handleClickDeleteCard = (cardId: string) => {
         dispatch(deleteCardTC(cardId, params))
-        dispatch(setCardsTC(params))
     }
     const handleClickEditCard = (cardId: string, model: CardFromServerType) => {
         dispatch(changeCardTC(cardId, model, params))
@@ -83,21 +83,32 @@ const CardsTable = () => {
         navigate(PATH.PACKS_TABLE_PAGE)
     }
     return (
-        <PaperContainer title={`My Card's list`} tableStyle={true}>
-            <div className={style.callSettingsMenu}>
-                <ReusableButton title={'Add Card'}
-                                onClickHandler={handleClickAddCard}
-                                size={'small'}
-                                color={'secondary'}
-                />
+        <div className={style.container}>
+            <div className={style.settingsMenu}>
+                <Button variant="outlined"
+                        color={'inherit'}
+                        size={"small"}
+                        disabled={status === 'loading'}
+                        startIcon={<ArrowBack/>}
+                        onClick={handleBackPack}>
+                    Back
+                </Button>
                 <Search searchValue={question} onChangeSearch={onChangeSearch}/>
+                <Button variant="outlined"
+                        color={'secondary'}
+                        size={"small"}
+                        disabled={status === 'loading'}
+                        startIcon={<ControlPointIcon/>}
+                        onClick={handleClickAddCard}>
 
+                    Add Pack
+                </Button>
             </div>
             <div className={style.Table}>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Question</TableCell>
+                            <TableCell variant="head">Question</TableCell>
                             <TableCell variant="head">Answer</TableCell>
                             <TableCell variant="head">Last Updated</TableCell>
                             <TableCell variant="head">Grade</TableCell>
@@ -118,15 +129,10 @@ const CardsTable = () => {
                        countItemsOnPage={pageCount}
                        totalItems={cardsTotalCount}
                        onPageChanged={onPageChanged}
-                       countItemsOnPageChanged={countItemsChanged}/>
-            <div>
-                <ReusableButton title={'Back'}
-                                onClickHandler={handleBackPack}
-                                size={'small'}
-                                color={'error'}
-                />
-            </div>
-        </PaperContainer>
+                       countItemsOnPageChanged={countItemsChanged}
+            />
+
+        </div>
     );
 };
 
