@@ -17,6 +17,10 @@ import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from "@mui/material/Button";
 import { ParamsPackType } from '../../../dal/packsApi';
+import {Modal} from "../../ReusableComponents/Modal/Modal";
+import {DeletePack} from "../../ReusableComponents/Modal/DeletePack";
+import {AddPack} from "../../ReusableComponents/Modal/AddPack";
+import {UpdatePack} from "../../ReusableComponents/Modal/UpdatePack";
 
 
 const PacksTable = () => {
@@ -37,6 +41,7 @@ const PacksTable = () => {
     //моя или нет колода
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const user_id = myPacks ? userId : ''
+    const [packId, setPackId] = useState('')
 
     //задержки от лишних запросов на сервер
     const debouncedPackName = useDebounce(packName, 500)
@@ -49,7 +54,11 @@ const PacksTable = () => {
 
     //сколько всего колод
     const cardPacksTotalCount = useAppSelector<number>(state => state.Packs.cardPacksTotalCount)
-
+    //модалки
+    const [addModal, setAddModal] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    console.log(deleteModal)
 
     const params: ParamsPackType = {
         packName,
@@ -66,14 +75,33 @@ const PacksTable = () => {
     }, [dispatch, debouncedPackName, debouncedMin, debouncedMax, myPacks, currentPage, pageCount, packName])
 
     //обработчики колод (добавление, удаление, изменение)
+    //add
     const handleClickAddPack = () => {
-        dispatch(addPackAT(params, 'testing name for test because test'))
+        setAddModal(true)
     }
-    const handleClickDeletePack = (packID: string) => {
-        dispatch(deletePackAT(packID, params))
+    const addPack = (text:string) =>{
+        dispatch(addPackAT(params, text))
+        setAddModal(false)
+
     }
-    const handleClickEditPack = (packID: string, model: PackType) => {
-        dispatch(changePackTC(packID, model, params))
+
+    //delete
+    const handleClickDeletePack = (packId: string) => {
+        setPackId(packId)
+        setDeleteModal(true)
+    }
+    const deletePack = ()=>{
+        dispatch(deletePackAT(packId, params))
+        setDeleteModal(false);
+    }
+    //update
+    const handleClickEditPack = (packId: string) => {
+        setPackId(packId)
+        setUpdateModal(true)
+    }
+    const updatePack = (text:string) =>{
+        dispatch(changePackTC(packId, {name:text}, params))
+        setUpdateModal(false)
     }
 
     //обработчики для пагинации
@@ -137,6 +165,20 @@ const PacksTable = () => {
                        onPageChanged={onPageChanged}
                        countItemsOnPageChanged={countItemsChanged}/>
             <div className={style.loadind}>{status === 'loading' && <CircularProgress size={'8rem'}/>}</div>
+
+            {/*//modal*/}
+            <Modal isOpen = {deleteModal}>
+                <DeletePack showDelete={setDeleteModal} deletePack={deletePack} />
+            </Modal>
+            <Modal isOpen = {addModal}>
+                <AddPack showAdd={setAddModal} addPack={addPack} />
+            </Modal>
+
+            <Modal isOpen = {updateModal}>
+                <UpdatePack showUpdate={setUpdateModal} updatePack={updatePack} />
+            </Modal>
+
+
         </div>
     );
 };

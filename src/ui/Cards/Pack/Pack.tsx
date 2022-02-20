@@ -16,7 +16,7 @@ import {useNavigate} from "react-router-dom";
 export type propsType = {
     pack: PackType
     delete: (id: string) => void,
-    edit: (id: string, model: PackType) => void
+    edit: (id: string) => void
     loginedUserID: string
 }
 
@@ -41,7 +41,7 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         pack._id && props.delete(pack._id)
     }
     const handleEdit = () => {
-        pack._id && props.edit(pack._id, {name: 'changed name'})
+        pack._id && props.edit(pack._id)
     }
 
     return (
