@@ -28,7 +28,8 @@
     color: rgba(60, 45, 61, 0.9);
     padding: 0;
     position: absolute;
-    top: 70px
+    top: 70px;
+    text-align: center;
 }
 
 .content{
@@ -37,7 +38,7 @@
     align-items: center;
     align-content: center;
     width: 90%;
-   /* background-color: red;*/
+   /*background-color: red;*/
     /*min-width: 350px;*/
     padding: 0 50px;
     position: absolute;

@@ -9,6 +9,8 @@ import Profile from "../Profile/Profile";
 import PacksTable from "../Cards/Pack/PacksTable";
 import {AuthProvider} from "../../bll/HOK/AuthProvider";
 import CardsTable from "../Cards/Card/CardsTable";
+import LearningCard from "../LearningCard/LearningCard";
+import CardQuestion from "../LearningCard/CardQuestion";
 
 export const PATH = {
     START_PAGE: '/',
@@ -19,7 +21,8 @@ export const PATH = {
     CHECK_EMAIL_PAGE: '/check_email',
     CREATE_NEW_PASSWORD_PAGE: '/set-new-password/:token',
     PACKS_TABLE_PAGE: '/packs',
-    CARDS_TABLE_PAGE:'/cards/:id'
+    CARDS_TABLE_PAGE:'/cards/:id',
+    CARD_PAGE:'/cards/card/:id'
 }
 
 
@@ -36,6 +39,7 @@ function Routing() {
                 <Route path={PATH.CREATE_NEW_PASSWORD_PAGE} element={<PasswordEnter/>}/>
                 <Route path={PATH.PACKS_TABLE_PAGE} element={<PacksTable/>}/>
                 <Route path={PATH.CARDS_TABLE_PAGE} element={<CardsTable/>}/>
+                <Route path={PATH.CARD_PAGE} element={<LearningCard />}/>
             </Routes>
         </AuthProvider>
     )

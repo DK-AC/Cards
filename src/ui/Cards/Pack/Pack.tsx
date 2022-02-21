@@ -12,6 +12,7 @@ import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import {useNavigate} from "react-router-dom";
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 
 export type propsType = {
     pack: PackType
@@ -54,7 +55,7 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>some User</TableCell>
             <TableCell>
                 <IconButton aria-label="open" onClick={handleLearn} disabled={status === 'loading'}>
-                    <ArrowCircleRightOutlinedIcon color={status === 'loading' ? "disabled" : "success"}/>
+                    <PlayCircleOutlineOutlinedIcon color={status === 'loading' ? "disabled" : "success"}/>
                 </IconButton>
                 <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
                     <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>

@@ -8,7 +8,7 @@ import {CircularProgress} from "@mui/material";
 
 type propsType ={
     children: React.ReactNode
-    title:string
+    title?:string
     tableStyle?:boolean
 }
 
@@ -20,7 +20,7 @@ type propsType ={
         <Paper elevation={3} className={styleVariant}>
          <h3 className={style.additionalTitle}>it-incubator</h3>
                 <h2 className={style.mainTitle}> {title} </h2>
-                <div className={styleContentVariant}>{children}</div>
+                <div className={style.content}>{children}</div>
             {status=== 'loading' &&  <CircularProgress />}
         </Paper>
     );

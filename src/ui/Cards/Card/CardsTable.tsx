@@ -139,6 +139,7 @@ const CardsTable = () => {
                             <TableCell variant="head">Answer</TableCell>
                             <TableCell variant="head">Last Updated</TableCell>
                             <TableCell variant="head">Grade</TableCell>
+                            <TableCell variant="head">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
