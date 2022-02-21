@@ -2,7 +2,13 @@ import {AppMainType, setAppErrorAC, setAppStatusAC, setIsInitializedAC} from "./
 import {Dispatch} from "redux";
 import {AppRootStateType, AppThunkType} from "../store";
 import {handlerAppError} from "../../utilities/handlerAppError";
-import {CardFromServerType, cardsApi, CardsType, ParamsCardType} from "../../dal/cardsApi";
+import {
+    CardFromServerType,
+    cardsApi,
+    cardsFromUserForCreatingType,
+    CardsType,
+    ParamsCardType
+} from "../../dal/cardsApi";
 
 const SET_CARDS = 'cardReducer/SET_CARDS'
 const ADD_CARD = 'cardReducer/ADD_NEW_CARD'
@@ -62,7 +68,7 @@ export const setCardsTC = (params: ParamsCardType) => async (dispatch: Dispatch,
         dispatch(setAppStatusAC('idle'))
     }
 }
-export const addCardTC = (params: ParamsCardType, card: CardFromServerType): AppThunkType => async (dispatch) => {
+export const addCardTC = (params: ParamsCardType, card: cardsFromUserForCreatingType): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
@@ -88,10 +94,10 @@ export const deleteCardTC = (cardId: string, params: CardType): AppThunkType => 
         dispatch(setAppStatusAC('idle'))
     }
 }
-export const changeCardTC = (cardID: string, modelPack: CardFromServerType, params: ParamsCardType): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+export const changeCardTC = (cardID: string, modelCard: CardFromServerType, params: ParamsCardType): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
 
     const card = getState().Cards.cards.find(c => cardID === c._id)
-    const apiModel = {...card, ...modelPack}
+    const apiModel = {...card, ...modelCard}
 
     try {
         dispatch(setAppErrorAC(null))

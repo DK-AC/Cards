@@ -1,36 +1,36 @@
-import s from './Modal.module.css'
+import s from '../Modal.module.css'
 import {Button, Input} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 
-type AddPackType = {
-    showAdd: (modal: boolean) => void
-    addPack: (text: string) => void
+type UpdatePackType = {
+    showUpdate: (modal: boolean) => void
+    updatePack: (text: string) => void
 }
 
-export const AddPack = ({showAdd, addPack}: AddPackType) => {
+export const UpdatePack = ({showUpdate, updatePack}: UpdatePackType) => {
     const [text, setText] = useState('')
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setText(e.currentTarget.value)
     }
-    const addNewPack = (): void => {
-        addPack(text);
+    const updatePackName = (): void => {
+        updatePack(text);
     };
     return (
         <div className={s.containerModal}>
-            <h1 className={s.titleModal}>Create new Pack</h1>
+            <h1 className={s.titleModal}>Update Pack</h1>
             <div>
                 <Input type={'test'}
                        value={text}
                        onChange={onChangeHandler}
-                       placeholder="enter pack name"/>
+                       placeholder="new pack name"/>
             </div>
-
-            <Button onClick={addNewPack} className={s.buttonLRMargin}>
-                add
+            <Button onClick={updatePackName} className={s.buttonLRMargin}>
+                update
             </Button>
-            <Button onClick={() => showAdd(false)} className={s.buttonLRMargin}>
+            <Button onClick={() => showUpdate(false)} className={s.buttonLRMargin}>
                 cancel
             </Button>
+
         </div>
     )
 }

@@ -62,7 +62,7 @@ export const setPacksAT = (params: ParamsPackType) => async (dispatch: Dispatch)
     }
 }
 
-export const addPackAT = (params: ParamsPackType, name?: string): AppThunkType => async (dispatch) => {
+export const addPackTC = (params: ParamsPackType, name?: string): AppThunkType => async (dispatch) => {
     //const newParams = {...params, packName: name}
 
     try {

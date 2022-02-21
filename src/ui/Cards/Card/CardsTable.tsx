@@ -11,7 +11,7 @@ import {addCardTC, CardType, changeCardTC, deleteCardTC, setCardsTC} from "../..
 import {useAppSelector} from "../../../bll/store";
 import Card from "./Card";
 import {useNavigate, useParams} from "react-router-dom";
-import {CardFromServerType, ParamsCardType} from "../../../dal/cardsApi";
+import {CardFromServerType, cardsFromUserForCreatingType, ParamsCardType} from "../../../dal/cardsApi";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PATH} from "../../Routes/Routes";
@@ -20,6 +20,10 @@ import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Button from "@mui/material/Button";
 import {ArrowBack} from "@mui/icons-material";
+import {Modal} from "../../ReusableComponents/Modal/Modal";
+import {AddCard} from "../../ReusableComponents/Modal/CardsModals/AddCard";
+import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
+import {UpdateCard} from "../../ReusableComponents/Modal/CardsModals/UpdateCard";
 
 const CardsTable = () => {
 
@@ -47,9 +51,18 @@ const CardsTable = () => {
     const debouncedQuestion = useDebounce(question, 500)
     const debouncedAnswer = useDebounce(answer, 500)
 
+    // хранение id карточки для модалки
+    const [cardId, setCardId] = useState('')
+    // хранение значения полей ввода для редактирования
+    const [card, setCard] =  useState<CardFromServerType>({})
+
+    //модалки
+    const [addModal, setAddModal] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+
+
     const params: ParamsCardType = {
-        cardQuestion: question,
-        cardAnswer: answer,
         cardsPack_id: id,
         page: currentPage,
         pageCount: pageCount
@@ -58,17 +71,32 @@ const CardsTable = () => {
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         isInitialized && dispatch(setCardsTC(params))
-    }, [dispatch, pageCount, currentPage, debouncedQuestion, debouncedAnswer])
+    }, [dispatch, pageCount, currentPage, debouncedQuestion])
 
     //обработчики колод (добавление, удаление, изменение)
     const handleClickAddCard = () => {
-        dispatch(addCardTC(params, {cardsPack_id: id}))
+        setAddModal(true)
+    }
+    const addCard = (cardsData: cardsFromUserForCreatingType) =>{
+        dispatch(addCardTC(params, cardsData))
+        setAddModal(false)
     }
     const handleClickDeleteCard = (cardId: string) => {
-        dispatch(deleteCardTC(cardId, params))
+        setCardId(cardId)
+        setDeleteModal(true)
     }
-    const handleClickEditCard = (cardId: string, model: CardFromServerType) => {
-        dispatch(changeCardTC(cardId, model, params))
+    const deleteCard =()=>{
+        dispatch(deleteCardTC(cardId, params))
+        setDeleteModal(false);
+    }
+    const handleClickEditCard = (cardId: string, card: CardFromServerType) => {
+        setCardId(cardId)
+        setCard(card)
+        setUpdateModal(true)
+    }
+    const editCard =(card:CardFromServerType)=>{
+        dispatch(changeCardTC(cardId, card, params))
+        setUpdateModal(false)
     }
 
     //обработчики для пагинации
@@ -100,8 +128,7 @@ const CardsTable = () => {
                         disabled={status === 'loading'}
                         startIcon={<ControlPointIcon/>}
                         onClick={handleClickAddCard}>
-
-                    Add Pack
+                    Add Card
                 </Button>
             </div>
             <div className={style.Table}>
@@ -131,7 +158,16 @@ const CardsTable = () => {
                        onPageChanged={onPageChanged}
                        countItemsOnPageChanged={countItemsChanged}
             />
-
+            {/*//modal*/}
+            <Modal isOpen = {deleteModal}>
+                <DeleteModal showDelete={setDeleteModal} deleteFunction={deleteCard} />
+            </Modal>
+            <Modal isOpen={addModal}>
+                <AddCard showAdd={setAddModal} addCard={addCard} cardsPack_id={id} />
+            </Modal>
+            <Modal isOpen = {updateModal}>
+             <UpdateCard showUpdate={setUpdateModal} updateCard={editCard} answer={card.answer} question={card.question}/>
+            </Modal>
         </div>
     );
 };

@@ -27,7 +27,11 @@ const Card = ({card, ...props}: CardPropsType) => {
         card._id && props.delete(card._id)
     }
     const handleEdit = () => {
-        card._id && props.edit(card._id, {question: 'changed question', answer: 'changed answer'})
+        let model: CardFromServerType = {
+            question: card.question,
+            answer: card.answer
+        }
+        card._id && props.edit(card._id, model)
     }
 
     return (
@@ -41,7 +45,7 @@ const Card = ({card, ...props}: CardPropsType) => {
                     <EditIcon color={status === 'loading' ? "disabled" : "action"}/>
                 </IconButton>
                 <IconButton aria-label="open" onClick={handleDelete} disabled={status === 'loading'}>
-                    <DeleteIcon  color={status === 'loading' ? "disabled" : "error"}/>
+                    <DeleteIcon color={status === 'loading' ? "disabled" : "error"}/>
                 </IconButton>
             </TableCell>
         </TableRow>

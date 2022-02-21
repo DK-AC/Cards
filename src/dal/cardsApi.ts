@@ -12,8 +12,21 @@ export const cardsApi = {
     getCards(params: ParamsCardType) {
         return instance.get<CardsType>('/cards/card', {params: params})
     },
-    createNewCard(card: CardFromServerType) {
-        return instance.post<newPackType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
+    createNewCard(createdCard: /*CardFromServerType*/  cardsFromUserForCreatingType) {
+        let card:cardsFromUserForCreatingType ={
+            cardsPack_id: createdCard.cardsPack_id,
+            answer: createdCard.answer,
+            question: createdCard.question,
+            type: 'card',
+            answerImg: "url or base 64",
+            questionImg: "url or base 64",
+            questionVideo: "url or base 64",
+            answerVideo:"url or base 64",
+            grade: 0,
+            shots: 0,
+            rating: 0
+        }
+        return instance.post<cardsFromUserForCreatingType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     },
     deleteCard(cardId: string | undefined) {
         return instance.delete<CardFromServerType>(`/cards/card?id=${cardId}`)
@@ -22,6 +35,20 @@ export const cardsApi = {
         return instance.put<CardType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     },
 }
+export type cardsFromUserForCreatingType ={
+    cardsPack_id?:string
+    answer?: "no question" | string
+    question?: "no answer" | string
+    type?: "card" |string
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+    grade?: number,
+    shots?: number,
+    rating?: number
+}
+
 
 export type ParamsCardType = {
     cardAnswer?: string

@@ -11,7 +11,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import {useNavigate} from "react-router-dom";
-
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 
 export type propsType = {
     pack: PackType
@@ -43,6 +43,9 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
     const handleEdit = () => {
         pack._id && props.edit(pack._id)
     }
+    const handleLearn =()=>{
+        console.log('start learn')
+    }
 
     return (
         <TableRow>
@@ -51,6 +54,9 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>some User</TableCell>
             <TableCell>
+                <IconButton aria-label="open" onClick={handleLearn} disabled={status === 'loading'}>
+                    <ArrowCircleRightOutlinedIcon color={status === 'loading' ? "disabled" : "success"}/>
+                </IconButton>
                 <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
                     <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
                 </IconButton>

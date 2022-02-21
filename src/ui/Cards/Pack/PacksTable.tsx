@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import Pack from "./Pack";
 import {CircularProgress, Slider, Switch, TableBody, TableHead} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {addPackAT, changePackTC, deletePackAT, PackType, setPacksAT} from "../../../bll/reducers/packReducer";
+import {addPackTC, changePackTC, deletePackAT, PackType, setPacksAT} from "../../../bll/reducers/packReducer";
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer";
 import Pagenator from "../../ReusableComponents/Pagenator/Pagenator";
@@ -18,9 +18,9 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from "@mui/material/Button";
 import { ParamsPackType } from '../../../dal/packsApi';
 import {Modal} from "../../ReusableComponents/Modal/Modal";
-import {DeletePack} from "../../ReusableComponents/Modal/DeletePack";
-import {AddPack} from "../../ReusableComponents/Modal/AddPack";
-import {UpdatePack} from "../../ReusableComponents/Modal/UpdatePack";
+import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
+import {AddPack} from "../../ReusableComponents/Modal/PacksModals/AddPack";
+import {UpdatePack} from "../../ReusableComponents/Modal/PacksModals/UpdatePack";
 
 
 const PacksTable = () => {
@@ -58,7 +58,7 @@ const PacksTable = () => {
     const [addModal, setAddModal] = useState(false);
     const [updateModal, setUpdateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    console.log(deleteModal)
+
 
     const params: ParamsPackType = {
         packName,
@@ -80,9 +80,8 @@ const PacksTable = () => {
         setAddModal(true)
     }
     const addPack = (text:string) =>{
-        dispatch(addPackAT(params, text))
+        dispatch(addPackTC(params, text))
         setAddModal(false)
-
     }
 
     //delete
@@ -168,7 +167,7 @@ const PacksTable = () => {
 
             {/*//modal*/}
             <Modal isOpen = {deleteModal}>
-                <DeletePack showDelete={setDeleteModal} deletePack={deletePack} />
+                <DeleteModal showDelete={setDeleteModal} deleteFunction={deletePack} />
             </Modal>
             <Modal isOpen = {addModal}>
                 <AddPack showAdd={setAddModal} addPack={addPack} />
