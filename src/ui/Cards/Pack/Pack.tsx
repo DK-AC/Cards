@@ -16,7 +16,7 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 export type propsType = {
     pack: PackType
     delete: (id: string) => void,
-    edit: (id: string) => void
+    edit: (id: string, model: PackType) => void
     loginedUserID: string
 }
 
@@ -37,7 +37,10 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         pack._id && props.delete(pack._id)
     }
     const handleEdit = () => {
-        pack._id && props.edit(pack._id)
+        let model={
+            name: pack.name
+        }
+        pack._id && props.edit(pack._id, model)
     }
     const handleLearn =()=>{
         console.log('start learn')

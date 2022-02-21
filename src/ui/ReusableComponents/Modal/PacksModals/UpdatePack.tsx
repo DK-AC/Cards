@@ -5,10 +5,12 @@ import {ChangeEvent, useState} from "react";
 type UpdatePackType = {
     showUpdate: (modal: boolean) => void
     updatePack: (text: string) => void
+    packName?:string
 }
 
-export const UpdatePack = ({showUpdate, updatePack}: UpdatePackType) => {
-    const [text, setText] = useState('')
+export const UpdatePack = ({showUpdate, updatePack, packName}: UpdatePackType) => {
+    let name = packName? packName: ''
+    const [text, setText] = useState<string>(name)
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setText(e.currentTarget.value)
     }

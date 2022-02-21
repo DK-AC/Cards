@@ -16,7 +16,7 @@ import {Search} from "../../ReusableComponents/Search/Search";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from "@mui/material/Button";
-import { ParamsPackType } from '../../../dal/packsApi';
+import {PackFromServerType, ParamsPackType} from '../../../dal/packsApi';
 import {Modal} from "../../ReusableComponents/Modal/Modal";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {AddPack} from "../../ReusableComponents/Modal/PacksModals/AddPack";
@@ -59,6 +59,7 @@ const PacksTable = () => {
     const [updateModal, setUpdateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
 
+    const [pack, setPack] =useState<PackType>({})
 
     const params: ParamsPackType = {
         packName,
@@ -94,8 +95,9 @@ const PacksTable = () => {
         setDeleteModal(false);
     }
     //update
-    const handleClickEditPack = (packId: string) => {
+    const handleClickEditPack = (packId: string, pack:PackType ) => {
         setPackId(packId)
+        setPack(pack)
         setUpdateModal(true)
     }
     const updatePack = (text:string) =>{
@@ -174,7 +176,7 @@ const PacksTable = () => {
             </Modal>
 
             <Modal isOpen = {updateModal}>
-                <UpdatePack showUpdate={setUpdateModal} updatePack={updatePack} />
+                <UpdatePack showUpdate={setUpdateModal} updatePack={updatePack} packName={pack.name}/>
             </Modal>
 
 
