@@ -32,10 +32,6 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
 //cb чтобы открыть карточку
     const handleOpen = () => {
         navigate(`/cards/${pack._id}`)
-        //open()
-        // useNavigate? or <Navlink>
-        //нужно ли передать ф-ю cb через пропсы?
-        console.log('loginedUserID:', loginedUserID, 'pack.user_id: ', pack.user_id)
     }
     const handleDelete = () => {
         pack._id && props.delete(pack._id)

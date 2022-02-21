@@ -21,7 +21,6 @@ export const Login = () => {
 
     // @ts-ignore
     const fromPage = location.state?.from?.pathname || PATH.PROFILE_PAGE
-    console.log(location.state)
 
     const isLoggedIn = restoreState('isLogged', false)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
