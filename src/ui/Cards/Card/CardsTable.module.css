@@ -1,10 +1,10 @@
 .Table {
     overflow: auto;
-    width: 100%;
+    max-width: 900px;
     height: 100%;
-    border: 2px solid rgba(60, 45, 61, 0.3);
+    border: 2px solid rgba(224, 224, 224, 1);
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
     border-radius: 5px;
-    margin: 10px 0;
 }
 
 .settingsMenu {
@@ -12,7 +12,6 @@
     top: 64px;
     display: flex;
     min-width: 500px;
-    height: 80px;
     justify-content: space-around;
 }
 

@@ -9,7 +9,7 @@ import style from './App.module.css'
 import {ReusableButton} from "./ui/ReusableComponents/ReusableButton/ReusableButton";
 import {isAuthTC} from "./bll/reducers/appReducer";
 import {Login} from "./ui/auth/Login/Login";
-import {restoreState, saveState} from "./dal/localStorage/localStorage";
+import {clearState, restoreState, saveState} from "./dal/localStorage/localStorage";
 
 
 function App() {

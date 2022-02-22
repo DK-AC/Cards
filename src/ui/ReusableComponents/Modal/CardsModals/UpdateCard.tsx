@@ -30,7 +30,7 @@ export const UpdateCard = ({showUpdate, updateCard, ...props}: UpdateCardType) =
 
     return (
         <div className={s.containerModal}>
-            <h1 className={s.titleModal}>Update Pack</h1>
+            <h1 className={s.titleModal}>Update Card</h1>
             <div>
                 <Input type={'question'}
                        value={question}

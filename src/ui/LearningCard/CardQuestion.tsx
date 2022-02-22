@@ -21,9 +21,10 @@ const CardQuestion = ({question, ...props}:CardQuestionType) => {
     }
     return (
         <div className={style.container}>
-            <h3 className={style.title}>Question:</h3>
-            <br/>
-            <p className={style.question}>{question}</p>
+            <div className={style.block}>
+                <h3 className={style.title}>Question:</h3>
+                <p className={style.question}>{question}</p>
+            </div>
             <div className={style.buttonMenu}>
                 <Button variant="contained" onClick={handlerClickBack} >Back up</Button>
                 <Button variant="contained" color={"success"} onClick={handlerClickAnswer}>Answer</Button></div>

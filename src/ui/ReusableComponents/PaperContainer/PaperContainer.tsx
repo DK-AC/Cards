@@ -9,18 +9,18 @@ import {CircularProgress} from "@mui/material";
 type propsType ={
     children: React.ReactNode
     title?:string
-    tableStyle?:boolean
+    isCard?:boolean
 }
 
- const PaperContainer = ({children, title, tableStyle} :propsType) => {
+ const PaperContainer = ({children, title, isCard} :propsType) => {
  const status = useAppSelector<RequestStatusType>(store=> store.App.status)
-  const styleVariant = tableStyle? `${style.paperContainer} ${style.table}` :style.paperContainer
-  const styleContentVariant = tableStyle? `${style.content} ${style.tableContent}` :style.content
+  const contentStyle = isCard ? `${style.content} ${style.card}`: style.content
+
     return (
-        <Paper elevation={3} className={styleVariant}>
+        <Paper elevation={3} className={style.paperContainer}>
          <h3 className={style.additionalTitle}>it-incubator</h3>
                 <h2 className={style.mainTitle}> {title} </h2>
-                <div className={style.content}>{children}</div>
+                <div className={contentStyle}>{children}</div>
             {status=== 'loading' &&  <CircularProgress />}
         </Paper>
     );

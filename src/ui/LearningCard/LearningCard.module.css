@@ -1,38 +1,37 @@
 .title {
     color: rgba(60, 45, 61, 0.9);
-    margin: 0;
+    margin: 4px 0 6px;
     padding: 0;
-    /*position: absolute;*/
-    /* left: 50px;
-     top: 40px;*/
 }
-
+.info{
+    overflow: auto;
+    max-height: 90%;
+}
+.block{
+    height: 80px;
+    padding-bottom:20px ;
+}
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     width: 100%;
-    /*borber: 7px solid black;
-    background-color: palevioletred;*/
-}
-
-.question {
-    margin: 30px 0 60px;
-    text-align: justify;
+    height: 100%;
+    position: relative;
+    top:0;
 }
 
 .buttonMenu {
+    padding: 0;
+    bottom: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
-.wrapper {
+/*.wrapper {
     color: yellow;
     font-size: 20px;
     list-style-type: none;
-}
+}*/
 
-.rateItem{
-    list-style-type: none;
-    margin-bottom: 5px;
-}

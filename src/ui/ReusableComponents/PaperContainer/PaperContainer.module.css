@@ -1,21 +1,14 @@
 .paperContainer{
     min-width: 390px;
-    min-height: 468px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     align-content: center;
-
     position: relative;
 }
-.table{
-    margin-top: 30px;
-    height: 600px;
-    width: 70%;
-    overflow: visible;
-    flex-wrap: wrap;
-}
+
 
 .additionalTitle{
     color: rgba(60, 45, 61, 0.5);
@@ -27,8 +20,8 @@
 .mainTitle {
     color: rgba(60, 45, 61, 0.9);
     padding: 0;
-    position: absolute;
-    top: 70px;
+    position: fixed;
+    top: 100px;
     text-align: center;
 }
 
@@ -45,22 +38,20 @@
     top: 130px;
     bottom:50px;
     justify-content: space-around;
-
 }
-.tableContent{
-    padding: 0;
-    bottom: 20px;
-    top: 130px;
-    justify-content: space-between;
+.card{
+    padding: 0 20px;
+    top: 100px;
+    bottom:30px;
 }
-
 
 .content p,
 .content span,
 .content label{
     font-size: 0.9rem;
     color: rgba(0,0,0,0.5);
-    text-align: center;
+    /*text-align: center;*/
+    text-align: justify;
 }
 
 
