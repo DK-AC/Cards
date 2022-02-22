@@ -11,10 +11,9 @@ import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import EditIcon from '@mui/icons-material/Edit';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {log} from "util";
 import {useNavigate} from "react-router-dom";
-import {realpath} from "fs";
-import {PATH} from "../../Routes/Routes";
+import RatingForTable from "./RatingForTable";
+import style from './CardsTable.module.css'
 
 type CardPropsType = {
     card: CardType
@@ -38,8 +37,8 @@ const Card = ({card, ...props}: CardPropsType) => {
         }
         card._id && props.edit(card._id, model)
     }
-    const handleOpen=()=> {
-       navigate(`/cards/card/${card._id}`)
+    const handleOpen = () => {
+        navigate(`/cards/card/${card._id}`)
     }
 
     return (
@@ -47,17 +46,19 @@ const Card = ({card, ...props}: CardPropsType) => {
             <TableCell>{card.question}</TableCell>
             <TableCell>{card.answer}</TableCell>
             <TableCell>{dateUpdate}</TableCell>
-            <TableCell>{card.grade}</TableCell>
+            <TableCell><RatingForTable grade={card.grade as number}/> </TableCell>
             <TableCell>
-                <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
+                <div className={style.icons}>
+                    <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
                     <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
                 </IconButton>
-                <IconButton aria-label="change" onClick={handleEdit} disabled={status === 'loading'}>
-                    <EditIcon color={status === 'loading' ? "disabled" : "action"}/>
-                </IconButton>
-                <IconButton aria-label="delete" onClick={handleDelete} disabled={status === 'loading'}>
-                    <DeleteIcon color={status === 'loading' ? "disabled" : "error"}/>
-                </IconButton>
+                    <IconButton aria-label="change" onClick={handleEdit} disabled={status === 'loading'}>
+                        <EditIcon color={status === 'loading' ? "disabled" : "action"}/>
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={handleDelete} disabled={status === 'loading'}>
+                        <DeleteIcon color={status === 'loading' ? "disabled" : "error"}/>
+                    </IconButton>
+                </div>
             </TableCell>
         </TableRow>
     );
