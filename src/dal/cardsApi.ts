@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-import {newPackType} from "./packsApi";
 import {CardType} from "../bll/reducers/cardReducer";
 
 const instance = axios.create({
@@ -13,7 +12,7 @@ export const cardsApi = {
         return instance.get<CardsType>('/cards/card', {params: params})
     },
     createNewCard(createdCard: /*CardFromServerType*/  cardsFromUserForCreatingType) {
-        let card:cardsFromUserForCreatingType ={
+        let card: cardsFromUserForCreatingType = {
             cardsPack_id: createdCard.cardsPack_id,
             answer: createdCard.answer,
             question: createdCard.question,
@@ -21,7 +20,7 @@ export const cardsApi = {
             answerImg: "url or base 64",
             questionImg: "url or base 64",
             questionVideo: "url or base 64",
-            answerVideo:"url or base 64",
+            answerVideo: "url or base 64",
             grade: 0,
             shots: 0,
             rating: 0
@@ -34,15 +33,15 @@ export const cardsApi = {
     changeCard(card: CardFromServerType) {
         return instance.put<CardType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     },
-    updateGrade(data:gradeType){
-        return instance.put<gradeType, AxiosResponse<updatedGradeType>>( '/cards/grade',data)
+    updateGrade(data: gradeType) {
+        return instance.put<gradeType, AxiosResponse<updatedGradeType>>('/cards/grade', data)
     }
 }
-export type gradeType={
-    grade:number,
+export type gradeType = {
+    grade: number,
     card_id: string
 }
-export type updatedGradeType= {
+export type updatedGradeType = {
     _id: string
     cardsPack_id: string
     card_id: string
@@ -50,11 +49,11 @@ export type updatedGradeType= {
     grade: number
     shots: number
 }
-export type cardsFromUserForCreatingType ={
-    cardsPack_id?:string
+export type cardsFromUserForCreatingType = {
+    cardsPack_id?: string
     answer?: "no question" | string
     question?: "no answer" | string
-    type?: "card" |string
+    type?: "card" | string
     answerImg?: string
     questionImg?: string
     questionVideo?: string

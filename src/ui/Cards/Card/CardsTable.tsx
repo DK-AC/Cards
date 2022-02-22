@@ -25,6 +25,7 @@ import {AddCard} from "../../ReusableComponents/Modal/CardsModals/AddCard";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {UpdateCard} from "../../ReusableComponents/Modal/CardsModals/UpdateCard";
 
+
 const CardsTable = () => {
 
     const dispatch = useDispatch()

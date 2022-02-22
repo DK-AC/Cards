@@ -2,23 +2,25 @@ import React from 'react';
 import style from './LearningCard.module.css'
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import Raiting from "./Raiting/Raiting";
+import Rating from "./Raiting/Rating";
 import {CardType} from "../../bll/reducers/cardReducer";
 
-type CardAnswerType={
-    card:CardType
+type CardAnswerType = {
+    card: CardType
+    nextCard?: CardType
+    handlerClickBack: () => void
 }
 
-const CardAnswer = ({ card, ...props }:  CardAnswerType) => {
+const CardAnswer = ({card, nextCard, ...props}: CardAnswerType) => {
     const navigate = useNavigate()
-    const handlerClickBack =()=>{
-        navigate(-1)
+    const handlerClickBack = () => {
+        props.handlerClickBack()
     }
     const handlerClickNextQuestion = () => {
-        console.log('next question')
+        nextCard && navigate(`/cards/card/${nextCard._id}`)
     }
 
-    const id= card? card._id as string : '111'
+    const id = card ? card._id as string : '111'
     return (
         <div className={style.container}>
             <div className={style.block}>
@@ -29,10 +31,10 @@ const CardAnswer = ({ card, ...props }:  CardAnswerType) => {
                 <h3 className={style.title}>Answer:</h3>
                 <p className={style.info}>{card.answer}</p>
             </div>
-          <Raiting id={id}/>
+            <Rating id={id}/>
             <div className={style.buttonMenu}>
-            <Button variant="contained" onClick={handlerClickBack}>Back up</Button>
-            <Button variant="contained" color={"success"} onClick={handlerClickNextQuestion}>Next</Button>
+                <Button variant="contained" onClick={handlerClickBack}>Back up</Button>
+                <Button variant="contained" color={"success"} onClick={handlerClickNextQuestion}>Next</Button>
             </div>
         </div>
     );
