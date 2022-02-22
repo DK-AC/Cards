@@ -159,7 +159,7 @@ const CardsTable = () => {
                        onPageChanged={onPageChanged}
                        countItemsOnPageChanged={countItemsChanged}
             />
-            {/*//modal*/}
+            { /*//modal*/}
             <Modal isOpen = {deleteModal}>
                 <DeleteModal showDelete={setDeleteModal} deleteFunction={deleteCard} />
             </Modal>
