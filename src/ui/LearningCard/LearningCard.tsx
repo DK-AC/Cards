@@ -24,15 +24,14 @@ const LearningCard = () => {
         setAnswerSent(answerSent)
     }
 
-    let cardQuestion = card ? card.question : 'some card'
-    let cardAnswer = card ? card.answer : 'some answer'
+    let cardProp = card ? card : {} as CardType
     let packName = pack ? pack.name : 'some pack'
 
     return (
         <PaperContainer title={`Learn pack "${packName}"`} isCard={true}>
             {!answerSent
-                ? <CardQuestion question={cardQuestion} onClickHandler={onClickHandler}/>
-                : <CardAnswer  question={cardQuestion} answer={cardAnswer} />}
+                ? <CardQuestion card={cardProp} onClickHandler={onClickHandler}/>
+                : <CardAnswer  card={cardProp} />}
         </PaperContainer>
 
     );

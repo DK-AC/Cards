@@ -6,9 +6,10 @@ import {
     CardFromServerType,
     cardsApi,
     cardsFromUserForCreatingType,
-    CardsType,
+    CardsType, gradeType,
     ParamsCardType
 } from "../../dal/cardsApi";
+import axios from "axios";
 
 const SET_CARDS = 'cardReducer/SET_CARDS'
 const ADD_CARD = 'cardReducer/ADD_NEW_CARD'
@@ -112,6 +113,18 @@ export const changeCardTC = (cardID: string, modelCard: CardFromServerType, para
     }
 }
 
+export const changeGradeTC = (data:gradeType): AppThunkType => async (dispatch) =>{
+    try{ dispatch(setAppErrorAC(null))
+        dispatch(setAppStatusAC('loading'))
+        await cardsApi.updateGrade(data)
+    }
+    catch (error) {
+        handlerAppError(error, dispatch);
+    } finally {
+        dispatch(setAppStatusAC('idle'))
+    }
+
+}
 
 //types
 export type CardMainType =

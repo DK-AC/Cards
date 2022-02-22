@@ -1,14 +1,17 @@
 import React, {ChangeEvent} from 'react';
 import style from "./Raiting.module.css";
+import {useDispatch} from "react-redux";
+import {changeGradeTC} from "../../../bll/reducers/cardReducer";
 ;
 
 type RatingType ={
-
+ id: string
 }
 
-const Raiting = () => {
-    const onRadioChange = (value:string | number) => {
-        console.log(value)
+const Raiting = ({id}:RatingType ) => {
+     const dispatch = useDispatch()
+    const onRadioChange = (value:number) => {
+        dispatch(changeGradeTC({grade:value, card_id: id}))
     }
     const values =[
         {value: 1, description: ` Didn't know the answer`}, //не знал ответ
@@ -31,15 +34,15 @@ const Raiting = () => {
 };
 
 type RaitingItemType={
-    onRadioChange:(value:string | number )=>void
-    value: string | number
+    onRadioChange:(value: number )=>void
+    value: number
     description: string
 }
 
 
 const  RaitingItem =({onRadioChange,value, description}:RaitingItemType)=>{
     const onRadioChangeHandler=(e: ChangeEvent<HTMLInputElement>)=>{
-        onRadioChange(e.currentTarget.value)
+        onRadioChange(+e.currentTarget.value)
     }
     return <li className={style.rateItem}>
         <label>

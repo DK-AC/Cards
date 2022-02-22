@@ -2,15 +2,14 @@ import React, {MouseEventHandler} from 'react';
 import style from './LearningCard.module.css'
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {CardType} from "../../bll/reducers/cardReducer";
 
 export type CardQuestionType={
-    question?: string
-    questionImg?: string
-    questionVideo?: string
+    card:CardType
     onClickHandler:(e:boolean)=>void
 }
 
-const CardQuestion = ({question, ...props}:CardQuestionType) => {
+const CardQuestion = ({card, ...props}:CardQuestionType) => {
 
     const navigate = useNavigate()
     const handlerClickBack =()=>{
@@ -23,7 +22,7 @@ const CardQuestion = ({question, ...props}:CardQuestionType) => {
         <div className={style.container}>
             <div className={style.block}>
                 <h3 className={style.title}>Question:</h3>
-                <p className={style.question}>{question}</p>
+                <p className={style.question}>{card.question}</p>
             </div>
             <div className={style.buttonMenu}>
                 <Button variant="contained" onClick={handlerClickBack} >Back up</Button>

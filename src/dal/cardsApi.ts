@@ -34,6 +34,21 @@ export const cardsApi = {
     changeCard(card: CardFromServerType) {
         return instance.put<CardType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     },
+    updateGrade(data:gradeType){
+        return instance.put<gradeType, AxiosResponse<updatedGradeType>>( '/cards/grade',data)
+    }
+}
+export type gradeType={
+    grade:number,
+    card_id: string
+}
+export type updatedGradeType= {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: "5eb543f6bea3ad21480f1ee7"
+    grade: number
+    shots: number
 }
 export type cardsFromUserForCreatingType ={
     cardsPack_id?:string
