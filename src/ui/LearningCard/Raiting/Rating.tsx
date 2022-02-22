@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {changeGradeTC} from "../../../bll/reducers/cardReducer";
 
 
+
 type RatingType = {
     id: string
 }

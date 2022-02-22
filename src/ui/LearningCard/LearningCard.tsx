@@ -39,7 +39,7 @@ const LearningCard = () => {
 
     const onClickHandler = useCallback((answerSent: boolean) => {
         setAnswerSent(answerSent)
-        if (cards.length > 0) {
+       if (cards.length > 0) {
             setCurrentCard(getCard(cards));
         }
     }, [answerSent])
