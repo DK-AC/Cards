@@ -23,8 +23,6 @@ export const Login = () => {
     const fromPage = location.state?.from?.pathname || PATH.PROFILE_PAGE
 
     const isLoggedIn = restoreState('isLogged', false)
-    const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-    /*const isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)*/
     const error = useAppSelector<string | null>(state => state.App.error)
     const status = useAppSelector<RequestStatusType>(state => state.App.status)
 
@@ -51,10 +49,7 @@ export const Login = () => {
     useEffect(() => {
         dispatch(setAppErrorAC(null))
        if (isLoggedIn) {
-           //fromPage? navigate(-1): navigate(PATH.PROFILE_PAGE)
            fromPage===null||'/' ? navigate(PATH.PROFILE_PAGE): navigate(-1)
-           //navigate(PATH.PROFILE_PAGE)
-           //fromPage  && navigate(fromPage)
        } else {
            return
        }

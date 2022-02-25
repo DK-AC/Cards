@@ -15,32 +15,18 @@ import {clearState, restoreState, saveState} from "./dal/localStorage/localStora
 function App() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const isLoggedfromState= useAppSelector<boolean>(state => state.Login.isLogged)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
+    const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)
      let isLoggedIn = restoreState('isLogged', false)
-
 
 
     useEffect(() => {
         dispatch(isAuthTC())
-        if (!isInitialized || !isLoggedfromState || !isLoggedIn) {
-            navigate(PATH.LOGIN_PAGE)} else{
-           return
+        debugger
+        if(!cookiesAreAlive){
+            clearState('isLogged', false)
         }
-      /* if (isInitialized && isLoggedfromState && isLoggedIn) {
-                return} else{
-            navigate(PATH.LOGIN_PAGE)
-        }*/
-       /* if (isInitialized && !isLoggedIn) {
-            navigate(PATH.LOGIN_PAGE)
-        } else if(!isInitialized && isLoggedIn){
-            navigate(PATH.LOGIN_PAGE)
-        } else if (!isInitialized && !isLoggedIn){
-            navigate(PATH.LOGIN_PAGE)
-        }else {return;}*/
-
     }, [])
-
 
 const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
@@ -48,13 +34,10 @@ const logoutHandler = useCallback(() => {
     saveState('isLogged', false)
     }, [isLoggedIn])
 
+    if (!isInitialized){
+        return <div>Грузим</div>
+    }
 
-   /*const logoutHandler =()=> {
-        navigate(PATH.LOGIN_PAGE)
-        dispatch(logoutTC())
-       saveState('isLogged', false)
-        console.log(isLoggedIn)
-    }*/
     return (
         <div className={style.App}>
             <div className={style.container}>

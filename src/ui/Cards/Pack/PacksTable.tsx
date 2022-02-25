@@ -27,11 +27,9 @@ const PacksTable = () => {
 
     const dispatch = useDispatch()
     const status = useAppSelector<RequestStatusType>(store => store.App.status)
-
     const userId = useAppSelector<string>(state => state.Profile._id)
     const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-
 
     //локальные стейты
     //для инпута (чтоб найти имя колоды)

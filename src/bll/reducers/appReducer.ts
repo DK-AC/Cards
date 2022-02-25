@@ -11,11 +11,13 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const SET_ERROR = 'appReducer/SET_ERROR'
 const SET_STATUS = 'appReducer/SET_STATUS'
 const SET_IS_INITIALIZED = 'appReducer/SET_IS_INITIALIZED'
+const SET_COOKIES = 'appReducer/cookiesStatus'
 
 const initialState = {
     error: null as string | null,
     status: "failed" as RequestStatusType,
-    isInitialized: false
+    isInitialized: false,
+    cookiesAreAlive: true
 }
 type initialStateType = typeof initialState
 
@@ -27,6 +29,9 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
             return {...state, status: action.status}
         case SET_IS_INITIALIZED:
             return {...state, isInitialized: true}
+        case SET_COOKIES: {
+                return {...state, cookiesAreAlive: true}
+        }
         default:
             return state
     }
@@ -35,6 +40,7 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
 export const setAppErrorAC = (error: null | string) => ({type: SET_ERROR, error}) as const
 export const setAppStatusAC = (status: RequestStatusType) => ({type: SET_STATUS, status}) as const
 export const setIsInitializedAC = () => ({type: SET_IS_INITIALIZED}) as const
+export const setCookiesAC = (cookiesAreAlive:boolean) => ({type: SET_COOKIES, cookiesAreAlive}) as const
 
 
 export const isAuthTC = () => async (dispatch: Dispatch) => {
@@ -42,10 +48,12 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
         const res= await authApi.me()
+        dispatch(setCookiesAC(true))
         dispatch(setIsLoggedInAC(true))
         dispatch(setProfile(res.data))
     } catch (error) {
         handlerAppError(error, dispatch)
+        dispatch(setCookiesAC(false))
     } finally {
         dispatch(setIsInitializedAC())
         dispatch(setAppStatusAC('idle'))
@@ -55,8 +63,9 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
 
 export type AppMainType = SetAppErrorType
     | SetAppStatusType
-    | SetIsInitialized
+    | SetIsInitializedType |setCookiesType
 
 type SetAppErrorType = ReturnType<typeof setAppErrorAC>
 type SetAppStatusType = ReturnType<typeof setAppStatusAC>
-type SetIsInitialized = ReturnType<typeof setIsInitializedAC>
+type SetIsInitializedType = ReturnType<typeof setIsInitializedAC>
+type setCookiesType  = ReturnType<typeof setCookiesAC>
