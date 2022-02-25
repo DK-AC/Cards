@@ -26,11 +26,12 @@
 }
 
 
-.loadind {
-    position: absolute;
-    z-index: 1;
-    top: 200px;
-    left: 480px;
+.loading {
+    position: fixed;
+    top: 30%;
+    left:46%;
+    textAlign: center;
+    width: 100%;
 }
 
 .stars {

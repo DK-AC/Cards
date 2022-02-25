@@ -23,7 +23,6 @@ function App() {
 
     useEffect(() => {
         dispatch(isAuthTC())
-        debugger
         if(!cookiesAreAlive){
             clearState('isLogged', false)
         }
@@ -38,7 +37,7 @@ const logoutHandler = useCallback(() => {
     if (!isInitialized){
        return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress />
+            <CircularProgress size={'8rem'}/>
         </div>
     }
 

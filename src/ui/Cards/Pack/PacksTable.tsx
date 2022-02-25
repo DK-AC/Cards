@@ -79,8 +79,10 @@ const PacksTable = () => {
         setAddModal(true)
     }
     const addPack = (text:string) =>{
+        if(text.length){
         dispatch(addPackTC(params, text))
         setAddModal(false)
+        }
     }
 
     //delete
@@ -99,8 +101,10 @@ const PacksTable = () => {
         setUpdateModal(true)
     }
     const updatePack = (text:string) =>{
-        dispatch(changePackTC(packId, {name:text}, params))
-        setUpdateModal(false)
+        if(text.length) {
+            dispatch(changePackTC(packId, {name: text}, params))
+            setUpdateModal(false)
+        }
     }
 
     //обработчики для пагинации
@@ -163,7 +167,9 @@ const PacksTable = () => {
             <Pagenator currentPage={currentPage} countItemsOnPage={pageCount} totalItems={cardPacksTotalCount}
                        onPageChanged={onPageChanged}
                        countItemsOnPageChanged={countItemsChanged}/>
-            <div className={style.loadind}>{status === 'loading' && <CircularProgress size={'8rem'}/>}</div>
+            <div className={style.loading}>
+                {status === 'loading' && <CircularProgress size={'8rem'}/>}
+            </div>
 
             {/*//modal*/}
             <Modal isOpen = {deleteModal}>

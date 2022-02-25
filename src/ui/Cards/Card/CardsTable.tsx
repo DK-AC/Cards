@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from "../Card/CardsTable.module.css";
-import {TableBody, TableHead} from "@mui/material";
+import {CircularProgress, TableBody, TableHead} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -160,6 +160,9 @@ const CardsTable = () => {
                        onPageChanged={onPageChanged}
                        countItemsOnPageChanged={countItemsChanged}
             />
+            <div className={style.loading}>
+                {status === 'loading' && <CircularProgress size={'8rem'}/>}
+            </div>
             { /*//modal*/}
             <Modal isOpen = {deleteModal}>
                 <DeleteModal showDelete={setDeleteModal} deleteFunction={deleteCard} />
