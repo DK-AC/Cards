@@ -10,6 +10,7 @@ import {ReusableButton} from "./ui/ReusableComponents/ReusableButton/ReusableBut
 import {isAuthTC} from "./bll/reducers/appReducer";
 import {Login} from "./ui/auth/Login/Login";
 import {clearState, restoreState, saveState} from "./dal/localStorage/localStorage";
+import {CircularProgress} from "@mui/material";
 
 
 function App() {
@@ -35,7 +36,10 @@ const logoutHandler = useCallback(() => {
     }, [isLoggedIn])
 
     if (!isInitialized){
-        return <div>Грузим</div>
+       return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress />
+        </div>
     }
 
     return (
