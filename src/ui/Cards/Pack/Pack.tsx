@@ -4,7 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import {PackType} from "../../../bll/reducers/packReducer";
-import {IconButton} from "@mui/material";
+import {cardActionAreaClasses, IconButton} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -13,19 +13,24 @@ import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import {useNavigate} from "react-router-dom";
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
+import {CardType, setCardsTC} from "../../../bll/reducers/cardReducer";
+import {ParamsPackType} from "../../../dal/packsApi";
+import {useDispatch} from "react-redux";
 
 export type propsType = {
     pack: PackType
     delete: (id: string) => void,
     edit: (id: string, model: PackType) => void
     loginedUserID: string
+    startLearningHendler:(id:string)=>void
 }
 
-const Pack = ({pack, loginedUserID, ...props}: propsType) => {
+const Pack = ({pack, loginedUserID,...props}: propsType) => {
 
     const navigate = useNavigate()
 
     const status = useAppSelector<RequestStatusType>(store => store.App.status)
+
 
     const dateUpdate = pack.updated && new Date(pack.updated).toLocaleDateString();
     const dateCreated = pack.created && new Date(pack.created).toLocaleDateString();
@@ -44,7 +49,8 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         pack._id && props.edit(pack._id, model)
     }
     const handleLearn =()=>{
-        console.log('start learn')
+        pack._id && props.startLearningHendler(pack._id)
+        //navigate(navigate(`/cards/card/${card._id}`)
     }
 
     return (

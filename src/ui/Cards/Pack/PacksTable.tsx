@@ -21,6 +21,7 @@ import {Modal} from "../../ReusableComponents/Modal/Modal";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {AddPack} from "../../ReusableComponents/Modal/PacksModals/AddPack";
 import {UpdatePack} from "../../ReusableComponents/Modal/PacksModals/UpdatePack";
+import {CardType, setCardsTC} from "../../../bll/reducers/cardReducer";
 
 
 const PacksTable = () => {
@@ -30,6 +31,7 @@ const PacksTable = () => {
     const userId = useAppSelector<string>(state => state.Profile._id)
     const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
+    const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
 
     //локальные стейты
     //для инпута (чтоб найти имя колоды)
@@ -106,6 +108,13 @@ const PacksTable = () => {
             setUpdateModal(false)
         }
     }
+    //learn
+    const startLearning = (packID: PackType)=>{
+        
+            //let c = cards.filter(c=>c.cardsPack_id===packID)*/
+        console.log(cards)
+        console.log(packID)
+    }
 
     //обработчики для пагинации
     const onPageChanged = (page: number) => setCurrentPage(page)
@@ -160,7 +169,9 @@ const PacksTable = () => {
                                          loginedUserID={userId}
                                          pack={pack}
                                          delete={handleClickDeletePack}
-                                         edit={handleClickEditPack}/>
+                                         edit={handleClickEditPack}
+                                         startLearningHendler={startLearning}
+                           />
                         })}</TableBody>
                 </Table>
             </div>
