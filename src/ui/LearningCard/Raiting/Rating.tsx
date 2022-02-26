@@ -1,25 +1,29 @@
 import React, {ChangeEvent} from 'react';
 import style from "./Raiting.module.css";
 import {useDispatch} from "react-redux";
-import {changeGradeTC} from "../../../bll/reducers/cardReducer";
-
+import {changeGradeAC} from "../../../bll/reducers/cardReducer";
 
 
 type RatingType = {
-    id: string
+    id: string | undefined
 }
 
 const Rating = ({id}: RatingType) => {
     const dispatch = useDispatch()
+    //с каждым изменение отправлялся запрос на сервер
+    //const onRadioChange = (value: number) => {
+    //         dispatch(changeGradeTC({grade: value, card_id: id}))
+    //     }
+    //теперь отправляется запрос только когда нажимаю на следующую карточку
     const onRadioChange = (value: number) => {
-        dispatch(changeGradeTC({grade: value, card_id: id}))
+        dispatch(changeGradeAC({grade: value, card_id: id}))
     }
     const values = [
         {value: 1, description: ` Didn't know the answer`}, //не знал ответ
         {value: 2, description: ' Forgot'}, //забыл ответ
         {value: 3, description: ' Answered with errors'}, //ответил с ошибками
         {value: 4, description: ` Didn't fully answer`},  //дал неполный ответ
-        {value: 5, description: ' Gave the correct answer'}  //дал верный  ответ
+        {value: 5, description: ' Gave the correct answer'}  //дал верный ответ
     ]
 
     return (

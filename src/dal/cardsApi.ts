@@ -2,8 +2,8 @@ import axios, {AxiosResponse} from "axios";
 import {CardType} from "../bll/reducers/cardReducer";
 
 const instance = axios.create({
-    // baseURL: 'https://neko-back.herokuapp.com/2.0',
-    baseURL: 'http://localhost:7542/2.0',
+    baseURL: 'https://neko-back.herokuapp.com/2.0',
+    // baseURL: 'http://localhost:7542/2.0',
     withCredentials: true,
 })
 
@@ -33,13 +33,13 @@ export const cardsApi = {
     changeCard(card: CardFromServerType) {
         return instance.put<CardType, AxiosResponse<CardFromServerType>>('/cards/card', {card})
     },
-    updateGrade(data: gradeType) {
-        return instance.put<gradeType, AxiosResponse<updatedGradeType>>('/cards/grade', data)
+    updateGrade(data: GradeType) {
+        return instance.put<GradeType, AxiosResponse<updatedGradeType>>('/cards/grade', data)
     }
 }
-export type gradeType = {
+export type GradeType = {
     grade: number,
-    card_id: string
+    card_id: string | undefined
 }
 export type updatedGradeType = {
     _id: string

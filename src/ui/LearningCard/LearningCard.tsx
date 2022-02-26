@@ -1,68 +1,55 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import PaperContainer from "../ReusableComponents/PaperContainer/PaperContainer";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
+import {CardType, changeGradeTC, setCardsTC} from "../../bll/reducers/cardReducer";
+import {useDispatch} from 'react-redux';
 import {useAppSelector} from "../../bll/store";
-import {CardType} from "../../bll/reducers/cardReducer";
-import {PackType} from "../../bll/reducers/packReducer";
-import CardQuestion from "./CardQuestion";
-import CardAnswer from "./CardAnswer";
-
-
-const getCard = (cards: CardType[]) => {
-    // @ts-ignore
-    const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
-    const rand = Math.random() * sum;
-    const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
-            // @ts-ignore
-            const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-            return {sum: newSum, id: newSum < rand ? i : acc.id}
-        }
-        , {sum: 0, id: -1});
-    return cards[res.id + 1];
-}
+import PaperContainer from '../ReusableComponents/PaperContainer/PaperContainer';
+import {getRandomCard} from '../../utilities/getRandomCard';
+import CardQuestion from './CardQuestion';
+import CardAnswer from './CardAnswer';
 
 const LearningCard = () => {
-    const {id} = useParams<{ id: string }>()
-    const [answerSent, setAnswerSent] = useState<boolean>(false) //был ответ?
-    const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
-    const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
-    const [currentCard, setCurrentCard] = useState<CardType>({})
+
+    const dispatch = useDispatch();
+
+    const {id} = useParams()
+
+    const cards = useAppSelector(state => state.Cards.cards)
+    const grade = useAppSelector<number>(state => state.Cards.grade)
+
     const [first, setFirst] = useState<boolean>(true);
-    const navigate = useNavigate()
+    const [isChecked, setIsChecked] = useState(false);
+    const [currentCard, setCurrentCard] = useState<CardType>({})
 
-    let pack: PackType | undefined
-    const card = cards.find(card => card._id === id)
 
-    if (card) {
-        pack = packs.find(pack => pack._id === card.cardsPack_id)
+    const nextCardHandler = (grade: number) => {
+        setCurrentCard(getRandomCard(cards));
+        dispatch(
+            changeGradeTC({grade: grade, card_id: currentCard._id})
+        );
+        setIsChecked(false)
+    };
+    const handleNext = () => {
+        nextCardHandler(grade)
     }
 
-    const onClickHandler = useCallback((answerSent: boolean) => {
-        setAnswerSent(answerSent)
-       if (cards.length > 0) {
-            setCurrentCard(getCard(cards));
-        }
-    }, [answerSent])
-
-    const handlerClickBack = () => {
-        pack && navigate(`/cards/${pack._id}`)
-    }
 
     useEffect(() => {
-        setFirst(false);
-        setAnswerSent(false)
-    }, [id, cards, first])
-
-    let cardProp = card ? card : {} as CardType
-    let packName = pack ? pack.name : 'some pack'
+        if (first) {
+            id && dispatch(setCardsTC({cardsPack_id: id}));
+            setFirst(false);
+        }
+        if (cards.length > 0) {
+            setCurrentCard(getRandomCard(cards));
+        }
+    }, [cards]);
 
     return (
-        <PaperContainer title={`Learn pack "${packName}"`} isCard={true}>
-            {!answerSent
-                ? <CardQuestion card={cardProp} onClickHandler={onClickHandler} handlerClickBack={handlerClickBack}/>
-                : <CardAnswer card={cardProp} nextCard={currentCard} handlerClickBack={handlerClickBack}/>}
+        <PaperContainer>
+            {!isChecked
+                ? <CardQuestion currentCard={currentCard} setIsChecked={setIsChecked}/>
+                : <CardAnswer currentCard={currentCard} handleNext={handleNext} setIsChecked={setIsChecked}/>}
         </PaperContainer>
-
     );
 };
 
