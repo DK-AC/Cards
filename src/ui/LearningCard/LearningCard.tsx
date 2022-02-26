@@ -15,6 +15,7 @@ const LearningCard = () => {
     const {id} = useParams()
 
     const cards = useAppSelector(state => state.Cards.cards)
+    const grade = useAppSelector<number>(state => state.Cards.grade)
 
     const [first, setFirst] = useState<boolean>(true);
     const [isChecked, setIsChecked] = useState(false);
@@ -24,12 +25,12 @@ const LearningCard = () => {
     const nextCardHandler = (grade: number) => {
         setCurrentCard(getRandomCard(cards));
         dispatch(
-            changeGradeTC({grade: Number(grade), card_id: currentCard._id ? currentCard._id : "123"})
+            changeGradeTC({grade: grade, card_id: currentCard._id})
         );
         setIsChecked(false)
     };
     const handleNext = () => {
-        nextCardHandler(1)
+        nextCardHandler(grade)
     }
 
 
@@ -47,7 +48,7 @@ const LearningCard = () => {
         <PaperContainer>
             {!isChecked
                 ? <CardQuestion currentCard={currentCard} setIsChecked={setIsChecked}/>
-                : <CardAnswer currentCard={currentCard} nextCardHandler={handleNext} setIsChecked={setIsChecked}/>}
+                : <CardAnswer currentCard={currentCard} handleNext={handleNext} setIsChecked={setIsChecked}/>}
         </PaperContainer>
     );
 };

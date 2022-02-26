@@ -10,19 +10,20 @@ import {RequestStatusType} from "../../bll/reducers/appReducer";
 
 type CardAnswerType = {
     currentCard: CardType
-    nextCardHandler: (grade: number) => void
+    handleNext: (grade: number) => void
     setIsChecked: (isChecked: boolean) => void
 }
 
-const CardAnswer = ({currentCard, nextCardHandler, setIsChecked}: CardAnswerType) => {
+const CardAnswer = ({currentCard, handleNext, setIsChecked}: CardAnswerType) => {
 
-    const status = useAppSelector<RequestStatusType>(store => store.App.status)
+    const status = useAppSelector<RequestStatusType>(state => state.App.status)
+    const grade = useAppSelector<number>(state => state.Cards.grade)
 
     const handlerClickBack = () => {
         setIsChecked(false)
     }
     const handlerClickNextQuestion = () => {
-        nextCardHandler(1)
+        handleNext(grade)
     }
 
     return (
