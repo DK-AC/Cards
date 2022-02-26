@@ -10,8 +10,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
-import {useNavigate} from "react-router-dom";
-import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import {Link, useNavigate} from "react-router-dom";
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 
 export type propsType = {
@@ -38,13 +37,13 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         pack._id && props.delete(pack._id)
     }
     const handleEdit = () => {
-        let model={
+        let model = {
             name: pack.name
         }
         pack._id && props.edit(pack._id, model)
     }
-    const handleLearn =()=>{
-        console.log('start learn')
+    const handleLearn = () => {
+       navigate(`/cards/card/${pack._id}`)
     }
 
     return (

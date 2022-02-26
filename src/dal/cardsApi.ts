@@ -39,7 +39,7 @@ export const cardsApi = {
 }
 export type gradeType = {
     grade: number,
-    card_id: string
+    card_id: string|undefined
 }
 export type updatedGradeType = {
     _id: string

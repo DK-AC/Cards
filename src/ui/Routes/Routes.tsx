@@ -10,7 +10,6 @@ import PacksTable from "../Cards/Pack/PacksTable";
 import {AuthProvider} from "../../bll/HOK/AuthProvider";
 import CardsTable from "../Cards/Card/CardsTable";
 import LearningCard from "../LearningCard/LearningCard";
-import CardQuestion from "../LearningCard/CardQuestion";
 
 export const PATH = {
     START_PAGE: '/',

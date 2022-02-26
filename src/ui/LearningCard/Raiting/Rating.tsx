@@ -6,7 +6,7 @@ import {changeGradeTC} from "../../../bll/reducers/cardReducer";
 
 
 type RatingType = {
-    id: string
+    id: string|undefined
 }
 
 const Rating = ({id}: RatingType) => {

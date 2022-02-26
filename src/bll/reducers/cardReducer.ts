@@ -9,7 +9,6 @@ import {
     CardsType, gradeType,
     ParamsCardType
 } from "../../dal/cardsApi";
-import axios from "axios";
 
 const SET_CARDS = 'cardReducer/SET_CARDS'
 const ADD_CARD = 'cardReducer/ADD_NEW_CARD'
@@ -104,7 +103,6 @@ export const changeCardTC = (cardID: string, modelCard: CardFromServerType, para
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         const res = await cardsApi.changeCard(apiModel)
-        // dispatch(changeCardAC(res.data))
         await dispatch(setCardsTC(params))
     } catch (error) {
         handlerAppError(error, dispatch);
