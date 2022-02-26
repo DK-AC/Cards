@@ -8,7 +8,6 @@ import {PATH} from '../Routes/Routes';
 export type CardQuestionType = {
     currentCard: CardType
     setIsChecked: (isChecked: boolean) => void
-
 }
 
 const CardQuestion = ({currentCard, setIsChecked}: CardQuestionType) => {

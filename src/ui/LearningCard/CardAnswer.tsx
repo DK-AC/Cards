@@ -1,7 +1,6 @@
 import React from 'react';
 import style from './LearningCard.module.css'
 import {Button} from "@mui/material";
-import {useNavigate} from "react-router-dom";
 import Rating from "./Raiting/Rating";
 import {CardType} from "../../bll/reducers/cardReducer";
 
@@ -12,8 +11,6 @@ type CardAnswerType = {
 }
 
 const CardAnswer = ({currentCard, nextCardHandler, setIsChecked}: CardAnswerType) => {
-
-    const navigate = useNavigate()
 
     const handlerClickBack = () => {
         setIsChecked(false)

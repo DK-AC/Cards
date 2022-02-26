@@ -6,7 +6,8 @@ import {
     CardFromServerType,
     cardsApi,
     cardsFromUserForCreatingType,
-    CardsType, gradeType,
+    CardsType,
+    gradeType,
     ParamsCardType
 } from "../../dal/cardsApi";
 
@@ -111,12 +112,12 @@ export const changeCardTC = (cardID: string, modelCard: CardFromServerType, para
     }
 }
 
-export const changeGradeTC = (data:gradeType): AppThunkType => async (dispatch) =>{
-    try{ dispatch(setAppErrorAC(null))
+export const changeGradeTC = (data: gradeType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         await cardsApi.updateGrade(data)
-    }
-    catch (error) {
+    } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
         dispatch(setAppStatusAC('idle'))
@@ -147,3 +148,4 @@ export type CardType = {
     __v?: number
     _id?: string
 }
+

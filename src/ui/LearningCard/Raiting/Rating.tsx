@@ -19,7 +19,7 @@ const Rating = ({id}: RatingType) => {
         {value: 2, description: ' Forgot'}, //забыл ответ
         {value: 3, description: ' Answered with errors'}, //ответил с ошибками
         {value: 4, description: ` Didn't fully answer`},  //дал неполный ответ
-        {value: 5, description: ' Gave the correct answer'}  //дал верный  ответ
+        {value: 5, description: ' Gave the correct answer'}  //дал верный ответ
     ]
 
     return (

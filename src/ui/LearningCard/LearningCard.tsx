@@ -47,55 +47,8 @@ const LearningCard = () => {
         <PaperContainer>
             {!isChecked
                 ? <CardQuestion currentCard={currentCard} setIsChecked={setIsChecked}/>
-                : <CardAnswer currentCard={currentCard} nextCardHandler={handleNext}  setIsChecked={setIsChecked}/>}
+                : <CardAnswer currentCard={currentCard} nextCardHandler={handleNext} setIsChecked={setIsChecked}/>}
         </PaperContainer>
-
-
-
-        // <PaperContainer>
-        //     {!isChecked && (
-        //         <div>
-        //             <div>
-        //                 <h2>Question:</h2>
-        //                 <p>{currentCard.question}</p>
-        //             </div>
-        //
-        //             <div>
-        //                 <Button variant="contained" color="inherit" onClick={() => navigate(PATH.PACKS_TABLE_PAGE)}
-        //                 >
-        //                     Cancel
-        //                 </Button>
-        //                 <Button variant="contained" color="primary" onClick={() => setIsChecked(!isChecked)}>
-        //                     Show Answer
-        //                 </Button>
-        //             </div>
-        //         </div>
-        //     )}
-        //     <div>
-        //         {isChecked && (
-        //             <div>
-        //                 <div>
-        //                     <h2>Answer:</h2>
-        //                     <p>{currentCard.answer}</p>
-        //                 </div>
-        //                 <div>
-        //                     <div>
-        //                         <Rating id={id}/>
-        //                     </div>
-        //                     <div>
-        //                         <Button variant="contained" color="inherit" onClick={() => setIsChecked(false)}>
-        //                             Back
-        //                         </Button>
-        //                         <Button variant="contained" color="success" onClick={() => handleNext()}>
-        //                             Next
-        //                         </Button>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         )}
-        //     </div>
-        // </PaperContainer>
-
     );
 };
 

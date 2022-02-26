@@ -49,7 +49,7 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{pack.name}</TableCell>
             <TableCell>{pack.cardsCount}</TableCell>
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
-            <TableCell>some User</TableCell>
+            <TableCell>{pack.user_name}</TableCell>
             <TableCell>
                 {/*если нет карточек не показывай кнопку learn*/}
                 {pack.cardsCount === 0
