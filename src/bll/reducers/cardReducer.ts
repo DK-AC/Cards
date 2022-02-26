@@ -6,19 +6,21 @@ import {
     CardFromServerType,
     cardsApi,
     cardsFromUserForCreatingType,
-    CardsType, gradeType,
+    CardsType,
+    GradeType,
     ParamsCardType
 } from "../../dal/cardsApi";
-import axios from "axios";
 
 const SET_CARDS = 'cardReducer/SET_CARDS'
 const ADD_CARD = 'cardReducer/ADD_NEW_CARD'
 const DELETE_CARD = 'cardReducer/DELETE_CARD'
-const CHANGE_CARD = 'cardReducer/CHANGE_CARD'
+// const CHANGE_CARD = 'cardReducer/CHANGE_CARD'
+const CHANGE_GRADE = 'cardReducer/CHANGE_GRADE'
 
 const initialState = {
     cards: [] as Array<CardType>,
     cardsTotalCount: 0,
+    grade: 1
 }
 
 type initialStateType = typeof initialState
@@ -37,10 +39,15 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
                 cards: state.cards.filter(card => card._id !== action.cardId)
             }
         }
-        case CHANGE_CARD: {
+        // case CHANGE_CARD: {
+        //     return {
+        //         ...state, cards: state.cards
+        //             .map(card => card._id === action.Card._id ? {...card, ...action.Card} : card)
+        //     }
+        // }
+        case CHANGE_GRADE: {
             return {
-                ...state, cards: state.cards
-                    .map(card => card._id === action.Card._id ? {...card, ...action.Card} : card)
+                ...state, grade: action.data.grade
             }
         }
         default:
@@ -52,7 +59,8 @@ export const CardReducer = (state = initialState, action: CardMainType): initial
 export const setCardsAC = (cards: CardsType) => ({type: SET_CARDS, cards} as const)
 export const addCardAC = (newCard: CardFromServerType) => ({type: ADD_CARD, newCard} as const)
 export const deleteCardAC = (cardId: string) => ({type: DELETE_CARD, cardId} as const)
-export const changeCardAC = (Card: CardFromServerType) => ({type: CHANGE_CARD, Card} as const)
+// export const changeCardAC = (Card: CardFromServerType) => ({type: CHANGE_CARD, Card} as const)
+export const changeGradeAC = (data: GradeType) => ({type: CHANGE_GRADE, data} as const)
 
 
 //thunks
@@ -104,7 +112,6 @@ export const changeCardTC = (cardID: string, modelCard: CardFromServerType, para
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         const res = await cardsApi.changeCard(apiModel)
-        // dispatch(changeCardAC(res.data))
         await dispatch(setCardsTC(params))
     } catch (error) {
         handlerAppError(error, dispatch);
@@ -113,12 +120,12 @@ export const changeCardTC = (cardID: string, modelCard: CardFromServerType, para
     }
 }
 
-export const changeGradeTC = (data:gradeType): AppThunkType => async (dispatch) =>{
-    try{ dispatch(setAppErrorAC(null))
+export const changeGradeTC = (data: GradeType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'))
         await cardsApi.updateGrade(data)
-    }
-    catch (error) {
+    } catch (error) {
         handlerAppError(error, dispatch);
     } finally {
         dispatch(setAppStatusAC('idle'))
@@ -132,7 +139,8 @@ export type CardMainType =
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof addCardAC>
     | ReturnType<typeof deleteCardAC>
-    | ReturnType<typeof changeCardAC>
+    // | ReturnType<typeof changeCardAC>
+    | ReturnType<typeof changeGradeAC>
 
 
 export type CardType = {

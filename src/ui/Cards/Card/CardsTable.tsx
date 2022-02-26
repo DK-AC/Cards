@@ -55,7 +55,7 @@ const CardsTable = () => {
     // хранение id карточки для модалки
     const [cardId, setCardId] = useState('')
     // хранение значения полей ввода для редактирования
-    const [card, setCard] =  useState<CardFromServerType>({})
+    const [card, setCard] = useState<CardFromServerType>({})
 
     //модалки
     const [addModal, setAddModal] = useState(false);
@@ -78,7 +78,7 @@ const CardsTable = () => {
     const handleClickAddCard = () => {
         setAddModal(true)
     }
-    const addCard = (cardsData: cardsFromUserForCreatingType) =>{
+    const addCard = (cardsData: cardsFromUserForCreatingType) => {
         dispatch(addCardTC(params, cardsData))
         setAddModal(false)
     }
@@ -86,7 +86,7 @@ const CardsTable = () => {
         setCardId(cardId)
         setDeleteModal(true)
     }
-    const deleteCard =()=>{
+    const deleteCard = () => {
         dispatch(deleteCardTC(cardId, params))
         setDeleteModal(false);
     }
@@ -95,7 +95,7 @@ const CardsTable = () => {
         setCard(card)
         setUpdateModal(true)
     }
-    const editCard =(card:CardFromServerType)=>{
+    const editCard = (card: CardFromServerType) => {
         dispatch(changeCardTC(cardId, card, params))
         setUpdateModal(false)
     }
@@ -164,14 +164,15 @@ const CardsTable = () => {
                 {status === 'loading' && <CircularProgress size={'8rem'}/>}
             </div>
             { /*//modal*/}
-            <Modal isOpen = {deleteModal}>
-                <DeleteModal showDelete={setDeleteModal} deleteFunction={deleteCard} />
+            <Modal isOpen={deleteModal}>
+                <DeleteModal showDelete={setDeleteModal} deleteFunction={deleteCard}/>
             </Modal>
             <Modal isOpen={addModal}>
-                <AddCard showAdd={setAddModal} addCard={addCard} cardsPack_id={id} />
+                <AddCard showAdd={setAddModal} addCard={addCard} cardsPack_id={id}/>
             </Modal>
-            <Modal isOpen = {updateModal}>
-             <UpdateCard showUpdate={setUpdateModal} updateCard={editCard} answer={card.answer} question={card.question}/>
+            <Modal isOpen={updateModal}>
+                <UpdateCard showUpdate={setUpdateModal} updateCard={editCard} answer={card.answer}
+                            question={card.question}/>
             </Modal>
         </div>
     );

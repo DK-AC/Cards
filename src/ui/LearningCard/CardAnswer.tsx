@@ -1,40 +1,59 @@
 import React from 'react';
 import style from './LearningCard.module.css'
 import {Button} from "@mui/material";
-import {useNavigate} from "react-router-dom";
 import Rating from "./Raiting/Rating";
 import {CardType} from "../../bll/reducers/cardReducer";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import {ArrowBack} from "@mui/icons-material";
+import {useAppSelector} from "../../bll/store";
+import {RequestStatusType} from "../../bll/reducers/appReducer";
 
 type CardAnswerType = {
-    card: CardType
-    nextCard?: CardType
-    handlerClickBack: () => void
+    currentCard: CardType
+    handleNext: (grade: number) => void
+    setIsChecked: (isChecked: boolean) => void
 }
 
-const CardAnswer = ({card, nextCard, ...props}: CardAnswerType) => {
-    const navigate = useNavigate()
+const CardAnswer = ({currentCard, handleNext, setIsChecked}: CardAnswerType) => {
+
+    const status = useAppSelector<RequestStatusType>(state => state.App.status)
+    const grade = useAppSelector<number>(state => state.Cards.grade)
+
     const handlerClickBack = () => {
-        props.handlerClickBack()
+        setIsChecked(false)
     }
     const handlerClickNextQuestion = () => {
-        nextCard && navigate(`/cards/card/${nextCard._id}`)
+        handleNext(grade)
     }
 
-    const id = card ? card._id as string : '111'
     return (
         <div className={style.container}>
             <div className={style.block}>
                 <h3 className={style.title}>Question:</h3>
-                <p className={style.info}>{card.question}</p>
+                <p className={style.info}>{currentCard.question}</p>
             </div>
             <div className={style.block}>
                 <h3 className={style.title}>Answer:</h3>
-                <p className={style.info}>{card.answer}</p>
+                <p className={style.info}>{currentCard.answer}</p>
             </div>
-            <Rating id={id}/>
+            <Rating id={currentCard.cardsPack_id}/>
             <div className={style.buttonMenu}>
-                <Button variant="contained" onClick={handlerClickBack}>Back up</Button>
-                <Button variant="contained" color={"success"} onClick={handlerClickNextQuestion}>Next</Button>
+                <Button variant="outlined"
+                        color={'inherit'}
+                        size={"small"}
+                        disabled={status === 'loading'}
+                        startIcon={<ArrowBack/>}
+                        onClick={handlerClickBack}>
+                    Back
+                </Button>
+                <Button variant="outlined"
+                        color={'success'}
+                        size={"small"}
+                        disabled={status === 'loading'}
+                        startIcon={<ArrowForwardIcon/>}
+                        onClick={handlerClickNextQuestion}>
+                    Next
+                </Button>
             </div>
         </div>
     );
