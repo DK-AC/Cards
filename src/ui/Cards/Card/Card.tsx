@@ -38,7 +38,7 @@ const Card = ({card, ...props}: CardPropsType) => {
         card._id && props.edit(card._id, model)
     }
     const handleOpen = () => {
-        navigate(`/cards/card/${card._id}`)
+        navigate(`/cards/card/${card.cardsPack_id}`)
     }
 
     return (
