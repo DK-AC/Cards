@@ -10,7 +10,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 
 export type propsType = {
@@ -37,13 +37,11 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         pack._id && props.delete(pack._id)
     }
     const handleEdit = () => {
-        let model = {
-            name: pack.name
-        }
+        let model = {name: pack.name}
         pack._id && props.edit(pack._id, model)
     }
     const handleLearn = () => {
-       navigate(`/cards/card/${pack._id}`)
+        navigate(`/cards/card/${pack._id}`)
     }
 
     return (
@@ -53,9 +51,13 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>some User</TableCell>
             <TableCell>
-                <IconButton aria-label="open" onClick={handleLearn} disabled={status === 'loading'}>
-                    <PlayCircleOutlineOutlinedIcon color={status === 'loading' ? "disabled" : "success"}/>
-                </IconButton>
+                {/*если нет карточек не показывай кнопку learn*/}
+                {pack.cardsCount === 0
+                    ? null
+                    : <IconButton aria-label="open" onClick={handleLearn} disabled={status === 'loading'}>
+                        <PlayCircleOutlineOutlinedIcon color={status === 'loading' ? "disabled" : "success"}/>
+                    </IconButton>
+                }
                 <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
                     <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
                 </IconButton>
