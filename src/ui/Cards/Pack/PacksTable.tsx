@@ -108,13 +108,6 @@ const PacksTable = () => {
             setUpdateModal(false)
         }
     }
-    //learn
-    const startLearning = (packID: PackType)=>{
-        
-            //let c = cards.filter(c=>c.cardsPack_id===packID)*/
-        console.log(cards)
-        console.log(packID)
-    }
 
     //обработчики для пагинации
     const onPageChanged = (page: number) => setCurrentPage(page)
@@ -170,7 +163,6 @@ const PacksTable = () => {
                                          pack={pack}
                                          delete={handleClickDeletePack}
                                          edit={handleClickEditPack}
-                                         startLearningHendler={startLearning}
                            />
                         })}</TableBody>
                 </Table>

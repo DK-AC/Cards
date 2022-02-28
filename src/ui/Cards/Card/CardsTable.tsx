@@ -24,6 +24,8 @@ import {Modal} from "../../ReusableComponents/Modal/Modal";
 import {AddCard} from "../../ReusableComponents/Modal/CardsModals/AddCard";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {UpdateCard} from "../../ReusableComponents/Modal/CardsModals/UpdateCard";
+import {PackType} from "../../../bll/reducers/packReducer";
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 
 
 const CardsTable = () => {
@@ -38,6 +40,7 @@ const CardsTable = () => {
     const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     const cardsTotalCount = useAppSelector<number>(state => state.Cards.cardsTotalCount)
+    const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
 
     //локальные стейты
     //для инпута (чтоб найти вопросы и ответы)
@@ -62,6 +65,9 @@ const CardsTable = () => {
     const [updateModal, setUpdateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
 
+    // имя колоды
+    const pack = packs.find(p => p._id === id)
+    const packName = pack ? pack.name : 'some name'
 
     const params: ParamsCardType = {
         cardsPack_id: id,
@@ -111,6 +117,11 @@ const CardsTable = () => {
     const handleBackPack = () => {
         navigate(PATH.PACKS_TABLE_PAGE)
     }
+    //начать учиться
+    const handleLearn = () => {
+        navigate(`/cards/card/${id}`)
+    }
+
     return (
         <div className={style.container}>
             <div className={style.settingsMenu}>
@@ -131,6 +142,14 @@ const CardsTable = () => {
                         onClick={handleClickAddCard}>
                     Add Card
                 </Button>
+            </div>
+            <div className={style.titleBlock} >
+                <h2 className={style.tableTitle}>Pack's name: {packName}</h2>
+                <Button variant="outlined"
+                        color={'success'}
+                        disabled={status === 'loading'}
+                        startIcon={<PlayCircleOutlineOutlinedIcon/>}
+                        onClick={handleLearn}> Learn </Button>
             </div>
             <div className={style.Table}>
                 <Table>

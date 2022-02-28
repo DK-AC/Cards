@@ -10,8 +10,6 @@ import {IconButton} from "@mui/material";
 import {useAppSelector} from "../../../bll/store";
 import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import EditIcon from '@mui/icons-material/Edit';
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {useNavigate} from "react-router-dom";
 import RatingForTable from "./RatingForTable";
 import style from './CardsTable.module.css'
 
@@ -22,9 +20,8 @@ type CardPropsType = {
 }
 
 const Card = ({card, ...props}: CardPropsType) => {
-    const navigate = useNavigate()
-    const status = useAppSelector<RequestStatusType>(store => store.App.status)
 
+    const status = useAppSelector<RequestStatusType>(store => store.App.status)
     const dateUpdate = card.updated && new Date(card.updated).toLocaleDateString();
 
     const handleDelete = () => {
@@ -37,9 +34,9 @@ const Card = ({card, ...props}: CardPropsType) => {
         }
         card._id && props.edit(card._id, model)
     }
-    const handleOpen = () => {
+    /*const handleOpen = () => {
         navigate(`/cards/card/${card.cardsPack_id}`)
-    }
+    }*/
 
     return (
         <TableRow>
@@ -49,9 +46,9 @@ const Card = ({card, ...props}: CardPropsType) => {
             <TableCell><RatingForTable grade={card.grade as number}/> </TableCell>
             <TableCell>
                 <div className={style.icons}>
-                    <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
+                   {/* <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
                     <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
-                </IconButton>
+                </IconButton>*/}
                     <IconButton aria-label="change" onClick={handleEdit} disabled={status === 'loading'}>
                         <EditIcon color={status === 'loading' ? "disabled" : "action"}/>
                     </IconButton>

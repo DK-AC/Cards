@@ -48,7 +48,7 @@ const CardQuestion = ({currentCard, setIsChecked}: CardQuestionType) => {
                         disabled={status === 'loading'}
                         startIcon={<VisibilityIcon/>}
                         onClick={handlerClickAnswer}>
-                    Show Answer
+                    Answer
                 </Button>
             </div>
         </div>

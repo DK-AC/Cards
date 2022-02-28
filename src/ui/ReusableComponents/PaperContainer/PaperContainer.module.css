@@ -30,7 +30,7 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    width: 90%;
+    /*width: 90%;*/
    /*background-color: red;*/
     /*min-width: 350px;*/
     padding: 0 50px;
@@ -41,8 +41,9 @@
 }
 .card{
     padding: 0 20px;
-    top: 100px;
-    bottom:30px;
+    bottom:40px;
+    top: 10px;
+    justify-content: space-between;
 }
 
 .content p,

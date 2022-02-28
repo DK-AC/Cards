@@ -7,6 +7,7 @@ import PaperContainer from '../ReusableComponents/PaperContainer/PaperContainer'
 import {getRandomCard} from '../../utilities/getRandomCard';
 import CardQuestion from './CardQuestion';
 import CardAnswer from './CardAnswer';
+import {PackType} from "../../bll/reducers/packReducer";
 
 const LearningCard = () => {
 
@@ -16,11 +17,15 @@ const LearningCard = () => {
 
     const cards = useAppSelector(state => state.Cards.cards)
     const grade = useAppSelector<number>(state => state.Cards.grade)
+    const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
 
     const [first, setFirst] = useState<boolean>(true);
     const [isChecked, setIsChecked] = useState(false);
     const [currentCard, setCurrentCard] = useState<CardType>({})
 
+    // имя колоды
+    const pack = packs.find(p=>p._id === id)
+    const packName = pack? pack.name: 'some name'
 
     const nextCardHandler = (grade: number) => {
         setCurrentCard(getRandomCard(cards));
@@ -45,7 +50,7 @@ const LearningCard = () => {
     }, [cards]);
 
     return (
-        <PaperContainer>
+        <PaperContainer title={`Pack's name: ${packName}`}>
             {!isChecked
                 ? <CardQuestion currentCard={currentCard} setIsChecked={setIsChecked}/>
                 : <CardAnswer currentCard={currentCard} handleNext={handleNext} setIsChecked={setIsChecked}/>}

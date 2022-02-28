@@ -1,3 +1,20 @@
+.tableTitle{
+
+    color:rgba(60, 45, 61, 0.8);
+    padding-left:2px ;
+   /* position: absolute;
+    top: 124px;
+    padding-left:2px ;*/
+}
+.titleBlock{
+  position: absolute;
+   top: 124px;
+    display: flex;
+    min-width: 528px;
+    justify-content: space-between;
+}
+
+
 .Table {
     overflow: auto;
     max-width: 900px;
@@ -8,11 +25,11 @@
 }
 
 .settingsMenu {
-    position: absolute;
+   position: absolute;
     top: 64px;
     display: flex;
-    min-width: 500px;
-    justify-content: space-around;
+   min-width: 528px;
+    justify-content: space-between;
 }
 
 .column {

@@ -44,6 +44,8 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         navigate(`/cards/card/${pack._id}`)
     }
 
+    let disableCondition = status === 'loading' ||pack.cardsCount === 0
+
     return (
         <TableRow>
             <TableCell>{pack.name}</TableCell>
@@ -51,15 +53,13 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>{pack.user_name}</TableCell>
             <TableCell>
-                {/*если нет карточек не показывай кнопку learn*/}
-                {pack.cardsCount === 0
-                    ? null
-                    : <IconButton aria-label="open" onClick={handleLearn} disabled={status === 'loading'}>
-                        <PlayCircleOutlineOutlinedIcon color={status === 'loading' ? "disabled" : "success"}/>
+
+                   <IconButton aria-label="learn" onClick={handleLearn} disabled={disableCondition}>
+                        <PlayCircleOutlineOutlinedIcon color={disableCondition ? "disabled" : "success"}/>
                     </IconButton>
-                }
-                <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
-                    <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
+
+                <IconButton aria-label="open" onClick={handleOpen} disabled={disableCondition }>
+                    <ExitToAppIcon color={disableCondition  ? "disabled" : "secondary"}/>
                 </IconButton>
                 {loginedUserID === pack.user_id &&
                     <IconButton aria-label="edit" onClick={handleEdit} disabled={status === 'loading'}>
