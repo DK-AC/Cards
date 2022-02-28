@@ -143,7 +143,7 @@ const CardsTable = () => {
                     Add Card
                 </Button>
             </div>
-            <div className={style.titleBlock} >
+            <div className={style.titleBlock}>
                 <h2 className={style.tableTitle}>Pack's name: {packName}</h2>
                 <Button variant="outlined"
                         color={'success'}
