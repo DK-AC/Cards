@@ -15,10 +15,10 @@ import style from "../Login/Login.module.css";
 export const Register = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const isRegister = useAppSelector<boolean>(state => state.Login.isRegister)
     const isLoading = useAppSelector<RequestStatusType>(state => state.App.status)
-
-    const navigate = useNavigate()
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -30,39 +30,41 @@ export const Register = () => {
     const handleEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
         setSubmitted(false)
-    },[setEmail,setSubmitted])
+    }, [setEmail, setSubmitted])
     const handlePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
         setSubmitted(false)
-    },[setPassword, setSubmitted])
+    }, [setPassword, setSubmitted])
     const handleConfirmPassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.currentTarget.value)
         setSubmitted(false)
-    },[setConfirmPassword,setSubmitted])
-    const handleSubmit = useCallback(() => {
+    }, [setConfirmPassword, setSubmitted])
+    const handleSubmit = () => {
         if (password === confirmPassword) {
             dispatch(registerTC({email, password}))
             setSubmitted(true)
         } else {
             setError('Пароли не совпадают')
         }
-    },[registerTC,setSubmitted,dispatch])
-    useEffect(()=>{
+    }
+    useEffect(() => {
         dispatch(setAppErrorAC(null))
-        if(!isRegister){
+        if (!isRegister) {
             return
         }
-    },[dispatch,isRegister])
+    }, [dispatch, isRegister])
 
     if (isRegister) {
         navigate(PATH.LOGIN_PAGE)
     }
 
     return (
-        <PaperContainer title={'Registration'} >
+        <PaperContainer title={'Registration'}>
             <ReusableInput value={email}
+                           type={'email'}
                            placeholder={'Email*'}
-                           onChangeHandler={handleEmail} type={'email'}/>
+                           onChangeHandler={handleEmail}
+            />
             <ReusableInput value={password}
                            placeholder={'Password*'}
                            onChangeHandler={handlePassword}
