@@ -1,6 +1,6 @@
 import React from 'react';
 import {PATH} from "../Routes/Routes";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {withAuthRedirect} from "../../bll/HOK/withAuthRedirect";
 import {compose} from "redux";
 import {useAppSelector} from "../../bll/store";
@@ -29,7 +29,6 @@ const Profile = () => {
                             <h1 className={styles.title}>Profile</h1>
                             <img className={styles.image} src={userImg} alt="avatar"/>
                             <div className={styles.email}>Email: {email}</div>
-                            <NavLink to={PATH.PACKS_TABLE_PAGE}> PAKC's </NavLink>
                         </div>
                     </section>
                 </div>}
