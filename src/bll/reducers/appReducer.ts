@@ -16,7 +16,7 @@ const SET_COOKIES = 'appReducer/cookiesStatus'
 const initialState = {
     error: null as string | null,
     status: "failed" as RequestStatusType,
-    isInitialized: false,
+    isInitialized: true,
     cookiesAreAlive: true
 }
 type initialStateType = typeof initialState
