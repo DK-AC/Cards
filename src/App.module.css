@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+html {
+    overflow: hidden
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -13,13 +17,14 @@
     position: relative;
 
 }
-.position{
+
+.position {
     position: absolute;
     top: 30px;
     left: 30px;
 }
 
-.App{
+.App {
 
 }
 
