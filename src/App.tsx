@@ -9,6 +9,7 @@ import {Header} from "./ui/components/header/Header";
 
 
 function App() {
+
     const dispatch = useDispatch();
 
     const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)
@@ -25,7 +26,6 @@ function App() {
         <div className={style.App}>
             <Header/>
             <div className={style.container}>
-
                 <Routing/>
             </div>
         </div>
