@@ -1,7 +1,7 @@
 import {TextField} from '@mui/material';
 import React, {ChangeEvent, useState} from 'react';
 import style from './ReusablePasswordInput.module.css'
-import hidePass from '../../../assest/icons/hidePass.svg'
+import hidePass from '../../../assets/icons/hidePass.svg'
 
 type ReusableInputEmailType = {
     label?: string

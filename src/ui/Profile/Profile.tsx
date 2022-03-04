@@ -5,7 +5,7 @@ import {withAuthRedirect} from "../../bll/HOK/withAuthRedirect";
 import {compose} from "redux";
 import {useAppSelector} from "../../bll/store";
 import {RequestStatusType} from "../../bll/reducers/appReducer";
-import userImg from "../../assest/image/user.jpg"
+import userImg from "../../assets/image/user.jpg"
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./Profile.module.css"
 

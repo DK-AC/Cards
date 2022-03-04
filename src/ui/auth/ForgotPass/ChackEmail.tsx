@@ -1,7 +1,7 @@
 import React from 'react';
 import {useAppSelector} from "../../../bll/store";
 import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
-import emailIMG from './../../../assest/image/email.png'
+import emailIMG from '../../../assets/image/email.png'
 import style from './ChackEmail.module.css'
 
 
