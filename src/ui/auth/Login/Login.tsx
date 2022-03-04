@@ -12,6 +12,7 @@ import {PATH} from "../../Routes/Routes";
 import ReusableCheckbox from "../../ReusableComponents/ReusableCheckBox/ReusableCheckbox";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {restoreState, saveState} from "../../../dal/localStorage/localStorage";
+import ReusablePasswordInput from '../../ReusableComponents/ReusablePasswordInput/ReusablePasswordInput';
 
 
 export const Login = () => {
@@ -65,14 +66,15 @@ export const Login = () => {
             <ReusableInput value={email}
                            placeholder={'Email*'}
                            onChangeHandler={handleEmail}
-                           type={'email'}/>
-            <ReusableInput value={password}
-                           placeholder={'Password*'}
-                           onChangeHandler={handlePassword}
-                           type={'password'}/>
+                           type={'email'}
+            />
+            <ReusablePasswordInput value={password}
+                                   placeholder={'Password*'}
+                                   onChangeHandler={handlePassword}
+            />
             <ReusableCheckbox title={'remember me'} checked={rememberMe}
-                              onChange={handleRememberMe}/>
-
+                              onChange={handleRememberMe}
+            />
             <NavLink className={style.navLinkStyle} to={PATH.FORGOT_PAGE}>
                 <span>forgot password?</span></NavLink>
 
