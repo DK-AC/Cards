@@ -78,7 +78,7 @@ const CardsTable = () => {
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         isInitialized && dispatch(setCardsTC(params))
-    }, [dispatch, pageCount, currentPage, debouncedQuestion])
+    }, [dispatch, pageCount, currentPage, debouncedQuestion, isInitialized])
 
     //обработчики колод (добавление, удаление, изменение)
     const handleClickAddCard = () => {
