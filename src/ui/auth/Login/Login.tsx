@@ -12,12 +12,13 @@ import {PATH} from "../../Routes/Routes";
 import ReusableCheckbox from "../../ReusableComponents/ReusableCheckBox/ReusableCheckbox";
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import {restoreState, saveState} from "../../../dal/localStorage/localStorage";
+import ReusablePasswordInput from '../../ReusableComponents/ReusablePasswordInput/ReusablePasswordInput';
 
 
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const location= useLocation()
+    const location = useLocation()
 
     // @ts-ignore
     const fromPage = location.state?.from?.pathname || PATH.PROFILE_PAGE
@@ -48,11 +49,11 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(setAppErrorAC(null))
-       if (isLoggedIn) {
-           fromPage===null||'/' ? navigate(PATH.PROFILE_PAGE): navigate(-1)
-       } else {
-           return
-       }
+        if (isLoggedIn) {
+            fromPage === null || '/' ? navigate(PATH.PROFILE_PAGE) : navigate(-1)
+        } else {
+            return
+        }
     }, [isLoggedIn])
 
     if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\') {
@@ -65,14 +66,15 @@ export const Login = () => {
             <ReusableInput value={email}
                            placeholder={'Email*'}
                            onChangeHandler={handleEmail}
-                           type={'email'}/>
-            <ReusableInput value={password}
-                           placeholder={'Password*'}
-                           onChangeHandler={handlePassword}
-                           type={'password'}/>
+                           type={'email'}
+            />
+            <ReusablePasswordInput value={password}
+                                   placeholder={'Password*'}
+                                   onChangeHandler={handlePassword}
+            />
             <ReusableCheckbox title={'remember me'} checked={rememberMe}
-                              onChange={handleRememberMe}/>
-
+                              onChange={handleRememberMe}
+            />
             <NavLink className={style.navLinkStyle} to={PATH.FORGOT_PAGE}>
                 <span>forgot password?</span></NavLink>
 

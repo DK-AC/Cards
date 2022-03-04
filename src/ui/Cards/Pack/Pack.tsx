@@ -44,7 +44,8 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
         navigate(`/cards/card/${pack._id}`)
     }
 
-    let disableCondition = status === 'loading' ||pack.cardsCount === 0
+    let disableCondition = status === 'loading' || pack.cardsCount === 0
+    let disableEditPack = loginedUserID !== pack.user_id
 
     return (
         <TableRow>
@@ -53,13 +54,11 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
             <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
             <TableCell>{pack.user_name}</TableCell>
             <TableCell>
-
-                   <IconButton aria-label="learn" onClick={handleLearn} disabled={disableCondition}>
-                        <PlayCircleOutlineOutlinedIcon color={disableCondition ? "disabled" : "success"}/>
-                    </IconButton>
-
-                <IconButton aria-label="open" onClick={handleOpen} disabled={disableCondition }>
-                    <ExitToAppIcon color={disableCondition  ? "disabled" : "secondary"}/>
+                <IconButton aria-label="learn" onClick={handleLearn} disabled={disableCondition}>
+                    <PlayCircleOutlineOutlinedIcon color={disableCondition ? "disabled" : "success"}/>
+                </IconButton>
+                <IconButton aria-label="open" onClick={handleOpen} disabled={disableEditPack}>
+                    <ExitToAppIcon color={disableEditPack ? "disabled" : "secondary"}/>
                 </IconButton>
                 {loginedUserID === pack.user_id &&
                     <IconButton aria-label="edit" onClick={handleEdit} disabled={status === 'loading'}>

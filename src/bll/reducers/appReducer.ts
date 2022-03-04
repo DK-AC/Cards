@@ -5,7 +5,6 @@ import {setIsLoggedInAC} from "./loginReducer";
 import {setProfile} from "./profileReducer";
 
 
-
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const SET_ERROR = 'appReducer/SET_ERROR'
@@ -16,7 +15,7 @@ const SET_COOKIES = 'appReducer/cookiesStatus'
 const initialState = {
     error: null as string | null,
     status: "failed" as RequestStatusType,
-    isInitialized: true,
+    isInitialized: false,
     cookiesAreAlive: true
 }
 type initialStateType = typeof initialState
@@ -28,9 +27,9 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
         case SET_STATUS:
             return {...state, status: action.status}
         case SET_IS_INITIALIZED:
-            return {...state, isInitialized: true}
+            return {...state, isInitialized: action.isInitialized}
         case SET_COOKIES: {
-                return {...state, cookiesAreAlive: true}
+            return {...state, cookiesAreAlive: action.cookiesAreAlive}
         }
         default:
             return state
@@ -39,15 +38,15 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
 
 export const setAppErrorAC = (error: null | string) => ({type: SET_ERROR, error}) as const
 export const setAppStatusAC = (status: RequestStatusType) => ({type: SET_STATUS, status}) as const
-export const setIsInitializedAC = () => ({type: SET_IS_INITIALIZED}) as const
-export const setCookiesAC = (cookiesAreAlive:boolean) => ({type: SET_COOKIES, cookiesAreAlive}) as const
+export const setIsInitializedAC = (isInitialized: boolean) => ({type: SET_IS_INITIALIZED, isInitialized}) as const
+export const setCookiesAC = (cookiesAreAlive: boolean) => ({type: SET_COOKIES, cookiesAreAlive}) as const
 
 
 export const isAuthTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
-        const res= await authApi.me()
+        const res = await authApi.me()
         dispatch(setCookiesAC(true))
         dispatch(setIsLoggedInAC(true))
         dispatch(setProfile(res.data))
@@ -55,7 +54,7 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
         handlerAppError(error, dispatch)
         dispatch(setCookiesAC(false))
     } finally {
-        dispatch(setIsInitializedAC())
+        dispatch(setIsInitializedAC(true))
         dispatch(setAppStatusAC('idle'))
     }
 }
@@ -63,9 +62,9 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
 
 export type AppMainType = SetAppErrorType
     | SetAppStatusType
-    | SetIsInitializedType |setCookiesType
+    | SetIsInitializedType | setCookiesType
 
 type SetAppErrorType = ReturnType<typeof setAppErrorAC>
 type SetAppStatusType = ReturnType<typeof setAppStatusAC>
 type SetIsInitializedType = ReturnType<typeof setIsInitializedAC>
-type setCookiesType  = ReturnType<typeof setCookiesAC>
+type setCookiesType = ReturnType<typeof setCookiesAC>

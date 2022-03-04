@@ -11,6 +11,7 @@ import {RequestStatusType, setAppErrorAC} from "../../../bll/reducers/appReducer
 import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContainer";
 import {registerTC} from "../../../bll/reducers/loginReducer";
 import style from "../Login/Login.module.css";
+import ReusablePasswordInput from "../../ReusableComponents/ReusablePasswordInput/ReusablePasswordInput";
 
 export const Register = () => {
 
@@ -65,15 +66,13 @@ export const Register = () => {
                            placeholder={'Email*'}
                            onChangeHandler={handleEmail}
             />
-            <ReusableInput value={password}
+            <ReusablePasswordInput value={password}
                            placeholder={'Password*'}
                            onChangeHandler={handlePassword}
-                           type={'password'}
             />
-            <ReusableInput value={confirmPassword}
+            <ReusablePasswordInput value={confirmPassword}
                            placeholder={'Confirm password*'}
                            onChangeHandler={handleConfirmPassword}
-                           type={'password'}
             />
             <ReusableButton title={'Register'}
                             onClickHandler={handleSubmit}

@@ -9,6 +9,7 @@ import PaperContainer from "../../ReusableComponents/PaperContainer/PaperContain
 import {ErrorSnackbar} from "../../ReusableComponents/ErrorSnackbar/ErrorSnackbar";
 import ReusableInput from "../../ReusableComponents/ReusableInput/ReusableInput";
 import {ReusableButton} from "../../ReusableComponents/ReusableButton/ReusableButton";
+import ReusablePasswordInput from "../../ReusableComponents/ReusablePasswordInput/ReusablePasswordInput";
 
 const PasswordEnter = () => {
     const {token} = useParams<'token'>()
@@ -43,15 +44,13 @@ const PasswordEnter = () => {
     }
     return (
         <PaperContainer title={'Create new password'}>
-            <ReusableInput value={password}
+            <ReusablePasswordInput value={password}
                            placeholder={'Password*'}
                            onChangeHandler={handlePassword}
-                           type={'password'}
             />
-            <ReusableInput value={password2}
+            <ReusablePasswordInput value={password2}
                            placeholder={'Confirm Password*'}
                            onChangeHandler={handlePassword2}
-                           type={'password'}
             />
             <ReusableButton title={'Update Password'}
                             onClickHandler={handleSubmit}

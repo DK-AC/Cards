@@ -73,7 +73,7 @@ export const setCardsTC = (params: ParamsCardType) => async (dispatch: Dispatch,
     } catch (error) {
         handlerAppError(error, dispatch)
     } finally {
-        dispatch(setIsInitializedAC())
+        dispatch(setIsInitializedAC(true))
         dispatch(setAppStatusAC('idle'))
     }
 }
