@@ -29,7 +29,7 @@ export const AppReducer = (state = initialState, action: AppMainType): initialSt
         case SET_IS_INITIALIZED:
             return {...state, isInitialized: action.isInitialized}
         case SET_COOKIES: {
-            return {...state, cookiesAreAlive: true}
+            return {...state, cookiesAreAlive: action.cookiesAreAlive}
         }
         default:
             return state

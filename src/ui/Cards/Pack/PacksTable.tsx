@@ -16,12 +16,12 @@ import {Search} from "../../ReusableComponents/Search/Search";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from "@mui/material/Button";
-import {PackFromServerType, ParamsPackType} from '../../../dal/packsApi';
+import {ParamsPackType} from '../../../dal/packsApi';
 import {Modal} from "../../ReusableComponents/Modal/Modal";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {AddPack} from "../../ReusableComponents/Modal/PacksModals/AddPack";
 import {UpdatePack} from "../../ReusableComponents/Modal/PacksModals/UpdatePack";
-import {CardType, setCardsTC} from "../../../bll/reducers/cardReducer";
+import {CardType} from "../../../bll/reducers/cardReducer";
 
 
 const PacksTable = () => {
@@ -37,7 +37,7 @@ const PacksTable = () => {
     //для инпута (чтоб найти имя колоды)
     const [packName, setPackName] = useState<string>('')
     //для слайдера
-    const [sliderValue, setSliderValue] = useState<number[]>([0, 9])
+    const [sliderValue, setSliderValue] = useState<number[]>([0, 100])
     //моя или нет колода
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const user_id = myPacks ? userId : ''
@@ -59,7 +59,7 @@ const PacksTable = () => {
     const [updateModal, setUpdateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
 
-    const [pack, setPack] =useState<PackType>({})
+    const [pack, setPack] = useState<PackType>({})
 
     const params: ParamsPackType = {
         packName,
@@ -70,20 +70,22 @@ const PacksTable = () => {
         pageCount
     }
 
+    //при обновлении страницы не отображались паки
+    //добавил isInitialized в зависимости и после обновления все паки перерисовываются
     useEffect(() => {
         dispatch(setAppErrorAC(null))
         isInitialized && dispatch(setPacksAT(params))
-    }, [dispatch, debouncedPackName, debouncedMin, debouncedMax, myPacks, currentPage, pageCount, packName])
+    }, [dispatch, debouncedPackName, debouncedMin, debouncedMax, myPacks, currentPage, pageCount, packName, isInitialized])
 
     //обработчики колод (добавление, удаление, изменение)
     //add
     const handleClickAddPack = () => {
         setAddModal(true)
     }
-    const addPack = (text:string) =>{
-        if(text.length){
-        dispatch(addPackTC(params, text))
-        setAddModal(false)
+    const addPack = (text: string) => {
+        if (text.length) {
+            dispatch(addPackTC(params, text))
+            setAddModal(false)
         }
     }
 
@@ -92,18 +94,18 @@ const PacksTable = () => {
         setPackId(packId)
         setDeleteModal(true)
     }
-    const deletePack = ()=>{
+    const deletePack = () => {
         dispatch(deletePackAT(packId, params))
         setDeleteModal(false);
     }
     //update
-    const handleClickEditPack = (packId: string, pack:PackType ) => {
+    const handleClickEditPack = (packId: string, pack: PackType) => {
         setPackId(packId)
         setPack(pack)
         setUpdateModal(true)
     }
-    const updatePack = (text:string) =>{
-        if(text.length) {
+    const updatePack = (text: string) => {
+        if (text.length) {
             dispatch(changePackTC(packId, {name: text}, params))
             setUpdateModal(false)
         }
@@ -129,7 +131,7 @@ const PacksTable = () => {
             <div className={style.settingsMenu}>
                 <div className={style.column}>
                     <div>All<Switch checked={myPacks} onChange={showOnlyMyPacks}/> My</div>
-                    <Button variant="outlined" color={'secondary'} disabled={status==='loading'}
+                    <Button variant="outlined" color={'secondary'} disabled={status === 'loading'}
                             startIcon={<ControlPointIcon/>}
                             onClick={handleClickAddPack}>
                         Add Pack
@@ -163,7 +165,7 @@ const PacksTable = () => {
                                          pack={pack}
                                          delete={handleClickDeletePack}
                                          edit={handleClickEditPack}
-                           />
+                            />
                         })}</TableBody>
                 </Table>
             </div>
@@ -175,14 +177,14 @@ const PacksTable = () => {
             </div>
 
             {/*//modal*/}
-            <Modal isOpen = {deleteModal}>
-                <DeleteModal showDelete={setDeleteModal} deleteFunction={deletePack} />
+            <Modal isOpen={deleteModal}>
+                <DeleteModal showDelete={setDeleteModal} deleteFunction={deletePack}/>
             </Modal>
-            <Modal isOpen = {addModal}>
-                <AddPack showAdd={setAddModal} addPack={addPack} />
+            <Modal isOpen={addModal}>
+                <AddPack showAdd={setAddModal} addPack={addPack}/>
             </Modal>
 
-            <Modal isOpen = {updateModal}>
+            <Modal isOpen={updateModal}>
                 <UpdatePack showUpdate={setUpdateModal} updatePack={updatePack} packName={pack.name}/>
             </Modal>
 
