@@ -49,7 +49,7 @@ export const Login = () => {
     useEffect(() => {
         dispatch(setAppErrorAC(null))
        if (isLoggedIn) {
-           fromPage===null||'/' ? navigate(PATH.PROFILE_PAGE): navigate(-1)
+           fromPage===null||'/' ? navigate(PATH.PACKS_TABLE_PAGE): navigate(-1)
        } else {
            return
        }
