@@ -34,7 +34,7 @@ const CardsTable = () => {
     const navigate = useNavigate()
 
     //получаю id из url
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams();
 
     const status = useAppSelector<RequestStatusType>(store => store.App.status)
     const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
@@ -45,7 +45,6 @@ const CardsTable = () => {
     //локальные стейты
     //для инпута (чтоб найти вопросы и ответы)
     const [question, setQuestion] = useState<string>('')
-    const [answer, setAnswer] = useState<string>('')
 
     //для пагинации
     const [currentPage, setCurrentPage] = useState<number>(1)  //какая страница выбрана
@@ -53,7 +52,6 @@ const CardsTable = () => {
 
     //задержки от лишних запросов на сервер
     const debouncedQuestion = useDebounce(question, 500)
-    const debouncedAnswer = useDebounce(answer, 500)
 
     // хранение id карточки для модалки
     const [cardId, setCardId] = useState('')
@@ -70,6 +68,7 @@ const CardsTable = () => {
     const packName = pack ? pack.name : 'some name'
 
     const params: ParamsCardType = {
+        cardQuestion: question,
         cardsPack_id: id,
         page: currentPage,
         pageCount: pageCount
@@ -113,6 +112,7 @@ const CardsTable = () => {
     //обработчик для изменения инпута
     const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => setQuestion(e.target.value)
 
+
     //назад к пакам
     const handleBackPack = () => {
         navigate(PATH.PACKS_TABLE_PAGE)
@@ -130,16 +130,21 @@ const CardsTable = () => {
                         size={"small"}
                         disabled={status === 'loading'}
                         startIcon={<ArrowBack/>}
-                        onClick={handleBackPack}>
+                        onClick={handleBackPack}
+                >
                     Back
                 </Button>
-                <Search searchValue={question} onChangeSearch={onChangeSearch}/>
+                <Search placeholder={'Search question'}
+                        searchValue={question}
+                        onChangeSearch={onChangeSearch}
+                />
                 <Button variant="outlined"
                         color={'secondary'}
                         size={"small"}
                         disabled={status === 'loading'}
                         startIcon={<ControlPointIcon/>}
-                        onClick={handleClickAddCard}>
+                        onClick={handleClickAddCard}
+                >
                     Add Card
                 </Button>
             </div>
@@ -149,7 +154,10 @@ const CardsTable = () => {
                         color={'success'}
                         disabled={status === 'loading'}
                         startIcon={<PlayCircleOutlineOutlinedIcon/>}
-                        onClick={handleLearn}> Learn </Button>
+                        onClick={handleLearn}
+                >
+                    Learn
+                </Button>
             </div>
             <div className={style.Table}>
                 <Table>

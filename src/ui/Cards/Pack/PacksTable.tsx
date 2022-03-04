@@ -21,17 +21,16 @@ import {Modal} from "../../ReusableComponents/Modal/Modal";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {AddPack} from "../../ReusableComponents/Modal/PacksModals/AddPack";
 import {UpdatePack} from "../../ReusableComponents/Modal/PacksModals/UpdatePack";
-import {CardType} from "../../../bll/reducers/cardReducer";
 
 
 const PacksTable = () => {
 
     const dispatch = useDispatch()
+
     const status = useAppSelector<RequestStatusType>(store => store.App.status)
     const userId = useAppSelector<string>(state => state.Profile._id)
     const packs = useAppSelector<Array<PackType>>(state => state.Packs.cardPacks)
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
-    const cards = useAppSelector<Array<CardType>>(state => state.Cards.cards)
 
     //локальные стейты
     //для инпута (чтоб найти имя колоды)
