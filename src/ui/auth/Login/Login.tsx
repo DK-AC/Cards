@@ -17,7 +17,7 @@ import {restoreState, saveState} from "../../../dal/localStorage/localStorage";
 export const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const location= useLocation()
+    const location = useLocation()
 
     // @ts-ignore
     const fromPage = location.state?.from?.pathname || PATH.PROFILE_PAGE
@@ -48,11 +48,11 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(setAppErrorAC(null))
-       if (isLoggedIn) {
-           fromPage===null||'/' ? navigate(PATH.PACKS_TABLE_PAGE): navigate(-1)
-       } else {
-           return
-       }
+        if (isLoggedIn) {
+            fromPage === null || '/' ? navigate(PATH.PROFILE_PAGE) : navigate(-1)
+        } else {
+            return
+        }
     }, [isLoggedIn])
 
     if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\') {

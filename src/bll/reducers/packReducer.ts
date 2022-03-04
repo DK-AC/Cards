@@ -20,19 +20,25 @@ type initialStateType = typeof initialState
 export const PackReducer = (state = initialState, action: PackMainType): initialStateType => {
     switch (action.type) {
         case SET_PACKS: {
-            return {...state,cardPacksTotalCount:action.packsINF.cardPacksTotalCount ,
-                cardPacks: action.packsINF.cardPacks}
+            return {
+                ...state, cardPacksTotalCount: action.packsINF.cardPacksTotalCount,
+                cardPacks: action.packsINF.cardPacks
+            }
         }
         case ADD_PACK: {
             return {...state, cardPacks: [action.newPack, ...state.cardPacks]}
         }
         case DELETE_PACK: {
-            return {...state,
-                cardPacks: state.cardPacks.filter(pack => pack._id !== action.packID)}
+            return {
+                ...state,
+                cardPacks: state.cardPacks.filter(pack => pack._id !== action.packID)
+            }
         }
         case CHANGE_PACK: {
-            return {...state, cardPacks: state.cardPacks
-                    .map(pack => pack._id === action.Pack._id ? {...pack, ...action.Pack} : pack)}
+            return {
+                ...state, cardPacks: state.cardPacks
+                    .map(pack => pack._id === action.Pack._id ? {...pack, ...action.Pack} : pack)
+            }
         }
         default:
             return state
@@ -57,7 +63,7 @@ export const setPacksAT = (params: ParamsPackType) => async (dispatch: Dispatch)
     } catch (error) {
         handlerAppError(error, dispatch)
     } finally {
-        dispatch(setIsInitializedAC())
+        dispatch(setIsInitializedAC(true))
         dispatch(setAppStatusAC('idle'))
     }
 }
