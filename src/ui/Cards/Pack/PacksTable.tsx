@@ -88,7 +88,6 @@ const PacksTable = () => {
         page: currentPage,
         pageCount
     }
-
     //при обновлении страницы не отображались паки
     //добавил isInitialized в зависимости и после обновления все паки перерисовываются
     useEffect(() => {
