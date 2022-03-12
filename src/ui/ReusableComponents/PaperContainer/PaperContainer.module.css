@@ -1,6 +1,7 @@
 .paperContainer{
+    margin: 50px auto;
     min-width: 390px;
-    min-height: 500px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,29 +15,40 @@
     color: rgba(60, 45, 61, 0.5);
     letter-spacing: 0.1em;
     padding: 0;
-    position: absolute;
-    top: 20px
+    text-align: center;
+    position: relative;
+    top:20px;
+    /*position: absolute;
+    top: 20px*/
 }
 .mainTitle {
     color: rgba(60, 45, 61, 0.9);
     padding: 0;
-    position: fixed;
-    top: 100px;
+    margin: 20px auto 40px;
+    position: relative;
+   /* position: absolute;*/
+    top: 20px;
     text-align: center;
 }
 
 .content{
+    position: relative;
+    top:0;
+    bottom:50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
+    height: 70%;
+   /*height: 200px;*/
     /*width: 90%;*/
    /*background-color: red;*/
     /*min-width: 350px;*/
-    padding: 0 50px;
-    position: absolute;
-    top: 130px;
-    bottom:50px;
+    padding: 0 50px 20px;
+  /*  position: absolute;*/
+
+  /* !* top: 20px;*!
+    bottom:50px;*/
     justify-content: space-around;
 }
 .card{

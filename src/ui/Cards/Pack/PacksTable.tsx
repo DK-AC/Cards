@@ -3,9 +3,9 @@ import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import Pack from "./Pack";
-import {CircularProgress, Slider, Switch, TableBody, TableHead} from "@mui/material";
+import {CircularProgress, Slider, Switch, TableBody, TableContainer, TableHead} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {addPackTC, changePackTC, deletePackAT, PackType, setPacksAT} from "../../../bll/reducers/packReducer";
 import {useAppSelector} from "../../../bll/store";
@@ -21,6 +21,26 @@ import {Modal} from "../../ReusableComponents/Modal/Modal";
 import {DeleteModal} from "../../ReusableComponents/Modal/DeleteModal";
 import {AddPack} from "../../ReusableComponents/Modal/PacksModals/AddPack";
 import {UpdatePack} from "../../ReusableComponents/Modal/PacksModals/UpdatePack";
+import Paper from "@mui/material/Paper";
+
+
+const cellStyleCenter = {
+    backgroundColor: '#ECECF9',
+    fontWeight: 700,
+    color: '#2D2E46',
+    size: 13,
+    margin: 0,
+    textAlign:'center'
+}
+const cellStyle = {
+    backgroundColor: '#ECECF9',
+    fontWeight: 700,
+    color: '#2D2E46',
+    size: 13,
+    margin: 0,
+    textAlign:'left',
+    paddingLeft: 4
+}
 
 
 const PacksTable = () => {
@@ -38,7 +58,7 @@ const PacksTable = () => {
     //для слайдера
     const [sliderValue, setSliderValue] = useState<number[]>([0, 100])
     //моя или нет колода
-    const [myPacks, setMyPacks] = useState<boolean>(false)
+    const [myPacks, setMyPacks] = useState<boolean>(true)
     const user_id = myPacks ? userId : ''
     const [packId, setPackId] = useState('')
 
@@ -146,28 +166,31 @@ const PacksTable = () => {
                 </div>
             </div>
             {/*таблица*/}
-            <div className={style.Table}>
-                <Table>
-                    <TableHead>
+            <Paper className={style.Table}  sx={{ width: '100%', overflow: 'hidden' }} >
+                <TableContainer sx={{ maxHeight: 500 }}>
+                <Table stickyHeader aria-label="sticky table">
+                    <TableHead >
                         <TableRow>
-                            <TableCell>Pack Name</TableCell>
-                            <TableCell variant="head">Cards</TableCell>
-                            <TableCell variant="head">Last Updated</TableCell>
-                            <TableCell variant="head">Created By</TableCell>
-                            <TableCell variant="head">Actions</TableCell>
+                           <TableCell variant="head" sx={cellStyle }>Pack Name</TableCell>
+                            <TableCell variant="head" sx={cellStyleCenter}>Cards</TableCell>
+                            <TableCell variant="head" sx={cellStyleCenter}>Last Updated</TableCell>
+                            <TableCell variant="head" sx={cellStyleCenter}>Created By</TableCell>
+                            <TableCell variant="head" sx={cellStyle}>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {packs.map((pack: PackType) => {
+                        {packs.map((pack: PackType, index) => {
                             return <Pack key={`${pack.user_id}+${pack.created}+${pack.name}`}
                                          loginedUserID={userId}
                                          pack={pack}
                                          delete={handleClickDeletePack}
                                          edit={handleClickEditPack}
+                                         index={index}
                             />
                         })}</TableBody>
                 </Table>
-            </div>
+                </TableContainer>
+            </Paper>
             <Pagenator currentPage={currentPage} countItemsOnPage={pageCount} totalItems={cardPacksTotalCount}
                        onPageChanged={onPageChanged}
                        countItemsOnPageChanged={countItemsChanged}/>

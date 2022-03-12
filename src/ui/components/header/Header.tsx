@@ -1,4 +1,4 @@
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, Route, useNavigate} from "react-router-dom";
 import style from "./Header.module.css";
 import React, {useCallback} from "react";
 import {useDispatch} from "react-redux";
@@ -7,6 +7,7 @@ import {logoutTC} from "../../../bll/reducers/loginReducer";
 import {restoreState, saveState} from "../../../dal/localStorage/localStorage";
 import {CircularProgress} from "@mui/material";
 import {useAppSelector} from "../../../bll/store";
+import Profile from "../../Profile/Profile";
 
 export const Header = () => {
 
@@ -40,6 +41,10 @@ export const Header = () => {
                 <NavLink className={({isActive}) => (isActive ? style.activeRoute : style.item)}
                          to={PATH.PROFILE_PAGE}>
                     Profile page
+                </NavLink>
+                <NavLink className={({isActive}) => (isActive ? style.activeRoute : style.item)}
+                         to={'/PROF'}>
+                    PPP
                 </NavLink>
             </div>
             <button className={style.borderButton} onClick={logoutHandler}>Logout</button>

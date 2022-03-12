@@ -12,14 +12,21 @@ function App() {
 
     const dispatch = useDispatch();
 
-    const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)
+   /* const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)*/
 
     useEffect(() => {
+        dispatch(isAuthTC())
+        if (!navigator.cookieEnabled) {
+            clearState('isLogged', false)
+        }
+    }, [])
+
+  /*  useEffect(() => {
         dispatch(isAuthTC())
         if (!cookiesAreAlive) {
             clearState('isLogged', false)
         }
-    }, [])
+    }, [])*/
 
 
     return (

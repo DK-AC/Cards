@@ -10,7 +10,8 @@ const initialState: InitialStateType = {
     rememberMe: false,
     token:'',
     tokenDeathTime: new Date(),
-    _v:''
+    _v:'',
+    avatar:'',
 
 }
 export const ProfileReducer = (state: InitialStateType = initialState, action: ProfileMainType): InitialStateType => {
@@ -40,6 +41,7 @@ export type InitialStateType = {
     token: string
     tokenDeathTime: Date
     _v:string
+    avatar:string
 }
 
 export type ProfileMainType = SetProfileType

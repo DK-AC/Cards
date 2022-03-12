@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
@@ -17,8 +17,11 @@ export type propsType = {
     pack: PackType
     delete: (id: string) => void,
     edit: (id: string, model: PackType) => void
-    loginedUserID: string
+    loginedUserID: string,
+    index:number
 }
+
+
 
 const Pack = ({pack, loginedUserID, ...props}: propsType) => {
 
@@ -45,15 +48,21 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
     }
 
     let disableCondition = status === 'loading' || pack.cardsCount === 0
-    let disableEditPack = loginedUserID !== pack.user_id
+    let disableEditPack = pack.cardsCount===0
+
+//визуал, чтоб слишком длинное название не скашивало таблицу
+    const name = (pack.name && pack.name.length<20 )? pack.name :  pack.name?.slice(0, 12)+'...'
+
+
+
 
     return (
-        <TableRow>
-            <TableCell>{pack.name}</TableCell>
-            <TableCell>{pack.cardsCount}</TableCell>
-            <TableCell>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
-            <TableCell>{pack.user_name}</TableCell>
-            <TableCell>
+        <TableRow sx={  {backgroundColor:  props.index %2 ? '#F8F7FD' : 'white' }} hover>
+            <TableCell sx={{ width: 140 , paddingLeft: 4, textAlign: 'left',borderBottom:0 }}>{name}</TableCell>
+            <TableCell  sx={{ textAlign: 'center',borderBottom:0 }}>{pack.cardsCount}</TableCell>
+            <TableCell  sx={{ textAlign: 'center',borderBottom:0 }}>{dateUpdate ? dateUpdate : dateCreated}</TableCell>
+            <TableCell sx={{ textAlign: 'center',borderBottom:0 }} >{pack.user_name}</TableCell>
+            <TableCell sx={{textAlign: 'left',borderBottom:0 }}>
                 <IconButton aria-label="learn" onClick={handleLearn} disabled={disableCondition}>
                     <PlayCircleOutlineOutlinedIcon color={disableCondition ? "disabled" : "success"}/>
                 </IconButton>

@@ -1,0 +1,42 @@
+.container{
+ width: 80%;
+ min-height: 636px;
+ display: flex;
+
+}
+
+.leftMenu{
+ width: 243px;
+ background-color: #ECECF9;
+ display: flex;
+ flex-direction: column;
+ border-radius: 4px 0 0 4px;
+}
+
+.profile{
+ height: 216px;
+ background-color: #D9D9F1;
+ border-radius: 4px 0 0 0 ;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+.image {
+ border-radius: 50%;
+ width: 100px;
+ height: 100px;
+ margin-bottom:15px ;
+}
+.name{
+ color: #2D2E46;
+ size : 18px;
+ line-height: 27px;
+ font-weight: bolder;
+}
+.aboutMe{
+ color: rgba(60, 45, 61, 0.5);
+ size : 14px;
+ line-height: 16.71px;
+ text-align:center;
+}

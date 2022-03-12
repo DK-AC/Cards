@@ -10,6 +10,7 @@ import PacksTable from "../Cards/Pack/PacksTable";
 import {AuthProvider} from "../../bll/HOK/AuthProvider";
 import CardsTable from "../Cards/Card/CardsTable";
 import LearningCard from "../LearningCard/LearningCard";
+import ProfilePage from "../Profile/ProfilePage/ProfilePage";
 
 export const PATH = {
     START_PAGE: '/',
@@ -39,6 +40,7 @@ function Routing() {
                 <Route path={PATH.PACKS_TABLE_PAGE} element={<PacksTable/>}/>
                 <Route path={PATH.CARDS_TABLE_PAGE} element={<CardsTable/>}/>
                 <Route path={PATH.CARD_PAGE} element={<LearningCard />}/>
+                <Route path={'/PROF'} element={<ProfilePage />}/>
             </Routes>
         </AuthProvider>
     )

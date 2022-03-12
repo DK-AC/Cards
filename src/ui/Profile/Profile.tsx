@@ -15,13 +15,13 @@ const Profile = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.App.isInitialized)
     const email = useAppSelector<string>(state => state.Profile.email)
 
-    if (!isLoggedIn) {
+    /*if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN_PAGE}/>;
-    }
+    }*/
 
     return (
         <>
-            {status === 'loading'
+           {status === 'loading'
                 ? <CircularProgress size={'8rem'}/>
                 : <div>
                     <section>

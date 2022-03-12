@@ -1,7 +1,9 @@
 import {TextField} from '@mui/material';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, MouseEventHandler, useState} from 'react';
 import style from './ReusablePasswordInput.module.css'
 import hidePass from '../../../assets/icons/hidePass.svg'
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 type ReusableInputEmailType = {
     label?: string
@@ -22,6 +24,10 @@ const ReusablePasswordInput = React.memo(function ({label, placeholder, value, o
             setReverseType("password");
         }
     };
+    const handleMouseDownPassword: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.preventDefault();
+    };
+
 
     return (
         <>
@@ -36,7 +42,12 @@ const ReusablePasswordInput = React.memo(function ({label, placeholder, value, o
                     type={reverseType}
                 />
                 <button type={"button"} className={style.visible} onClick={onClickHandler}>
-                    <img src={hidePass} alt=""/>
+                    <IconButton
+                        onClick={onClickHandler}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end">
+                        {reverseType=== "password"? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
                 </button>
             </div>
         </>

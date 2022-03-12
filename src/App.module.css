@@ -5,7 +5,7 @@
 }
 
 html {
-    overflow: hidden
+    overflow: scroll;
 }
 
 .container {
@@ -15,14 +15,13 @@ html {
     min-height: 100vh;
     background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
     position: relative;
-
 }
 
-.position {
+/*.position {
     position: absolute;
     top: 30px;
     left: 30px;
-}
+}*/
 
 .App {
 
