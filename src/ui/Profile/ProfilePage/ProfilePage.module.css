@@ -1,8 +1,7 @@
 .container{
- width: 80%;
  min-height: 636px;
+ min-width: 1060px;
  display: flex;
-
 }
 
 .leftMenu{
@@ -12,31 +11,44 @@
  flex-direction: column;
  border-radius: 4px 0 0 4px;
 }
+.settingMenu{
+ width: 80%;
+ margin: 20px auto ;
+}
 
-.profile{
- height: 216px;
- background-color: #D9D9F1;
- border-radius: 4px 0 0 0 ;
+.text{
+ display: inline-block;
+ font-weight: 600;
+ font-size: 16px;
+ line-height: 19px;
+ color: #2D2E46;
+ margin-bottom:30px ;
+}
+
+.main{
+ width: 80% ;
  display: flex;
  flex-direction: column;
- align-items: center;
  justify-content: center;
+ align-content: center;
 }
-.image {
- border-radius: 50%;
- width: 100px;
- height: 100px;
- margin-bottom:15px ;
+.headBlock{
+ position: sticky;
+ padding: 14px 0 10px 42px  ;
 }
-.name{
+
+.header{
+ font-weight: 600 ;
+ size: 22px;
+ line-height: 33px;
  color: #2D2E46;
- size : 18px;
- line-height: 27px;
- font-weight: bolder;
 }
-.aboutMe{
- color: rgba(60, 45, 61, 0.5);
- size : 14px;
- line-height: 16.71px;
- text-align:center;
+
+.mainContent{
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-content: center;
+ padding: 16px 36px ;
 }

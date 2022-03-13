@@ -7,8 +7,8 @@ import style from './Pagenator.module.css'
 //НПР: const [pageCount, setPageCount] = useState<number>(4)  // сколько колод на старице
 
 export type pagenatorPropsType ={
-    currentPage: number //текущая страница
-    countItemsOnPage: number // сколько колод показывать на странице
+    currentPage?: number //текущая страница
+    countItemsOnPage?: number // сколько колод показывать на странице
     totalItems: number // всего колод
     onPageChanged:(page:number)=>void
     countItemsOnPageChanged:(pageCount:number)=>void
@@ -17,7 +17,7 @@ export type pagenatorPropsType ={
 const Pagenator = ({currentPage, countItemsOnPage,totalItems,...props}:pagenatorPropsType ) => {
 
    //количество отображаемых страниц
-   const PageCount =  Math.ceil(totalItems/ countItemsOnPage)
+   const PageCount =  countItemsOnPage && Math.ceil(totalItems/ countItemsOnPage)
 
     const [page, setPage] = useState(currentPage)
     // сохраняем выделенную страницу для визуального отображения

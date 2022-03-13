@@ -1,8 +1,8 @@
 import React from 'react';
-import style from "./ProfilePage.module.css";
-import {useAppSelector} from "../../../bll/store";
+import style from "./ProfileInfo.module.css";
+import {useAppSelector} from "../../../../bll/store";
 
-import userImg from "../../../assets/image/user.jpg"
+import userImg from "../../../../assets/image/user.jpg"
 
 const ProfileInfo = () => {
     const email =  useAppSelector<string>(state => state.Profile.email)

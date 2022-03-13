@@ -2,16 +2,16 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
 import {compose} from "redux";
-import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
-import {CardType} from "../../../bll/reducers/cardReducer";
-import {CardFromServerType} from "../../../dal/cardsApi";
+import {withAuthRedirect} from "../../../../../bll/HOK/withAuthRedirect";
+import {CardType} from "../../../../../bll/reducers/cardReducer";
+import {CardFromServerType} from "../../../../../dal/cardsApi";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {IconButton} from "@mui/material";
-import {useAppSelector} from "../../../bll/store";
-import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import {useAppSelector} from "../../../../../bll/store";
+import {RequestStatusType} from "../../../../../bll/reducers/appReducer";
 import EditIcon from '@mui/icons-material/Edit';
-import RatingForTable from "./RatingForTable";
-import style from './CardsTable.module.css'
+import RatingForTable from "../../RatingForTable";
+import style from './Card.module.css'
 
 type CardPropsType = {
     card: CardType
@@ -43,9 +43,6 @@ const Card = ({card, ...props}: CardPropsType) => {
             <TableCell><RatingForTable grade={card.grade as number}/> </TableCell>
             <TableCell>
                 <div className={style.icons}>
-                   {/* <IconButton aria-label="open" onClick={handleOpen} disabled={status === 'loading'}>
-                    <ExitToAppIcon color={status === 'loading' ? "disabled" : "secondary"}/>
-                </IconButton>*/}
                     <IconButton aria-label="change" onClick={handleEdit} disabled={status === 'loading'}>
                         <EditIcon color={status === 'loading' ? "disabled" : "action"}/>
                     </IconButton>

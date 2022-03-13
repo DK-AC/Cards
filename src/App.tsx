@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "./bll/store";
 import Routing from "./ui/Routes/Routes";
 import style from './App.module.css'
 import {isAuthTC} from "./bll/reducers/appReducer";
 import {clearState} from "./dal/localStorage/localStorage";
 import {Header} from "./ui/components/header/Header";
+import Loading from "./ui/ReusableComponents/Loading/Loading";
 
 
 function App() {
 
     const dispatch = useDispatch();
+
 
    /* const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)*/
 
@@ -34,6 +35,7 @@ function App() {
             <Header/>
             <div className={style.container}>
                 <Routing/>
+                <Loading  />
             </div>
         </div>
     );

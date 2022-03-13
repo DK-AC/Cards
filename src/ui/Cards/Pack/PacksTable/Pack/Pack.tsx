@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
-import {PackType} from "../../../bll/reducers/packReducer";
+import {withAuthRedirect} from "../../../../../bll/HOK/withAuthRedirect";
+import {PackType} from "../../../../../bll/reducers/packReducer";
 import {IconButton} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import {useAppSelector} from "../../../bll/store";
-import {RequestStatusType} from "../../../bll/reducers/appReducer";
+import {useAppSelector} from "../../../../../bll/store";
+import {RequestStatusType} from "../../../../../bll/reducers/appReducer";
 import {useNavigate} from "react-router-dom";
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 
@@ -48,7 +48,7 @@ const Pack = ({pack, loginedUserID, ...props}: propsType) => {
     }
 
     let disableCondition = status === 'loading' || pack.cardsCount === 0
-    let disableEditPack = pack.cardsCount===0
+    let disableEditPack =  pack.cardsCount===0 && loginedUserID!== pack.user_id
 
 //визуал, чтоб слишком длинное название не скашивало таблицу
     const name = (pack.name && pack.name.length<20 )? pack.name :  pack.name?.slice(0, 12)+'...'

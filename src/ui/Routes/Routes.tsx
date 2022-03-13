@@ -6,9 +6,9 @@ import React from "react";
 import CheckEmail from "../auth/ForgotPass/ChackEmail";
 import PasswordEnter from "../auth/ForgotPass/PasswordEnter";
 import Profile from "../Profile/Profile";
-import PacksTable from "../Cards/Pack/PacksTable";
+import PacksTable from "../Cards/Pack/PacksTablePage";
 import {AuthProvider} from "../../bll/HOK/AuthProvider";
-import CardsTable from "../Cards/Card/CardsTable";
+import CardsTable from "../Cards/Card/CardsTablePage";
 import LearningCard from "../LearningCard/LearningCard";
 import ProfilePage from "../Profile/ProfilePage/ProfilePage";
 

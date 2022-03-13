@@ -1,3 +1,8 @@
+.container {
+    padding: 20px 40px ;
+}
+
+
 .tableTitle{
 
     color:rgba(60, 45, 61, 0.8);
@@ -51,11 +56,8 @@
     width: 100%;
 }
 
-.stars {
+/*.stars {
     width: 100px;
-    /*border: 1px solid yellow;*/
-}
-.icons {
-    display: flex;
-    flex-wrap: nowrap;
-}
+    !*border: 1px solid yellow;*!
+}*/
+
