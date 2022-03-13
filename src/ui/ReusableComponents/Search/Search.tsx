@@ -2,7 +2,7 @@ import {Input} from "@mui/material";
 import s from './Search.module.css'
 import {ChangeEvent} from "react";
 
-export const Search = ({searchValue, onChangeSearch, placeholder = `Searching for Pack's name`, ...props}: SearchType) => {
+export const Search = ({searchValue, onChangeSearch, placeholder = `Search`, ...props}: SearchType) => {
     return (
         <Input  color={'secondary'}
             value={searchValue}

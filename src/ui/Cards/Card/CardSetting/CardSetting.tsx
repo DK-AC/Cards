@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import style from "../CardsTablePage.module.css";
+import style from "./SettingsCards.module.css";
 import Button from "@mui/material/Button";
 import {ArrowBack} from "@mui/icons-material";
 import {Search} from "../../../ReusableComponents/Search/Search";
@@ -35,7 +35,7 @@ const CardSetting = ({question,...props}:propsType) => {
             >
                 Back
             </Button>
-            <Search placeholder={'Search question'}
+            <Search placeholder={'Search by question'}
                     searchValue={question}
                     onChangeSearch={props.onChangeSearch}
             />

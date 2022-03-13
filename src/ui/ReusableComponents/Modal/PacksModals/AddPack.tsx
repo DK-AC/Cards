@@ -18,19 +18,20 @@ export const AddPack = ({showAdd, addPack}: AddPackType) => {
     return (
         <div className={s.containerModal}>
             <h1 className={s.titleModal}>Create new Pack</h1>
-            <div>
+            <div className={s.content}>
                 <Input type={'test'}
                        value={text}
                        onChange={onChangeHandler}
                        placeholder="enter pack name"/>
             </div>
 
-            <Button onClick={addNewPack} className={s.buttonLRMargin}>
+            <div className={s.buttonContainer}>
+                <Button onClick={addNewPack} color={"secondary"}>
                 add
             </Button>
-            <Button onClick={() => showAdd(false)} className={s.buttonLRMargin}>
-                cancel
-            </Button>
+                <Button onClick={() => showAdd(false)} color={"secondary"}>
+                    cancel
+                </Button></div>
         </div>
     )
 }

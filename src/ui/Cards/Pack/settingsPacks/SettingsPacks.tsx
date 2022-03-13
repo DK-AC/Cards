@@ -49,7 +49,7 @@ const SettingsPacks = ({myPacks,sliderValue,packName,...props}: propsType) => {
                         getAriaLabel={() => 'Temperature range'}
                         valueLabelDisplay="auto"
                         getAriaValueText={valuetext}/>
-                <Search searchValue={packName} onChangeSearch={ props.onChangeSearch}/>
+                <Search searchValue={packName} onChangeSearch={ props.onChangeSearch} placeholder={`Search by Pack's name`}/>
             </div>
         </div>
     );

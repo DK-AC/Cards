@@ -20,19 +20,19 @@ export const UpdatePack = ({showUpdate, updatePack, packName}: UpdatePackType) =
     return (
         <div className={s.containerModal}>
             <h1 className={s.titleModal}>Update Pack</h1>
-            <div>
+            <div className={s.content}>
                 <Input type={'test'}
                        value={text}
                        onChange={onChangeHandler}
                        placeholder="new pack name"/>
             </div>
-            <Button onClick={updatePackName} className={s.buttonLRMargin}>
+            <div className={s.buttonContainer}>
+                <Button onClick={updatePackName} color={"secondary"}>
                 update
             </Button>
-            <Button onClick={() => showUpdate(false)} className={s.buttonLRMargin}>
-                cancel
-            </Button>
-
+                <Button onClick={() => showUpdate(false)} color={"secondary"}>
+                    cancel
+                </Button></div>
         </div>
     )
 }

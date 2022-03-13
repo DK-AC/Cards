@@ -95,7 +95,7 @@ const CardsTablePage = () => {
         <Paper className={style.container}>
            <CardSetting question={question} onChangeSearch={onChangeSearch} handleClickAddCard={handleClickAddCard} />
 
-            <div className={style.titleBlock}>
+            <div className={style.main}>
                 <h2 className={style.tableTitle}>Pack's name: {packName}</h2>
                 <Button variant="outlined"
                         color={'success'}

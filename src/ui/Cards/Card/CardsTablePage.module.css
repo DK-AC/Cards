@@ -1,63 +1,24 @@
 .container {
     padding: 20px 40px ;
 }
+.main{
+    min-width: 780px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 10px 50px 20px 10px ;
+}
 
 
 .tableTitle{
-
-    color:rgba(60, 45, 61, 0.8);
-    padding-left:2px ;
-   /* position: absolute;
-    top: 124px;
-    padding-left:2px ;*/
-}
-.titleBlock{
-  position: absolute;
-   top: 124px;
-    display: flex;
-    min-width: 528px;
-    justify-content: space-between;
+    font-weight: 600 ;
+    size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
 }
 
 
-.Table {
-    overflow: auto;
-    max-width: 900px;
-    height: 100%;
-    border: 2px solid rgba(224, 224, 224, 1);
-    border-bottom: 1px solid rgba(224, 224, 224, 1);
-    border-radius: 5px;
-}
-
-.settingsMenu {
-   position: absolute;
-    top: 64px;
-    display: flex;
-   min-width: 528px;
-    justify-content: space-between;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
-}
-
-.container {
-    margin-top: 180px;
-    min-height: 80px;
-}
 
 
-.loading {
-    position: fixed;
-    top: 30%;
-    left:46%;
-    textAlign: center;
-    width: 100%;
-}
 
-/*.stars {
-    width: 100px;
-    !*border: 1px solid yellow;*!
-}*/
 

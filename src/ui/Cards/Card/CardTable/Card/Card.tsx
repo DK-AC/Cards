@@ -10,13 +10,14 @@ import {IconButton} from "@mui/material";
 import {useAppSelector} from "../../../../../bll/store";
 import {RequestStatusType} from "../../../../../bll/reducers/appReducer";
 import EditIcon from '@mui/icons-material/Edit';
-import RatingForTable from "../../RatingForTable";
+import RatingForTable from "./RatingForTable";
 import style from './Card.module.css'
 
 type CardPropsType = {
     card: CardType
     delete: (id: string | undefined) => void
     edit: (id: string, model: CardFromServerType) => void
+    index:number
 }
 
 const Card = ({card, ...props}: CardPropsType) => {
@@ -36,12 +37,12 @@ const Card = ({card, ...props}: CardPropsType) => {
     }
 
     return (
-        <TableRow>
-            <TableCell>{card.question}</TableCell>
-            <TableCell>{card.answer}</TableCell>
-            <TableCell>{dateUpdate}</TableCell>
-            <TableCell><RatingForTable grade={card.grade as number}/> </TableCell>
-            <TableCell>
+        <TableRow sx={  {backgroundColor:  props.index %2 ? '#F8F7FD' : 'white' }} hover>
+            <TableCell  sx={{ width: 140 , paddingLeft: 4, textAlign: 'left',borderBottom:0 }}>{card.question}</TableCell>
+            <TableCell sx={{ textAlign: 'center',borderBottom:0 }}>{card.answer}</TableCell>
+            <TableCell sx={{ textAlign: 'center',borderBottom:0 }}>{dateUpdate}</TableCell>
+            <TableCell sx={{ textAlign: 'center',borderBottom:0 }}><RatingForTable grade={card.grade as number}/> </TableCell>
+            <TableCell  sx={{textAlign: 'left',borderBottom:0 }}>
                 <div className={style.icons}>
                     <IconButton aria-label="change" onClick={handleEdit} disabled={status === 'loading'}>
                         <EditIcon color={status === 'loading' ? "disabled" : "action"}/>

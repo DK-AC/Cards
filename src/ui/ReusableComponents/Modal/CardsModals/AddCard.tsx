@@ -35,24 +35,25 @@ export const AddCard = ({showAdd, addCard,cardsPack_id}: AddCardType) => {
     return (
         <div className={s.containerModal}>
             <h1 className={s.titleModal}>Create new Card</h1>
-            <div>
+            <div className={s.content}>
                 <Input type={'question'}
                        value={question}
                        onChange={onChangeQuestionHandler}
                        placeholder="enter question for card"/>
-            <br/>
-                <Input type={'answer'}
-                       value={answer}
-                       onChange={onChangeAnswerHandler}
-                       placeholder="enter right answer"/>
+                <div className={s.margin}>
+                    <Input type={'answer'}
+                           value={answer}
+                           onChange={onChangeAnswerHandler}
+                           placeholder="enter right answer"/></div>
             </div>
-
-            <Button onClick={addNewCard} className={s.buttonLRMargin}>
-                add
-            </Button>
-            <Button onClick={() => showAdd(false)} className={s.buttonLRMargin}>
-                cancel
-            </Button>
+            <div className={s.buttonContainer}>
+                <Button onClick={addNewCard} color={"secondary"}>
+                    add
+                </Button>
+                <Button onClick={() => showAdd(false)} color={"secondary"}>
+                    cancel
+                </Button>
+            </div>
         </div>
     )
 }

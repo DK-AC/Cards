@@ -1,0 +1,26 @@
+.settingsMenu {
+    position: sticky;
+    top:0;
+    display: flex;
+    min-width: 780px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 10px 50px 30px;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.text{
+    display: inline-block;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2D2E46;
+    margin-bottom:6px ;
+}
+.secondText{
+    color: rgba(60, 45, 61, 0.5)
+}

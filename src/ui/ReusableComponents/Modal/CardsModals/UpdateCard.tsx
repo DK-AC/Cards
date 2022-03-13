@@ -31,23 +31,27 @@ export const UpdateCard = ({showUpdate, updateCard, ...props}: UpdateCardType) =
     return (
         <div className={s.containerModal}>
             <h1 className={s.titleModal}>Update Card</h1>
-            <div>
+            <div className={s.content}>
                 <Input type={'question'}
                        value={question}
                        onChange={onChangeQuestionHandler}
                        placeholder="enter question for card"/>
-                <br/>
-                <Input type={'answer'}
-                       value={answer}
-                       onChange={onChangeAnswerHandler}
-                       placeholder="enter right answer"/>
+
+                <div className={s.margin}>
+                    <Input type={'answer'}
+                          value={answer}
+                          onChange={onChangeAnswerHandler}
+                          placeholder="enter right answer"/>
+                </div>
             </div>
-            <Button onClick={updateCardName} className={s.buttonLRMargin}>
+            <div className={s.buttonContainer}>
+                <Button onClick={updateCardName} color={"secondary"}>
                 update
             </Button>
-            <Button onClick={() => showUpdate(false)} className={s.buttonLRMargin}>
-                cancel
-            </Button>
+                <Button onClick={() => showUpdate(false)} color={"secondary"}>
+                    cancel
+                </Button>
+            </div>
 
         </div>
     )

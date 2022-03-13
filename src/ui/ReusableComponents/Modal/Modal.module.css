@@ -13,12 +13,12 @@
 }
 
 .body {
-    margin: auto;
     background: white;
-    margin-top: 15%;
+    margin: 15% auto;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.36);
+
 }
 
 .containerModal {
@@ -26,11 +26,29 @@
 }
 
 .titleModal {
-    font-size:larger;
-    padding: 0 80px 30px 80px;
+    font-weight: 600 ;
+    font-size: 20px;
+    color: #2D2E46;
+    padding: 0 80px 20px 80px;
+    line-height: 33px;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.05em;
+    font-size: 18px;
+    line-height: 24px;
+    color: rgba(60, 45, 61, 0.6);
+    padding-bottom: 20px;
 }
 
-.buttonLRMargin {
-    margin-left: 10px;
-    margin-right: 10px;
+.margin{
+    margin-top: 20px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-around;
 }

@@ -3,7 +3,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import {yellow} from "@mui/material/colors";
 import {v1} from "uuid";
-import style from './CardsTablePage.module.css'
+import style from '../../CardsTablePage.module.css'
 
 type RatingForTableType ={
     grade: number

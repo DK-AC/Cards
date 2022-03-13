@@ -58,11 +58,12 @@ const CardTable = ({cards,params,...props}:propsType) => {
                     <Table stickyHeader aria-label="sticky table"  >
                         <TableHeader names={['Question', 'Answer','Last Updated', 'Grade', 'Actions']} />
                         <TableBody>
-                            {cards.map((card: CardType) => {
+                            {cards.map((card: CardType,index) => {
                                 return <Card key={`${card.user_id}+${card.created}+${card.updated}`}
                                              card={card}
                                              delete={handleClickDeleteCard}
                                              edit={handleClickEditCard}
+                                             index={index}
                                 />
                             })}
                         </TableBody>
