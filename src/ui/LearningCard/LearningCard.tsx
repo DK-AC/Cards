@@ -8,6 +8,8 @@ import {getRandomCard} from '../../utilities/getRandomCard';
 import CardQuestion from './CardQuestion';
 import CardAnswer from './CardAnswer';
 import {PackType} from "../../bll/reducers/packReducer";
+import ButtonMenu from "./ButtonMenu/ButtonMenu";
+import style from './LearningCard.module.css'
 
 const LearningCard = () => {
 
@@ -37,6 +39,9 @@ const LearningCard = () => {
     const handleNext = () => {
         nextCardHandler(grade)
     }
+    const handlerClickAnswer = () => {
+        setIsChecked(true)
+    }
 
 
     useEffect(() => {
@@ -51,9 +56,13 @@ const LearningCard = () => {
 
     return (
         <PaperContainer title={`Pack's name: ${packName}`}>
+            <div className={style.content}>
+                {!isChecked
+                ? <CardQuestion currentCard={currentCard}/> : <CardAnswer currentCard={currentCard}/>}
+            </div>
             {!isChecked
-                ? <CardQuestion currentCard={currentCard} setIsChecked={setIsChecked}/>
-                : <CardAnswer currentCard={currentCard} handleNext={handleNext} setIsChecked={setIsChecked}/>}
+                ?<ButtonMenu rightIcon={'VisibilityIcon'} handlerClickRightButton={handlerClickAnswer} rightButtonName={'Answer'} />
+                : <ButtonMenu rightIcon={'ArrowForwardIcon'} handlerClickRightButton={handleNext } rightButtonName={'Next'} />}
         </PaperContainer>
     );
 };

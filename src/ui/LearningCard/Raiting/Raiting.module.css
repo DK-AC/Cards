@@ -1,12 +1,12 @@
-.container{
-   padding: 0 0 16px;
-}
+
 .title{
+    color: rgba(60, 45, 61, 0.9) !important;
+    margin: 0 0 6px;
+    padding: 0;
     font-weight: bold;
     line-height:170%;
 }
  .rateItem{
     list-style-type: none;
     margin-bottom: 5px;
-    font-size: 0.8rem;
 }

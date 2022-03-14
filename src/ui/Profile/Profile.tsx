@@ -20,10 +20,9 @@ const Profile = () => {
     }*/
 
     return (
-        <>
-           {status === 'loading'
-                ? <CircularProgress size={'8rem'}/>
-                : <div>
+                <div>
+                    {/*status === 'loading'
+           ? <CircularProgress size={'8rem'}/>:*/}
                     <section>
                         <div className={styles.wrapper}>
                             <h1 className={styles.title}>Profile</h1>
@@ -31,8 +30,8 @@ const Profile = () => {
                             <div className={styles.email}>Email: {email}</div>
                         </div>
                     </section>
-                </div>}
-        </>
+                </div>
+
     );
 };
 

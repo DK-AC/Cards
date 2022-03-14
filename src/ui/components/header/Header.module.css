@@ -1,18 +1,30 @@
 .title {
     margin: 0;
+    color: #2D2E46;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    letter-spacing: -0.8px;
 }
+.title:first-letter{
+    color: red;
+    font-size: 40px;
+    vertical-align: bottom;
+}
+
 .header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
-    color: white;
+    background-color: #EBE0E9;
     height: 55px;
+    padding: 0 36px;
 }
 
 .header a {
     text-decoration: none;
-    color: white;
+    color: rgba(45, 46, 70, 0.4);
+
 }
 
 .itemsWrapper {
@@ -28,16 +40,31 @@
     padding: 0 1em;
     transition: .3s linear all;
 }
+.item:hover{
+    border-bottom: 3px solid rgba(45, 46, 70, 0.4);
+    background-color: rgba(220, 204, 219, 0.3);
+}
+.item:active{
+    border-bottom: 3px solid #21268F;
+}
 
 .activeRoute {
     display: flex;
     align-items: center;
     height: 100%;
-    border-bottom: 3px solid white;
+    /*//color: rgba(45, 46, 70, 0.4);*/
+   /*border-bottom: 3px solid white;*/
+    background-color: #DCCCDB;
+    border-bottom: 3px solid #9c27b0;
     padding: 0 1em;
     transition: .3s linear all;
 }
 
+.hidden{
+    visibility: hidden;
+}
+
+/*
 .borderButton {
     text-decoration: none;
     display: inline-block;
@@ -55,4 +82,4 @@
     font-size: .9rem;
     border-bottom: 3px solid transparent;
     transition: .15s linear all;
-}
+}*/

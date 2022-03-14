@@ -6,12 +6,13 @@ import {isAuthTC} from "./bll/reducers/appReducer";
 import {clearState} from "./dal/localStorage/localStorage";
 import {Header} from "./ui/components/header/Header";
 import Loading from "./ui/ReusableComponents/Loading/Loading";
+import {useAppSelector} from "./bll/store";
 
 
 function App() {
 
     const dispatch = useDispatch();
-
+    const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
 
    /* const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)*/
 
@@ -21,6 +22,9 @@ function App() {
             clearState('isLogged', false)
         }
     }, [])
+   /* if (!isInitialized) {
+        return <Loading />
+    }*/
 
   /*  useEffect(() => {
         dispatch(isAuthTC())

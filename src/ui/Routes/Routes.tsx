@@ -22,7 +22,8 @@ export const PATH = {
     CREATE_NEW_PASSWORD_PAGE: '/set-new-password/:token',
     PACKS_TABLE_PAGE: '/packs',
     CARDS_TABLE_PAGE:'/cards/:id',
-    CARD_PAGE:'/cards/card/:id'
+    CARD_PAGE:'/cards/card/:id',
+    PROFILE_INFO_PAGE: '/info_profile',
 }
 
 
@@ -40,7 +41,7 @@ function Routing() {
                 <Route path={PATH.PACKS_TABLE_PAGE} element={<PacksTable/>}/>
                 <Route path={PATH.CARDS_TABLE_PAGE} element={<CardsTable/>}/>
                 <Route path={PATH.CARD_PAGE} element={<LearningCard />}/>
-                <Route path={'/PROF'} element={<ProfilePage />}/>
+                <Route path={PATH.PROFILE_INFO_PAGE} element={<ProfilePage />}/>
             </Routes>
         </AuthProvider>
     )

@@ -1,38 +1,18 @@
+.content{
+    display: flex;
+    position: relative;
+    top:0;
+    width: 300px
+}
+
 .title {
     color: rgba(60, 45, 61, 0.9);
-    margin: 4px 0 6px;
+    margin: 0 0 6px;
     padding: 0;
 }
 .info{
     overflow: auto;
     max-height: 90%;
 }
-.block{
-    height: 80px;
-    padding-bottom:20px ;
-}
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 300px;
-    height: 100%;
-    position: relative;
-   /* background-color: orange;*/
 
-}
-
-.buttonMenu {
-    padding: 0;
-    /*bottom: 10px;*/
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-/*.wrapper {
-    color: yellow;
-    font-size: 20px;
-    list-style-type: none;
-}*/
 

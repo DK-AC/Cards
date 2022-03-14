@@ -27,8 +27,8 @@ const Rating = ({id}: RatingType) => {
     ]
 
     return (
-        <div className={style.container}>
-            <span className={style.title}>Rate yourself:</span>
+        <div>
+            <h3 className={style.title}>Rate yourself:</h3>
             <ul>
                 {values.map(v => {
                     return <RatingItem value={v.value} onRadioChange={onRadioChange} key={v.value}
