@@ -11,6 +11,8 @@ import {useDispatch} from "react-redux";
 import {Slider} from "@mui/material";
 import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import {Search} from "../../ReusableComponents/Search/Search";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
 
 
 
@@ -101,7 +103,7 @@ const ProfilePage = () => {
     );
 };
 
-export default ProfilePage;
+export default compose(withAuthRedirect)(ProfilePage);
 
 function valuetext(value: number) {
     return `${value}°C`;

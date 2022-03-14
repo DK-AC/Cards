@@ -6,7 +6,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
+.profile:hover{
+    background-color: #cdcdef;
+}
+
+.icon{
+    position: absolute;
+    top: 6px;
+    right: 8px;
+}
+
 .image {
     border-radius: 50%;
     width: 100px;

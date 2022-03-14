@@ -36,10 +36,14 @@ const Card = ({card, ...props}: CardPropsType) => {
         card._id && props.edit(card._id, model)
     }
 
+    //визуал, чтоб слишком длинное название не скашивало таблицу
+    const question = (card.question && card.question.length<20 )? card.question :  card.question?.slice(0, 12)+'...'
+    const answer = (card.answer && card.answer.length<20 )? card.answer :  card.answer?.slice(0, 12)+'...'
+
     return (
         <TableRow sx={  {backgroundColor:  props.index %2 ? '#F8F7FD' : 'white' }} hover>
-            <TableCell  sx={{ width: 140 , paddingLeft: 4, textAlign: 'left',borderBottom:0 }}>{card.question}</TableCell>
-            <TableCell sx={{ textAlign: 'center',borderBottom:0 }}>{card.answer}</TableCell>
+            <TableCell  sx={{ width: 140 , paddingLeft: 4, textAlign: 'left',borderBottom:0 }}>{question}</TableCell>
+            <TableCell sx={{ textAlign: 'center',borderBottom:0 }}>{answer}</TableCell>
             <TableCell sx={{ textAlign: 'center',borderBottom:0 }}>{dateUpdate}</TableCell>
             <TableCell sx={{ textAlign: 'center',borderBottom:0 }}><RatingForTable grade={card.grade as number}/> </TableCell>
             <TableCell  sx={{textAlign: 'left',borderBottom:0 }}>
