@@ -1,48 +1,56 @@
-import React from "react";
+import React, {MouseEventHandler, useState} from "react";
 import style from './ChangeProfileModal.module.css'
-import {Button} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {EditableSpan} from "../../EditableSpan/EditableSpan";
+import Button from "@mui/material/Button";
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 type propsType = {
-    name:string
+    name: string
     avatar: string
     email: string
     myProfile: boolean
-    isOpen:boolean
-    changeIsOpen: (modal: boolean)=>void
+    isOpen: boolean
+    closeModal: () => void
 }
 
-export const ChangeProfileModal = ({name, avatar, email,  myProfile,isOpen, changeIsOpen}:propsType) => {
+export const ChangeProfileModal = ({name, avatar, email,  isOpen,myProfile,...props}: propsType) => {
 
-    const closeModalHandler=()=>{
-       // changeIsOpen(false)
+    const backGroundClick:MouseEventHandler<HTMLDivElement|HTMLButtonElement> = (e) => {
+        props.closeModal()
+    }
+
+    //для EditableSpan
+    //name
+    const [editName, setEditName] = useState(name)
+    const onChangeEditName=(name: string)=>{
+        setEditName(name)
     }
 
 
-    return (
-        <div>
-            {isOpen &&
-                (<div className={style.wrapper}>
-                    <div className={style.body}>
-                        <div className={style.containerModal}>
-                            <h1 className={style.titleModal}>Profile</h1>
-                            <div className={style.content}>
-                                <img className={style.image} src={avatar} alt="avatar"/>
-                                <div className={style.info}>Name: {name}</div>
-                                <div className={style.info}>Email: {email}</div>
-                            </div>
-                            <div className={style.buttonContainer}>
-                                <Button onClick={()=>console.log('ff')} color={"secondary"}>
-                                    save
-                                </Button>
-                                <Button onClick={closeModalHandler} color={"secondary"}>
-                                    cancel
-                                </Button>
-                            </div>
+
+    return (<div>
+            {isOpen && <>
+                <div className={style.wrapper}  onClick={backGroundClick}> </div>
+                <div className={style.bodyModal}>
+                    <div className={style.containerModal}>
+                        <h1 className={style.titleModal}>Personal information</h1>
+                        <div className={style.content}>
+                            <img className={style.image} src={avatar} alt="avatar"/>
+                               <button className={style.circle}> <AddAPhotoOutlinedIcon fontSize={'medium'} sx={{color: 'white'}}/></button>
+                            <EditableSpan value={editName} onChange={onChangeEditName } placeholder={'Name'} myProfile={myProfile} />
+                            <EditableSpan value={email}  placeholder={'Email'} myProfile={myProfile} />
+                        </div>
+                        <div className={style.buttonContainer}>
+                            <Button onClick={()=>console.log('ff')} color={"secondary"}>
+                                save
+                            </Button>
+                            <Button onClick={backGroundClick} color={"secondary"}>
+                                cancel
+                            </Button>
                         </div>
                     </div>
-                </div>)
+                </div>
+                </>
             }
-        </div>
-    )
+                </div>)
 }

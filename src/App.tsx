@@ -7,6 +7,7 @@ import {clearState} from "./dal/localStorage/localStorage";
 import {Header} from "./ui/components/header/Header";
 import Loading from "./ui/ReusableComponents/Loading/Loading";
 import {useAppSelector} from "./bll/store";
+import {CircularProgress} from "@mui/material";
 
 
 function App() {
@@ -14,7 +15,6 @@ function App() {
     const dispatch = useDispatch();
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
 
-   /* const cookiesAreAlive = useAppSelector<boolean>(state => state.App.cookiesAreAlive)*/
 
     useEffect(() => {
         dispatch(isAuthTC())
@@ -22,16 +22,9 @@ function App() {
             clearState('isLogged', false)
         }
     }, [])
-   /* if (!isInitialized) {
-        return <Loading />
-    }*/
 
-  /*  useEffect(() => {
-        dispatch(isAuthTC())
-        if (!cookiesAreAlive) {
-            clearState('isLogged', false)
-        }
-    }, [])*/
+
+   if (!isInitialized) return <Loading />
 
 
     return (

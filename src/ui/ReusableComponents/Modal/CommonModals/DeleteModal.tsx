@@ -1,4 +1,4 @@
-import s from './Modal.module.css'
+import s from '../Modal.module.css'
 import {Button} from "@mui/material";
 
 type DeletePackType = {

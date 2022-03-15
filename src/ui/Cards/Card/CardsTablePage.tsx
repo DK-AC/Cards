@@ -89,6 +89,11 @@ const CardsTablePage = () => {
     const handleLearn = () => {
         navigate(`/cards/card/${id}`)
     }
+    //закрыть модалку
+    const closeModal = () => {
+        setAddModal(false)
+    }
+
 
     return (
 
@@ -106,9 +111,9 @@ const CardsTablePage = () => {
                     Learn
                 </Button>
             </div>
-           <CardTable cards={cards} params={params} onPageChanged={onPageChanged} countItemsChanged={countItemsChanged} />
+           <CardTable cards={cards} params={params} onPageChanged={onPageChanged} countItemsChanged={countItemsChanged}  />
 
-            <Modal isOpen={addModal}>
+            <Modal isOpen={addModal} closeModal={closeModal}>
                 <AddCard showAdd={setAddModal} addCard={addCard} cardsPack_id={id}/>
             </Modal>
 

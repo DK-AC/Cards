@@ -13,6 +13,8 @@ import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import {Search} from "../../ReusableComponents/Search/Search";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
+import {ChangeProfileModal} from "../../ReusableComponents/Modal/ProfileModals/ChangeProfileModal";
+import userImg from "../../../assets/image/user.jpg";
 
 
 
@@ -27,8 +29,6 @@ const ProfilePage = () => {
     const name =  useAppSelector<string>(state => state.Profile.name)
 
 
-
-
     const userPacks = packs.filter(p=> p.user_id === userProfileID)
 
 
@@ -38,7 +38,6 @@ const ProfilePage = () => {
     //обработчики для пагинации
     const onPageChanged = (page: number) => setCurrentPage(page)
     const countItemsChanged = (pageCount: number) => setPageCount(pageCount)
-
 
     //для слайдера
     const [sliderValue, setSliderValue] = useState<number[]>([0, 100])
@@ -75,7 +74,7 @@ const ProfilePage = () => {
     return (
         <Paper className={style.container}>
             <div className={style.leftMenu}>
-                <ProfileInfo />
+                <ProfileInfo  />
                 <div className={style.settingMenu}>
                     <span className={style.text}>Number of cards</span>
                     <Slider value={sliderValue}

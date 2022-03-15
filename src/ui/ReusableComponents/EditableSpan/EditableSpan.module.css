@@ -1,0 +1,22 @@
+.info{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.textPlaceholder{
+    text-align: left;
+    color: #2D2E46;
+    font-size : 18px;
+    line-height: 34px;
+    font-weight: bolder;
+    width: 30%;
+}
+
+.text{
+    width: 70%;
+    text-align: left;
+    font-size: 18px;
+    line-height: 34px;
+    color: rgba(60, 45, 61, 0.9);
+}

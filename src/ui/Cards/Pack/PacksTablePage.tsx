@@ -84,6 +84,10 @@ const PacksTablePage = () => {
 
     //показать только мои колоды
     const showOnlyMyPacks = () => setMyPacks(!myPacks)
+        //закрыть модалку
+    const closeModal = () => {
+        setAddModal(false)
+    }
 
     return (
         <Paper className={style.container}>
@@ -100,10 +104,9 @@ const PacksTablePage = () => {
                         params={params}
                         onPageChanged={onPageChanged}
                         countItemsChanged={countItemsChanged}
-
             />
 
-            <Modal isOpen={addModal}>
+            <Modal isOpen={addModal}  closeModal={closeModal}>
                 <AddPack showAdd={setAddModal} addPack={addPack}/>
             </Modal>
         </Paper>

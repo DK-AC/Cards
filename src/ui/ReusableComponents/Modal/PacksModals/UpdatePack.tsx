@@ -1,5 +1,5 @@
 import s from '../Modal.module.css'
-import {Button, Input} from "@mui/material";
+import {Button, Input, TextField} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 
 type UpdatePackType = {
@@ -21,10 +21,7 @@ export const UpdatePack = ({showUpdate, updatePack, packName}: UpdatePackType) =
         <div className={s.containerModal}>
             <h1 className={s.titleModal}>Update Pack</h1>
             <div className={s.content}>
-                <Input type={'test'}
-                       value={text}
-                       onChange={onChangeHandler}
-                       placeholder="new pack name"/>
+                <TextField id="New-pack-name" label="New pack name" variant="standard"  onChange={onChangeHandler} value={text}/>
             </div>
             <div className={s.buttonContainer}>
                 <Button onClick={updatePackName} color={"secondary"}>

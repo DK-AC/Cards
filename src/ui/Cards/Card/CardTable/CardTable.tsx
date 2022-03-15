@@ -5,7 +5,7 @@ import {TableBody, TableContainer} from "@mui/material";
 import {CardType, changeCardTC, deleteCardTC} from "../../../../bll/reducers/cardReducer";
 import Card from "./Card/Card";
 import Pagenator from "../../../ReusableComponents/Pagenator/Pagenator";
-import {DeleteModal} from "../../../ReusableComponents/Modal/DeleteModal";
+import {DeleteModal} from "../../../ReusableComponents/Modal/CommonModals/DeleteModal";
 import {Modal} from "../../../ReusableComponents/Modal/Modal";
 import {UpdateCard} from "../../../ReusableComponents/Modal/CardsModals/UpdateCard";
 import {useDispatch} from "react-redux";
@@ -28,6 +28,14 @@ const CardTable = ({cards,params,...props}:propsType) => {
     //модалки
     const [updateModal, setUpdateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    //закрыть модалку
+    const closeUpdateModal = () => {
+        setUpdateModal(false)
+    }
+    const closeDeleteModal = () => {
+        setDeleteModal(false)
+    }
+
     // хранение id карточки для модалки
     const [cardId, setCardId] = useState('')
     // хранение значения полей ввода для редактирования
@@ -50,6 +58,7 @@ const CardTable = ({cards,params,...props}:propsType) => {
             dispatch(changeCardTC(cardId, card, params))
             setUpdateModal(false)
         }
+
 
     return (
         <>
@@ -81,10 +90,10 @@ const CardTable = ({cards,params,...props}:propsType) => {
                        countItemsOnPageChanged={props.countItemsChanged}
             />
             { /*//modal*/}
-            <Modal isOpen={deleteModal}>
+            <Modal isOpen={deleteModal} closeModal={closeDeleteModal}>
                 <DeleteModal showDelete={setDeleteModal} deleteFunction={deleteCard}/>
             </Modal>
-            <Modal isOpen={updateModal}>
+            <Modal isOpen={updateModal} closeModal={ closeUpdateModal}>
                 <UpdateCard showUpdate={setUpdateModal} updateCard={editCard} answer={card.answer}
                             question={card.question}/>
             </Modal>

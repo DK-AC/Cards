@@ -1,5 +1,5 @@
 import s from '../Modal.module.css'
-import {Button, Input, TextareaAutosize} from "@mui/material";
+import {Button, Input, TextareaAutosize, TextField} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 import {CardFromServerType, cardsFromUserForCreatingType} from "../../../../dal/cardsApi";
 
@@ -32,16 +32,9 @@ export const UpdateCard = ({showUpdate, updateCard, ...props}: UpdateCardType) =
         <div className={s.containerModal}>
             <h1 className={s.titleModal}>Update Card</h1>
             <div className={s.content}>
-                <Input type={'question'}
-                       value={question}
-                       onChange={onChangeQuestionHandler}
-                       placeholder="enter question for card"/>
-
+                <TextField id='question' label="Enter question for card" variant="standard"  onChange={onChangeQuestionHandler} value={question}/>
                 <div className={s.margin}>
-                    <Input type={'answer'}
-                          value={answer}
-                          onChange={onChangeAnswerHandler}
-                          placeholder="enter right answer"/>
+                    <TextField id='answer' label="Enter right answer" variant="standard"  onChange={onChangeAnswerHandler} value={answer}/>
                 </div>
             </div>
             <div className={s.buttonContainer}>

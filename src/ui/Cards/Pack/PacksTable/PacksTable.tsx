@@ -9,7 +9,7 @@ import {changePackTC, deletePackAT, PackType} from "../../../../bll/reducers/pac
 import Pack from "./Pack/Pack";
 import Pagenator from "../../../ReusableComponents/Pagenator/Pagenator";
 import {Modal} from "../../../ReusableComponents/Modal/Modal";
-import {DeleteModal} from "../../../ReusableComponents/Modal/DeleteModal";
+import {DeleteModal} from "../../../ReusableComponents/Modal/CommonModals/DeleteModal";
 import {UpdatePack} from "../../../ReusableComponents/Modal/PacksModals/UpdatePack";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../../bll/store";
@@ -24,7 +24,6 @@ type propsType ={
     params: ParamsPackType
     onPageChanged:(page: number) => void
     countItemsChanged: (pageCount: number) => void
-
 }
 
 const PacksTable = ({params,packs,...props}:propsType) => {
@@ -39,6 +38,13 @@ const PacksTable = ({params,packs,...props}:propsType) => {
     //модалки
     const [deleteModal, setDeleteModal] = useState(false);
     const [updateModal, setUpdateModal] = useState(false);
+    //закрыть модалку
+    const closeUpdateModal = () => {
+        setUpdateModal(false)
+    }
+    const closeDeleteModal = () => {
+        setDeleteModal(false)
+    }
 
     //удаление паков
     const handleClickDeletePack = (packId: string) => {
@@ -89,10 +95,10 @@ const PacksTable = ({params,packs,...props}:propsType) => {
                        countItemsOnPageChanged={props.countItemsChanged}/>
 
             {/*//modal*/}
-            <Modal isOpen={deleteModal}>
+            <Modal isOpen={deleteModal} closeModal={closeDeleteModal}>
                 <DeleteModal showDelete={setDeleteModal} deleteFunction={deletePack}/>
             </Modal>
-            <Modal isOpen={updateModal}>
+            <Modal isOpen={updateModal} closeModal={closeUpdateModal}>
                 <UpdatePack showUpdate={setUpdateModal} updatePack={updatePack} packName={pack.name}/>
             </Modal>
         </>

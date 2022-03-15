@@ -3,8 +3,8 @@ import style from "./Header.module.css";
 import React, {useCallback} from "react";
 import {useDispatch} from "react-redux";
 import {PATH} from "../../Routes/Routes";
-import {logoutTC} from "../../../bll/reducers/loginReducer";
-import {saveState} from "../../../dal/localStorage/localStorage";
+import {loginTC, logoutTC} from "../../../bll/reducers/loginReducer";
+import {clearState, restoreState, saveState} from "../../../dal/localStorage/localStorage";
 import {useAppSelector} from "../../../bll/store";
 import Button from "@mui/material/Button";
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
@@ -16,15 +16,16 @@ export const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
-    let isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
+    //let isLoggedIn = useAppSelector<boolean>(state => state.Login.isLogged)
+    let isLoggedIn = restoreState('isLogged', false)
 
     const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
         navigate(PATH.LOGIN_PAGE)
-        saveState('isLogged', false)
+        clearState('isLogged', false)
     }, [isLoggedIn])
 
-
+  
     return (
         <header className={style.header}>
             <h1 className={style.title}>LearnCards</h1>
@@ -34,7 +35,9 @@ export const Header = () => {
                 <MenuItem path={PATH.PROFILE_INFO_PAGE} iconName={'PermIdentityIcon'} name={'ProfileInfo'}/>
             </div>
             <div className={!isLoggedIn ? style.hidden : ''}>
+               {/* <div>*/}
                 <Button variant={"outlined"} color={'secondary'} onClick={logoutHandler}>Logout</Button>
+                {/*<Button variant={"outlined"} color={'secondary'} onClick={loginHandler}>Login</Button>*/}
             </div>
         </header>
     );

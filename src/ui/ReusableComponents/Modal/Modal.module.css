@@ -13,15 +13,19 @@
 }
 
 .body {
+    position: fixed;
+    top: 20%;
+    left: 34%;
+    z-index: 11;
     background: white;
-    margin: 15% auto;
-    padding: 20px;
+    padding: 30px 20px;
     border-radius: 12px;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.36);
-
+    width: 390px;
 }
 
 .containerModal {
+    z-index: 12;
     text-align: center  ;
 }
 
