@@ -1,8 +1,11 @@
-import React, {MouseEventHandler, useState} from "react";
+import React, {ChangeEventHandler, MouseEventHandler, useRef, useState} from "react";
 import style from './ChangeProfileModal.module.css'
 import {EditableSpan} from "../../EditableSpan/EditableSpan";
 import Button from "@mui/material/Button";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import {fileApi} from "../../../../dal/fileApi";
+import {useDispatch} from "react-redux";
+import {changeProfile} from "../../../../bll/reducers/profileReducer";
 
 type propsType = {
     name: string
@@ -15,6 +18,13 @@ type propsType = {
 
 export const ChangeProfileModal = ({name, avatar, email,  isOpen,myProfile,...props}: propsType) => {
 
+    const dispatch = useDispatch()
+
+    const inRef = useRef<HTMLInputElement>(null);
+    const [file, setFile] = useState<File|null>(null);
+    const [fileURL, setFileURL] = useState<string>('');
+
+    //закрыть модалку
     const backGroundClick:MouseEventHandler<HTMLDivElement|HTMLButtonElement> = (e) => {
         props.closeModal()
     }
@@ -22,11 +32,28 @@ export const ChangeProfileModal = ({name, avatar, email,  isOpen,myProfile,...pr
     //для EditableSpan
     //name
     const [editName, setEditName] = useState(name)
-    const onChangeEditName=(name: string)=>{
-        setEditName(name)
+    const onChangeEditName=(newName: string)=>{
+        setEditName(newName)
     }
 
 
+    //подгрузка аватарки
+  const  uploadHandler:ChangeEventHandler<HTMLInputElement>=(e)=>{
+      const newFile = e.target.files && e.target.files[0];
+      if (newFile){
+          setFile(newFile) //сохраняем файл
+          setFileURL(window.URL.createObjectURL(newFile));//сохраняем внутреннюю ссылку, чтоб отобразить в img
+      }
+    }
+const uploadButtonHandler:MouseEventHandler<HTMLButtonElement> =(e)=>{
+    inRef && inRef.current && inRef.current.click()
+}
+
+const saveNewData=()=>{
+    file && fileApi.postFile(file)
+    dispatch(changeProfile(editName, fileURL))
+    props.closeModal()
+}
 
     return (<div>
             {isOpen && <>
@@ -35,13 +62,15 @@ export const ChangeProfileModal = ({name, avatar, email,  isOpen,myProfile,...pr
                     <div className={style.containerModal}>
                         <h1 className={style.titleModal}>Personal information</h1>
                         <div className={style.content}>
-                            <img className={style.image} src={avatar} alt="avatar"/>
-                               <button className={style.circle}> <AddAPhotoOutlinedIcon fontSize={'medium'} sx={{color: 'white'}}/></button>
+                            <img className={style.image} src={fileURL? fileURL: avatar} alt="avatar"/>
+                            <input type={'file'}  className={style.hiddenInput}  ref={inRef} onChange={uploadHandler}/>
+                               <button className={style.circle} onClick={uploadButtonHandler}>
+                                   <AddAPhotoOutlinedIcon fontSize={'medium'} sx={{color: 'white'}}/></button>
                             <EditableSpan value={editName} onChange={onChangeEditName } placeholder={'Name'} myProfile={myProfile} />
                             <EditableSpan value={email}  placeholder={'Email'} myProfile={myProfile} />
                         </div>
                         <div className={style.buttonContainer}>
-                            <Button onClick={()=>console.log('ff')} color={"secondary"}>
+                            <Button onClick={saveNewData} color={"secondary"}>
                                 save
                             </Button>
                             <Button onClick={backGroundClick} color={"secondary"}>

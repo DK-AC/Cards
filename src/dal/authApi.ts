@@ -21,7 +21,7 @@ export const authApi = {
         return instance.delete<ResponseType<{ info: string }>>('auth/me', {})
     },
     me() {
-        return instance.post<ResponseType<UserType>>('auth/me', {})
+        return instance.post<UserType>('auth/me', {})
     },
     register: (data: RegisterType) => {
         return instance.post<RegisterType, AxiosResponse<ResponseType<UserType>>>('auth/register', data)
@@ -63,10 +63,6 @@ export type LoginParamsType = {
 }
 
 
-export type RequestResponeType = {
-    info: string
-    error: string
-}
 export type ResponseType<T = {}> = {
     data: T
     error?: string

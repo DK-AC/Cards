@@ -7,7 +7,6 @@ import {clearState} from "./dal/localStorage/localStorage";
 import {Header} from "./ui/components/header/Header";
 import Loading from "./ui/ReusableComponents/Loading/Loading";
 import {useAppSelector} from "./bll/store";
-import {CircularProgress} from "@mui/material";
 
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
 
 
    if (!isInitialized) return <Loading />
-
 
     return (
         <div className={style.App}>

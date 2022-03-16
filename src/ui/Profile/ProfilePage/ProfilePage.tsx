@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PacksTable from "../../Cards/Pack/PacksTable/PacksTable";
 import {useAppSelector} from "../../../bll/store";
-import {addPackTC, PackType, setPacksAT} from "../../../bll/reducers/packReducer";
+import {PackType, setPacksAT} from "../../../bll/reducers/packReducer";
 import {ParamsPackType} from "../../../dal/packsApi";
 import {setAppErrorAC} from "../../../bll/reducers/appReducer";
 import {useDispatch} from "react-redux";
@@ -13,11 +13,6 @@ import {useDebounce} from "../../ReusableComponents/UseDebounce";
 import {Search} from "../../ReusableComponents/Search/Search";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../bll/HOK/withAuthRedirect";
-import {ChangeProfileModal} from "../../ReusableComponents/Modal/ProfileModals/ChangeProfileModal";
-import userImg from "../../../assets/image/user.jpg";
-
-
-
 
 
 const ProfilePage = () => {

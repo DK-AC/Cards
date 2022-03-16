@@ -25,10 +25,13 @@ export const Header = () => {
         clearState('isLogged', false)
     }, [isLoggedIn])
 
-  
+  const BackToStartPage = () => {
+    navigate(PATH.START_PAGE)
+  }
+
     return (
         <header className={style.header}>
-            <h1 className={style.title}>LearnCards</h1>
+            <h1 className={style.title} onClick={BackToStartPage}>LearnCards</h1>
             <div className={style.itemsWrapper}>
                 <MenuItem path={PATH.PACKS_TABLE_PAGE} iconName={'CollectionsOutlinedIcon'} name={'Pack lists'}/>
                 <MenuItem path={PATH.PROFILE_PAGE} iconName={'PortraitIcon'} name={'Profile page'}/>

@@ -2,7 +2,8 @@ import {Dispatch} from "redux";
 import {authApi} from "../../dal/authApi";
 import {handlerAppError} from "../../utilities/handlerAppError";
 import {setIsLoggedInAC} from "./loginReducer";
-import {setProfile} from "./profileReducer";
+import {changeIMG, setProfile} from "./profileReducer";
+import {fileApi} from "../../dal/fileApi";
 
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -45,8 +46,10 @@ export const isAuthTC = () => async (dispatch: Dispatch) => {
         dispatch(setAppErrorAC(null))
         dispatch(setAppStatusAC('loading'));
         const res = await authApi.me()
+        const img = await fileApi.getFile()
         dispatch(setIsLoggedInAC(true))
-        dispatch(setProfile(res.data))
+        dispatch(setProfile({...res.data}))
+        dispatch(changeIMG(img))
     } catch (error) {
         try{
             const res = await authApi.me()

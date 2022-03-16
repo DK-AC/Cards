@@ -1,48 +1,61 @@
+import {UserType} from "../../dal/authApi";
+
+const SET_PROFILE = 'profileReducer/SET_PROFILE'
+const CHANGE_PROFILE = 'profileReducer/CHANGE_PROFILE'
+
 const initialState: InitialStateType = {
     _id: '',
     email: '',
     name: '',
     publicCardPacksCount: 0,
-    created: new Date(),
-    updated: new Date(),
+    created: '',
+    updated: '',
     isAdmin: false,
     verified: false,
     rememberMe: false,
-    token:'',
-    tokenDeathTime: new Date(),
+    //token:'',
+    //tokenDeathTime: new Date(),
     _v:'',
     avatar:'',
-
 }
 export const ProfileReducer = (state: InitialStateType = initialState, action: ProfileMainType): InitialStateType => {
     switch (action.type) {
-        case "AUTH/SET_PROFILE": {
+        case SET_PROFILE : {
             return {...state, ...action.data}
+        }
+       case CHANGE_PROFILE:{
+            return {...state,  ...action.payload}
+        }
+        case 'CHANGE_IMG':{
+            return {...state,  ...action.payload}
         }
         default:
             return state
     }
 }
 
-export const setProfile = (data:any) => ({
-    type: 'AUTH/SET_PROFILE', data
-}) as const
+export const setProfile = (data:UserType) => ({type: SET_PROFILE, data}) as const
+export const changeProfile = (name:string, fileURL:string) => ({type: CHANGE_PROFILE, payload:{name, avatar:fileURL}}) as const
+export const changeIMG = (fileURL:any)=> ({type: 'CHANGE_IMG', payload:{avatar:fileURL}}) as const
+
+
+
 
 export type InitialStateType = {
     _id: string
     email: string
     name: string
     publicCardPacksCount: number
-    created: Date
-    updated: Date
+    created: string
+    updated: string
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
-    token: string
-    tokenDeathTime: Date
-    _v:string
+    //token: string
+    //tokenDeathTime: Date
+    _v?:string
     avatar:string
 }
 
-export type ProfileMainType = SetProfileType
+export type ProfileMainType = SetProfileType |ReturnType<typeof changeProfile>|ReturnType<typeof changeIMG>
 type SetProfileType = ReturnType<typeof setProfile>

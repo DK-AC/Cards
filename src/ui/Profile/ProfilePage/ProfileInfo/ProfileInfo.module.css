@@ -1,5 +1,5 @@
 .profile{
-    height: 216px;
+    min-height: 216px;
     background-color: #D9D9F1;
     border-radius: 4px 0 0 0 ;
     display: flex;
@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding: 10px;
 }
 .profile:hover{
     background-color: #cdcdef;
@@ -29,8 +30,10 @@
     size : 18px;
     line-height: 27px;
     font-weight: bolder;
+    text-align:center;
 }
 .aboutMe{
+    margin-top: 4px;
     color: rgba(60, 45, 61, 0.5);
     size : 14px;
     line-height: 16.71px;

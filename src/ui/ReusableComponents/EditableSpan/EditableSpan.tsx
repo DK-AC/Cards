@@ -15,14 +15,13 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
 
     const activateEditMode = () => {
         setEditMode(true);
-        props.onChange && props.onChange(value);
-        setValue(props.value);
     }
     const activateViewMode = () => {
         setEditMode(false);
     }
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
        setValue(e.currentTarget.value)
+        props.onChange && props.onChange(e.currentTarget.value);
     }
 
     return <div className={style.info}>

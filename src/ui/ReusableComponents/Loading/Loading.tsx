@@ -10,8 +10,7 @@ const Loading = () => {
     const isInitialized = useAppSelector<boolean>(state => state.App.isInitialized)
     return (
         <div className={style.loading}>
-            {isInitialized && status === 'loading' && <CircularProgress size={'8rem'}/>}
-            {!isInitialized && <CircularProgress size={'8rem'} />}
+            {(!isInitialized || status === 'loading')&& <CircularProgress size={'8rem'}/>}
         </div>
     );
 };
