@@ -56,9 +56,9 @@ const MenuItem = ({path, name, iconName}: menuItemType) => {
     return (
         <NavLink className={({isActive}) => (isActive ? style.activeRoute : style.item)}
                  to={path}>
-            {iconName == 'PermIdentityIcon' && <PermIdentityIcon/>}
-            {iconName == 'PortraitIcon' && <PortraitIcon/>}
-            {iconName == 'CollectionsOutlinedIcon' && <CollectionsOutlinedIcon/>}
+            {iconName === 'PermIdentityIcon' && <PermIdentityIcon/>}
+            {iconName === 'PortraitIcon' && <PortraitIcon/>}
+            {iconName === 'CollectionsOutlinedIcon' && <CollectionsOutlinedIcon/>}
             {name}
         </NavLink>
     )
