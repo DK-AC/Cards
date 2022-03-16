@@ -35,7 +35,7 @@ export const ProfileReducer = (state: InitialStateType = initialState, action: P
 }
 
 export const setProfile = (data:UserType) => ({type: SET_PROFILE, data}) as const
-export const changeProfile = (name:string, fileURL:string) => ({type: CHANGE_PROFILE, payload:{name, avatar:fileURL}}) as const
+export const changeProfile = (name:string) => ({type: CHANGE_PROFILE, payload:{name}}) as const
 export const changeIMG = (fileURL:any)=> ({type: 'CHANGE_IMG', payload:{avatar:fileURL}}) as const
 
 

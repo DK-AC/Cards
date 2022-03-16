@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import {fileApi} from "../../../../dal/fileApi";
 import {useDispatch} from "react-redux";
-import {changeProfile} from "../../../../bll/reducers/profileReducer";
+import {changeIMG, changeProfile} from "../../../../bll/reducers/profileReducer";
 
 type propsType = {
     name: string
@@ -27,6 +27,7 @@ export const ChangeProfileModal = ({name, avatar, email,  isOpen,myProfile,...pr
     //закрыть модалку
     const backGroundClick:MouseEventHandler<HTMLDivElement|HTMLButtonElement> = (e) => {
         props.closeModal()
+        setFileURL('')
     }
 
     //для EditableSpan
@@ -51,7 +52,8 @@ const uploadButtonHandler:MouseEventHandler<HTMLButtonElement> =(e)=>{
 
 const saveNewData=()=>{
     file && fileApi.postFile(file)
-    dispatch(changeProfile(editName, fileURL))
+    dispatch(changeProfile(editName))
+    dispatch(changeIMG(fileURL))
     props.closeModal()
 }
 

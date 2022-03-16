@@ -29,7 +29,7 @@ const PacksTablePage = () => {
     //для слайдера
     const [sliderValue, setSliderValue] = useState<number[]>([1, 100])  //для первоночальной отрисовки 1, а не 0, чтоб не показывать пустые колоды
     //моя или нет колода
-    const [myPacks, setMyPacks] = useState<boolean>(true)
+    const [myPacks, setMyPacks] = useState<boolean>(false)
     const user_id = myPacks ? userId : ''
 
 
