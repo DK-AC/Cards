@@ -1,12 +1,9 @@
 import React from 'react';
-import {PATH} from "../Routes/Routes";
-import {Navigate} from "react-router-dom";
 import {withAuthRedirect} from "../../bll/HOK/withAuthRedirect";
 import {compose} from "redux";
 import {useAppSelector} from "../../bll/store";
 import {RequestStatusType} from "../../bll/reducers/appReducer";
 import userImg from "../../assets/image/user.jpg"
-import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./Profile.module.css"
 
 const Profile = () => {

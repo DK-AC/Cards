@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import Paper from "@mui/material/Paper";
-import style from "../PacksTablePage.module.css";
-import {TableBody, TableContainer, TableHead} from "@mui/material";
+import {TableBody, TableContainer} from "@mui/material";
 import Table from "@mui/material/Table";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
 import {changePackTC, deletePackAT, PackType} from "../../../../bll/reducers/packReducer";
 import Pack from "./Pack/Pack";
 import Pagenator from "../../../ReusableComponents/Pagenator/Pagenator";
@@ -15,8 +12,6 @@ import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../../bll/store";
 import {ParamsPackType} from "../../../../dal/packsApi";
 import {TableHeader} from "../../../ReusableComponents/TableHeader/TableHeader";
-
-
 
 
 type propsType ={

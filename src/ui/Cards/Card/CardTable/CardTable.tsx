@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import style from "../CardsTablePage.module.css";
 import Table from "@mui/material/Table";
 import {TableBody, TableContainer} from "@mui/material";
 import {CardType, changeCardTC, deleteCardTC} from "../../../../bll/reducers/cardReducer";

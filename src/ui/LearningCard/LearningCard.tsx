@@ -52,7 +52,7 @@ const LearningCard = () => {
         if (cards.length > 0) {
             setCurrentCard(getRandomCard(cards));
         }
-    }, [cards]);
+    }, [cards, dispatch]);
 
     return (
         <PaperContainer title={`Pack's name: ${packName}`}>

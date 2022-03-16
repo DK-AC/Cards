@@ -1,5 +1,5 @@
 import s from '../Modal.module.css'
-import {Button, Input, TextareaAutosize, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {ChangeEvent, useState} from "react";
 import {CardFromServerType, cardsFromUserForCreatingType} from "../../../../dal/cardsApi";
 

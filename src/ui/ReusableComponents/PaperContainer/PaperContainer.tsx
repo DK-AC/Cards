@@ -1,9 +1,6 @@
 import React from 'react';
-import {useAppSelector} from "../../../bll/store";
-import {RequestStatusType} from "../../../bll/reducers/appReducer";
 import Paper from '@mui/material/Paper';
 import style from './PaperContainer.module.css'
-import {CircularProgress} from "@mui/material";
 
 
 type propsType ={
